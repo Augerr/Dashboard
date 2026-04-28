@@ -30,5 +30,6 @@ export const teamAbbrevMap = {
   "Dallas Stars": "DAL",
   "Vegas Golden Knights": "VGK",
   "Seattle Kraken": "SEA",
-  "Arizona Coyotes": "ARI",
+  "Utah Mammoth": "UTA",
+  "Anaheim Ducks": "ANA",
 }

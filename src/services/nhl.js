@@ -8,18 +8,24 @@ export const getNhlGames = async () => {
   const today = new Date()
   const yesterday = new Date()
   yesterday.setDate(today.getDate() - 1)
+  const tomorrow = new Date()
+  tomorrow.setDate(today.getDate() + 1)
 
-  const [yRes, tRes] = await Promise.all([
+  const [yRes, tRes, fRes] = await Promise.all([
     axios.get(BASE_URL, {
       params: { date: formatDate(yesterday) },
     }),
     axios.get(BASE_URL, {
       params: { date: formatDate(today) },
     }),
+    axios.get(BASE_URL, {
+      params: { date: formatDate(tomorrow) },
+    }),
   ])
   
   return {
     yesterday: yRes.data.yesterday || [],
     today: tRes.data.today || [],
+    tomorrow: fRes.data.tomorrow || [],
   }
 }

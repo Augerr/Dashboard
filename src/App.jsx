@@ -1,14 +1,11 @@
-import { Routes, Route } from "react-router-dom"
 import Dashboard from "./pages/Dashboard"
-import MainLayout from "./layout/MainLayout"
+import AppLayout from "./layout/AppLayout"
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Dashboard />} />
-      </Route>
-    </Routes>
+    <AppLayout>
+      <Dashboard />
+    </AppLayout>
   )
 }
 

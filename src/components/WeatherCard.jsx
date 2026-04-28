@@ -31,12 +31,12 @@ function WeatherCard() {
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
           alt=""
         />
-        <p className="text-sm opacity-70">{condition}</p>
+        <p className="text-lg md:text-xl opacity-70">{condition}</p>
       </div>
 
       {/* Temperature */}
       <div className="text-center mt-4">
-        <h1 className="text-8xl font-thin">{temp}°</h1>
+        <h1 className="text-5xl md:text-6xl">{temp}°</h1>
       </div>
 
       {/* Extra Info */}

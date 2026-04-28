@@ -8,7 +8,7 @@ function ForecastStrip({ daily }) {
         7-Day Forecast
       </h3>
 
-      <div className="flex gap-3 overflow-x-auto pb-2 scroll-smooth snap-x">
+      <div className="flex gap-3 overflow-hidden pb-2 scroll-smooth snap-x">
 
         {daily.slice(0, 7).map((day, i) => {
           const date = day.date.slice(0,3)//new Date(day.dt * 1000)

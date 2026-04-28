@@ -1,114 +1,80 @@
 import { useEffect, useState } from "react"
 import { getNhlGames } from "../services/nhl"
-
-const getLogo = (teamName) => {
-      console.log(teamName);
-      //const abbr = Object.keys(teamAbbrevMap).find(key => teamAbbrevMap[key] === teamName);
-  //const abbr = teamAbbrevMap[teamName]
-    //console.log(abbr);
- // if (!abbr) return null
-
-  return `https://assets.nhle.com/logos/nhl/svg/${teamName}_light.svg`
-}
-
-function GameRow({ game, isToday }) {
-  const home = game.homeTeam
-  const away = game.awayTeam
-
-  const time = new Date(game.startTimeUTC).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })
-
-  return (
-    <div className="flex justify-between items-center py-2 text-sm border-b border-white/10 last:border-none">
-      
-      <div className="flex flex-col">
-
-        {/* AWAY */}
-        <div className="flex items-center">
-            <img
-            src={getLogo(away.abbrev)}
-            className="w-8 h-8"
-            alt="away logo"
-            />
-            <span>{away.abbrev} {away.score ? away.score : 0}</span>
-        </div>
-
-        {/* HOME */}
-        <div className="flex items-center">
-            <img
-            src={getLogo(home.abbrev)}
-            className="w-8 h-8"
-            alt="home logo"
-            />
-            <span>{home.abbrev} {home.score ? home.score : 0}</span>
-        </div>
-
-        </div>
-        {/* Time or status */}
-        <div className="text-white/80 text-xs mx-2">
-            {isToday ? time : ""}
-        </div>
-    </div>
-  )
-}
+import GameRow from "./ui/GameRow"
+import { useAutoRefresh } from "../hooks/useAutoRefresh"
+import { useCallback } from "react"
 
 function NhlPanel() {
-  const [data, setData] = useState(null)
+  const [nhlGames, setNhlGames] = useState(null)
 
-  useEffect(() => {
-    getNhlGames().then(setData)
+  const loadNhlGames = useCallback(async () => {
+    try {
+      const data = await getNhlGames()
+      setNhlGames(data)
+    } catch (err) {
+      console.error("NHL games fetching error:", err)
+    }
   }, [])
+  
+  useEffect(() => {
+    loadNhlGames()
+  }, [loadNhlGames])
 
-  if (!data) {
+  useAutoRefresh(loadNhlGames, 60000)
+
+  if (!nhlGames) {
     return (
       <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-white">
         Loading NHL data...
       </div>
     )
   }
-  console.log(data);
   return (
-      <div className="w-full bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-4 text-white">
+      <div className="
+        w-full
+        bg-gradient-to-br from-black/60 to-black/30
+        backdrop-blur-2xl
+        border border-white/10
+        rounded-3xl
+        p-4
+        text-white
+        ">
 
-        <h3 className="text-white/80 text-sm">
+        <h2 className="text-white/80 text-sm mx-2">
         NHL Games
-        </h3>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
             {/* YESTERDAY (small) */}
             <div className="md:col-span-1">
-                <p className="text-xs text-white/80">
-                Yesterday
-                </p>
+                <p className="text-sm text-white/80 mx-2 mb-2">Yesterday</p>
 
-                <div className="space-y-2">
-                {data.yesterday?.length ? (
-                    data.yesterday.map((game) => (
-                    <GameRow key={game.gamePk} game={game} />
-                    ))
-                ) : (
-                    <p className="text-white/40 text-xs">No games</p>
-                )}
+                <div className="space-y-3">
+                {nhlGames.yesterday?.map((game) => (
+                    <GameRow key={game.id} game={game} />
+                ))}
                 </div>
             </div>
 
-            {/* TODAY (large) */}
-            <div className="md:col-span-2">
-                <p className="text-xs text-white/80">
-                Today
-                </p>
+            {/* TODAY (largest) */}
+            <div className="md:col-span-1">
+                <p className="text-sm text-white/80 mx-2 mb-2">Today</p>
 
-                <div className="space-y-2">
-                {data.today?.length ? (
-                    data.today.map((game) => (
-                    <GameRow key={game.gamePk} game={game} isToday />
-                    ))
-                ) : (
-                    <p className="text-white/40 text-xs">No games</p>
-                )}
+                <div className="space-y-3">
+                {nhlGames.today?.map((game) => (
+                    <GameRow key={game.id} game={game} isToday />
+                ))}
+                </div>
+            </div>
+
+            {/* TOMORROW (medium) */}
+            <div className="md:col-span-1">
+                <p className="text-sm text-white/80 mx-2 mb-2">Tomorrow</p>
+
+                <div className="space-y-3">
+                {nhlGames.tomorrow?.map((game) => (
+                    <GameRow key={game.id} game={game} />
+                ))}
                 </div>
             </div>
         </div>
