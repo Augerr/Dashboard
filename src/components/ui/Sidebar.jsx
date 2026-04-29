@@ -1,19 +1,11 @@
 function Sidebar() {
   return (
     <div className="
-      hidden md:flex flex-col w-20 p-4 gap-4
+      hidden md:flex flex-col w-64 p-4 gap-4
       border-r border-white/10
       bg-white/5 backdrop-blur-xl
       items-center
     ">
-
-      {/* Static icons (no click behavior yet) */}
-      <div className="flex flex-col gap-4 text-lg opacity-70">
-        <span title="Weather">🌤</span>
-        <span title="NHL">🏒</span>
-        <span title="News">📰</span>
-        <span title="World News">🌍</span>
-      </div>
 
       {/* Divider */}
       <div className="w-full h-px bg-white/10 my-2" />

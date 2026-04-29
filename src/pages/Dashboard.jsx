@@ -53,7 +53,7 @@ function Dashboard() {
   return (
   <div className={
     `bg-gradient-to-br ${theme} animated-bg
-    max-w-[1600px]
+    max-w-[1800px]
     mx-auto
     p-6
     grid
@@ -61,7 +61,7 @@ function Dashboard() {
     md:grid-cols-6
     gap-4`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 gap-6 mb-2 md:mb-4 min-h-[420px]">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 gap-6x mb-2 md:mb-4 min-h-[420px]">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
         <Panel>

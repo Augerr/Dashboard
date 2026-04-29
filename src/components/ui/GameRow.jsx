@@ -16,6 +16,10 @@ const getLogo = (teamName) => {
   return `https://assets.nhle.com/logos/nhl/svg/${teamName}_light.svg`
 }
 
+const getPeriod = (pNum) => {
+  return pNum === 1 ? "1st" : pNum === 2 ? "2nd" : "3rd"
+}
+
 function GameRow({ game }) {
   const home = game.homeTeam
   const away = game.awayTeam
@@ -23,6 +27,7 @@ function GameRow({ game }) {
   const accentAway = getTeamColor(away.abbrev)
   const isLive = game.gameState === "LIVE"
   const isFinal = game.gameState === "OFF"
+  const period = `${getPeriod(game.periodDescriptor.number)} ${game.periodDescriptor.periodType}`
 
   const homeScore = Number(home.score ?? 0)
   const awayScore = Number(away.score ?? 0)
@@ -50,7 +55,7 @@ function GameRow({ game }) {
         rounded-2xl
         p-4
         text-white
-        space-y-3 md:space-y-4
+        space-y-4 md:space-y-4
       "
       style={{
         borderLeft: `2px solid ${accentAway}`,
@@ -59,14 +64,6 @@ function GameRow({ game }) {
       }}
     >
 
-      {/* LIVE BADGE */}
-      {isLive && (
-        <div className="absolute top-2 right-3 flex items-center gap-2">
-          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          <span className="text-xs text-green-400">LIVE</span>
-        </div>
-      )}
-
       {/* SCORE GRID */}
       <div className="grid grid-cols-3 items-center gap-2">
 
@@ -74,38 +71,44 @@ function GameRow({ game }) {
         <div className="flex items-center">
           <img
             src={getLogo(away.abbrev)}
-            className="w-8 h-8 object-contain"
+            className="w-11 h-11 object-contain"
           />
-          <span className={`text-base md:text-lg ${awayWon ? "text-white" : "text-white/50"}`}>
+          <span className={`text-base md:text-xl ${awayWon ? "text-white" : "text-white/50"}`}>
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
         <div className="text-center">
-          <div className="text-2xl font-bold tracking-tight">
+          <div className="text-xl font-bold tracking-tight">
             {awayScore} - {homeScore}
           </div>
         </div>
 
         {/* HOME */}
         <div className="flex items-center justify-end">
-          <span className={`text-base md:text-lg ${homeWon ? "text-white" : "text-white/50"}`}>
+          <span className={`text-base md:text-xl ${homeWon ? "text-white" : "text-white/50"}`}>
             {home.abbrev}
           </span>
           <img
             src={getLogo(home.abbrev)}
-            className="w-8 h-8 object-contain"
+            className="w-11 h-11 object-contain"
           />
         </div>
 
       </div>
 
       {/* FOOTER */}
-      <div className="mt-3 flex justify-between text-xs text-white/50">
+      <div className="mt-3 flex justify-between text-sm text-white/50">
 
         <span className="mx-1">
-          {isLive ? "In Progress" : isFinal ? "Final" : time}
+          {isLive ? (
+              <div className="flex items-center gap-1">
+                <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                <span className="text-xs text-green-400">{period}</span>
+              </div>
+            ) : isFinal ? "Final" : time
+          }
         </span>
 
         {

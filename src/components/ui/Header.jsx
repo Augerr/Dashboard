@@ -9,17 +9,6 @@ function Header() {
       flex items-center justify-between
     ">
 
-      <h1 className="text-lg font-semibold">
-        Dashboard
-      </h1>
-
-      <div className="flex items-center gap-4 text-sm text-white/60">
-
-        <span>Live</span>
-        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-
-      </div>
-
     </div>
   )
 }

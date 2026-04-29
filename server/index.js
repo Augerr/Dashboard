@@ -18,8 +18,8 @@ app.get("/api/nhl", async (req, res) => {
     const yesterday = new Date()
     const tomorrow = new Date()
 
-    yesterday.setDate(today.getDate() - 1)
-    tomorrow.setDate(today.getDate() + 1)
+    yesterday.setDate(today.getDate() - 2)
+    today.setDate(today.getDate() - 1)
 
     const formatDate = (d) => d.toISOString().split("T")[0]
     const BASE_URL = "https://api-web.nhle.com/v1/schedule"
@@ -31,17 +31,18 @@ app.get("/api/nhl", async (req, res) => {
     ])
 
     const extractGamesForDate = (data, targetDate) => {
+        console.log(targetDate)
         const target = targetDate.toISOString().split("T")[0]
 
         const day = data.gameWeek?.find(d => d.date === target)
-
+        console.log(day?.games)
         return day?.games || []
-    }
+    } 
 
     res.json({
-        yesterday: extractGamesForDate(yRes.data, yesterday),
-        today: extractGamesForDate(tRes.data, today),
-        tomorrow: extractGamesForDate(tmRes.data, tomorrow),
+        yesterday: extractGamesForDate(yRes?.data, yesterday),
+        today: extractGamesForDate(tRes?.data, today),
+        tomorrow: extractGamesForDate(tmRes?.data, tomorrow),
     })
 
   } catch (err) {
