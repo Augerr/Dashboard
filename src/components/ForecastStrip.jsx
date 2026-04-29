@@ -22,19 +22,19 @@ function ForecastStrip({ daily }) {
                          border border-white/10
                          rounded-2xl p-3 text-center text-white"
             >
-              <p className="text-xs opacity-70">{date}</p>
+              <p className="text-md opacity-80">{date}</p>
 
               <img
-                className="mx-auto"
+                className="mx-auto w-16 h-16"
                 src={`https://openweathermap.org/img/wn/${day.icon}.png`}
                 alt=""
               />
 
-              <p className="text-sm font-medium">
+              <p className="text-md font-medium">
                 {Math.round(day.max)}°
               </p>
 
-              <p className="text-xs opacity-60">
+              <p className="text-sm opacity-60">
                 {Math.round(day.min)}°
               </p>
             </div>

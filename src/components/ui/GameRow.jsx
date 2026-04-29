@@ -25,7 +25,7 @@ function GameRow({ game }) {
   const away = game.awayTeam
   const accentHome = getTeamColor(home.abbrev)
   const accentAway = getTeamColor(away.abbrev)
-  const isLive = game.gameState === "LIVE"
+  const isLive = game.gameState === "LIVE" || game.gameState === "CRIT"
   const isFinal = game.gameState === "OFF"
   const period = `${getPeriod(game.periodDescriptor.number)} ${game.periodDescriptor.periodType}`
 

@@ -23,24 +23,23 @@ function WeatherCard() {
     <div className="w-full max-w-md p-8 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
       
       {/* Location */}
-      <div className="text-center">
-        <h2 className="text-2xl font-semibold">{city}</h2>
+      <div className="text-center -mt-8">
+        {/* <h2 className="text-2xl font-semibold">{city}</h2> */}
         <img
-          className="mx-auto"
-          width="100"
+          className="mx-auto w-48 h-48"
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
           alt=""
         />
-        <p className="text-lg md:text-xl opacity-70">{condition}</p>
+        <p className="text-lg md:text-xl opacity-80">{condition}</p>
       </div>
 
       {/* Temperature */}
       <div className="text-center mt-4">
-        <h1 className="text-5xl md:text-6xl">{temp}°</h1>
+        <h1 className="text-4xl md:text-4xl">{temp}°</h1>
       </div>
 
       {/* Extra Info */}
-      <div className="flex justify-between mt-6 text-sm opacity-80">
+      <div className="flex justify-between mt-6 text-md opacity-80">
         <div>
           <p>Humidity</p>
           <p>{weather.main.humidity}%</p>

@@ -30,7 +30,7 @@ function HourlyStrip({ data }) {
             >
 
               {/* Time */}
-              <p className="text-xs text-white/80">
+              <p className="text-sm text-white/80">
                 {label}
               </p>
 
@@ -42,7 +42,7 @@ function HourlyStrip({ data }) {
               />
 
               {/* Temp */}
-              <p className="text-sm font-medium">
+              <p className="text-md font-medium">
                 {Math.round(item.main.temp)}°
               </p>
 

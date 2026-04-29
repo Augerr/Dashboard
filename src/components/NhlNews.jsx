@@ -16,15 +16,14 @@ function NhlNews() {
       border border-white/10
       rounded-3xl
       p-4
-      text-white
-      max-h-[500px] overflow-y-auto
+      text-white overflow-y-auto
     ">
 
       <h3 className="text-white/80 text-sm mb-3">
         NHL News
       </h3>
 
-      <div className="space-y-3 overflow-y-auto max-h-[600px] pr-1">
+      <div className="space-y-3 overflow-y-auto max-h-[500px] pr-1">
 
         {news.map((item, idx) => (
           <a
