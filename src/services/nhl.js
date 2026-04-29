@@ -7,7 +7,6 @@ export const getNhlGames = async () => {
   const nhlGames = await Promise.all([
     axios.get(BASE_URL)
   ])
-  console.log(nhlGames)
   return {
     yesterday: nhlGames[0].data.yesterday || [],
     today: nhlGames[0].data.today || [],

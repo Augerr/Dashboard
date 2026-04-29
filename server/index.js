@@ -35,11 +35,9 @@ app.get("/api/nhl", async (req, res) => {
     ])
 
     const extractGamesForDate = (data, targetDate) => {
-        console.log(targetDate)
         const target = targetDate.toISOString().split("T")[0]
 
         const day = data.gameWeek?.find(d => d.date === target)
-        console.log(day?.games)
         return day?.games || []
     } 
 

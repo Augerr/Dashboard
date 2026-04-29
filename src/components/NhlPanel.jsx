@@ -40,16 +40,12 @@ function NhlPanel() {
         text-white
         ">
 
-        <h2 className="text-white/80 text-sm mx-2">
-        NHL Games
-        </h2>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* YESTERDAY (small) */}
             <div className="md:col-span-1">
                 <p className="text-sm text-white/80 mx-2 mb-2">Yesterday</p>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                 {nhlGames.yesterday?.map((game) => (
                     <GameRow key={game.id} game={game} />
                 ))}
@@ -60,7 +56,7 @@ function NhlPanel() {
             <div className="md:col-span-1">
                 <p className="text-sm text-white/80 mx-2 mb-2">Today</p>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                 {nhlGames.today?.map((game) => (
                     <GameRow key={game.id} game={game} isToday />
                 ))}
@@ -71,7 +67,7 @@ function NhlPanel() {
             <div className="md:col-span-1">
                 <p className="text-sm text-white/80 mx-2 mb-2">Tomorrow</p>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                 {nhlGames.tomorrow?.map((game) => (
                     <GameRow key={game.id} game={game} />
                 ))}

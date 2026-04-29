@@ -55,7 +55,6 @@ function GameRow({ game }) {
         rounded-2xl
         p-4
         text-white
-        space-y-4 md:space-y-4
       "
       style={{
         borderLeft: `2px solid ${accentAway}`,
@@ -65,13 +64,13 @@ function GameRow({ game }) {
     >
 
       {/* SCORE GRID */}
-      <div className="grid grid-cols-3 items-center gap-2">
+      <div className="grid grid-cols-3 items-center">
 
         {/* AWAY */}
-        <div className="flex items-center">
-          <img
+        <div className="flex items-center -mx-1">
+          <img 
             src={getLogo(away.abbrev)}
-            className="w-11 h-11 object-contain"
+            className="w-14 h-14 object-contain"
           />
           <span className={`text-base md:text-xl ${awayWon ? "text-white" : "text-white/50"}`}>
             {away.abbrev}
@@ -86,26 +85,26 @@ function GameRow({ game }) {
         </div>
 
         {/* HOME */}
-        <div className="flex items-center justify-end">
-          <span className={`text-base md:text-xl ${homeWon ? "text-white" : "text-white/50"}`}>
+        <div className="flex items-center justify-end -mx-1">
+          <span className={`mx-1 text-base md:text-xl ${homeWon ? "text-white" : "text-white/50"}`}>
             {home.abbrev}
           </span>
           <img
             src={getLogo(home.abbrev)}
-            className="w-11 h-11 object-contain"
+            className="w-14 h-14 object-contain"
           />
         </div>
 
       </div>
 
       {/* FOOTER */}
-      <div className="mt-3 flex justify-between text-sm text-white/50">
+      <div className="mt-3 flex justify-between text-lg text-white/80">
 
-        <span className="mx-1">
+        <span className="mx-1 my-1">
           {isLive ? (
               <div className="flex items-center gap-1">
-                <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-xs text-green-400">{period}</span>
+                <span className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></span>
+                <span className="text-md text-green-400">{period}</span>
               </div>
             ) : isFinal ? "Final" : time
           }
@@ -113,7 +112,7 @@ function GameRow({ game }) {
 
         {
           <span className="text-white/70 mx-1">
-            {bottomSeedWins > topSeedWins ? bottomSeed + " leads " : topSeedWins > bottomSeedWins ? topSeed  + " leads " : "Tied "} 
+            {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>
         }
