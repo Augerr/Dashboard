@@ -71,13 +71,13 @@ function Dashboard() {
     `bg-gradient-to-br ${theme} animated-bg
     max-w-[1800px]
     mx-auto
-    p-6
+    p-4
     grid
     grid-cols-1
     grid-rows-3
     md:grid-cols-6`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2 -my-12">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2 -my-8">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
         <Panel>
@@ -94,7 +94,7 @@ function Dashboard() {
       </div>
     </div>
     
-    <div className="lg:col-span-6 -my-50">
+    <div className="lg:col-span-6 -my-46">
       <Panel>
         {calendarEvents != null ?
         <WeeklyCalendar events={calendarEvents} />
@@ -102,7 +102,7 @@ function Dashboard() {
         }
       </Panel>
     </div>
-    <div className="lg:col-span-6 -my-10">
+    <div className="lg:col-span-6 -my-6">
       <Panel>
         {calendarEvents != null ?
         <MonthlyCalendar events={calendarEvents} />

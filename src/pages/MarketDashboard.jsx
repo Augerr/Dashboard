@@ -12,15 +12,11 @@ function MarketDashboard() {
         md:grid-cols-6`">
 
       <section className="grid grid-cols-4 gap-3 md:col-span-6 auto-rows-[minmax(150px,auto)]">
-        {/* <StockWidget symbol="AAPL" />
-        <StockWidget symbol="MSFT" />
-        <StockWidget symbol="NVDA" />
-        <StockWidget symbol="SPY" /> */}
         <WatchlistWidget />
 
         <MarketNewsWidget />
 
-        <CryptoListWidget className="col-span-4" />    
+        <CryptoListWidget />    
       </section>
     </main>
   );
