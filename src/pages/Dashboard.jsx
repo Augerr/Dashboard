@@ -61,6 +61,10 @@ function Dashboard() {
   const condition = current.weather[0].main
   const theme = weatherTheme[condition]
 
+  setInterval(() => {
+    window.location.reload()
+  }, 60000)
+
   return (
   <div className={
     `bg-gradient-to-br ${theme} animated-bg
