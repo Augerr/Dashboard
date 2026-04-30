@@ -101,7 +101,6 @@ app.get("/api/calendar", async (req, res) => {
     const now = new Date()
     const end = new Date()
     end.setDate(now.getDate() + 7)
-    console.log(process.env.GOOGLE_CALENDAR_ID)
     const result = await calendar.events.list({
       calendarId: process.env.GOOGLE_CALENDAR_ID,
       timeMin: now.toISOString(),
@@ -110,7 +109,7 @@ app.get("/api/calendar", async (req, res) => {
       orderBy: "startTime",
       maxResults: 10,
     })
-    console.log(result)
+    
     const events = result.data.items.map((event) => ({
       id: event.id,
       title: event.summary || "Untitled event",

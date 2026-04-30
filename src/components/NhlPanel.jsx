@@ -32,18 +32,14 @@ function NhlPanel() {
   return (
       <div className="
         w-full
-        bg-gradient-to-br from-black/60 to-black/30
-        backdrop-blur-2xl
-        border border-white/10
-        rounded-3xl
-        p-4
+        p-2
         text-white
         ">
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* YESTERDAY (small) */}
             <div className="md:col-span-1">
-                <p className="text-sm text-white/80 mx-2 mb-1">Yesterday</p>
+                <p className="text-sm text-white/80 mx-2 mb-1 -my-2">Yesterday</p>
 
                 <div className="space-y-1.5">
                 {nhlGames.yesterday?.map((game) => (
@@ -54,7 +50,7 @@ function NhlPanel() {
 
             {/* TODAY (largest) */}
             <div className="md:col-span-1">
-                <p className="text-sm text-white/80 mx-2 mb-1">Today</p>
+                <p className="text-sm text-white/80 mx-2 mb-1 -my-2">Today</p>
 
                 <div className="space-y-1.5">
                 {nhlGames.today?.map((game) => (
@@ -65,7 +61,7 @@ function NhlPanel() {
 
             {/* TOMORROW (medium) */}
             <div className="md:col-span-1">
-                <p className="text-sm text-white/80 mx-2 mb-1">Tomorrow</p>
+                <p className="text-sm text-white/80 mx-2 mb-1 -my-2">Tomorrow</p>
 
                 <div className="space-y-1.5">
                 {nhlGames.tomorrow?.map((game) => (

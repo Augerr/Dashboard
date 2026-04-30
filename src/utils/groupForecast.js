@@ -21,6 +21,7 @@ export const groupToDaily = (list) => {
     days[date].temps.push(item.main.temp_min)
     days[date].temps.push(item.main.temp_max)
   })
+  console.log(days)
 
   return Object.entries(days).map(([date, value]) => ({
     date,

@@ -1,7 +1,7 @@
 function WeeklyCalendar({ events = [] }) {
   const today = new Date()
 
-  const daysToShow = 5
+  const daysToShow = 7
   const startHour = 8
   const endHour = 20
   const hourHeight = 48
@@ -23,6 +23,10 @@ function WeeklyCalendar({ events = [] }) {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
 
+  const isWeekend = (date) => {
+    const day = date.getDay()
+    return day === 0 || day === 6 // Sunday (0) or Saturday (6)
+  }
   const formatHour = (hour) => {
     if (hour === 0) return "12 AM"
     if (hour === 12) return "12 PM"
@@ -52,11 +56,21 @@ function WeeklyCalendar({ events = [] }) {
     }
   }
 
+  const getCurrentTimePosition = () => {
+    const now = new Date()
+    const currentDecimal = now.getHours() + now.getMinutes() / 60
+
+    if (currentDecimal < startHour || currentDecimal > endHour) {
+      return null
+    }
+
+    return (currentDecimal - startHour) * hourHeight
+  }
+
   return (
     <div>
-
       <div className="overflow-x-auto">
-        <div className="min-w-[720px] grid grid-cols-[64px_repeat(5,1fr)] gap-2">
+        <div className="min-w-[720px] grid grid-cols-[64px_repeat(7,1fr)] gap-2">
 
           {/* Empty top-left */}
           <div />
@@ -68,9 +82,9 @@ function WeeklyCalendar({ events = [] }) {
             return (
               <div
                 key={day.toISOString()}
-                className={`
-                  text-center rounded-xl py-2
-                  ${isToday ? "bg-blue-500 text-white" : "bg-white/5 text-white/70"}
+                className={`text-center rounded-xl py-1
+                  ${isToday ? "bg-blue-500 text-white" : 
+                    isWeekend(day) ? "bg-white/10 text-white/60" : "bg-white/20 text-white/70"}
                 `}
               >
                 <div className="text-xs">
@@ -88,7 +102,7 @@ function WeeklyCalendar({ events = [] }) {
             {hours.map((hour) => (
               <div
                 key={hour}
-                className="text-xs text-white/40"
+                className="text-sm text-white/40"
                 style={{ height: `${hourHeight}px` }}
               >
                 {formatHour(hour)}
@@ -103,7 +117,11 @@ function WeeklyCalendar({ events = [] }) {
             return (
               <div
                 key={day.toISOString()}
-                className="relative bg-white/5 rounded-2xl border border-white/10 overflow-hidden"
+                className={`
+                  relative rounded-2xl border overflow-hidden
+                  ${isSameDay(day, today)} ? "bg-blue-500/10 border-blue-400/40 shadow-[0_0_30px_rgba(59,130,246,0.18)]" :
+                  ${isWeekend(day)} ? "bg-black/40 border-white/5": "bg-black/20 border-white/10"}
+                `}
                 style={{ height: `${hours.length * hourHeight}px` }}
               >
                 {/* Hour lines */}
@@ -114,6 +132,17 @@ function WeeklyCalendar({ events = [] }) {
                     style={{ height: `${hourHeight}px` }}
                   />
                 ))}
+
+                {/* Current time line */}
+                {isSameDay(day, today) && getCurrentTimePosition() !== null && (
+                  <div
+                    className="absolute left-0 right-0 z-20 flex items-center"
+                    style={{ top: `${getCurrentTimePosition()}px` }}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-red-400 shadow-lg shadow-red-500/50" />
+                    <div className="flex-1 h-[2px] bg-red-400 shadow-lg shadow-red-500/40" />
+                  </div>
+                )}
 
                 {/* Events */}
                 {dayEvents.map((event) => {

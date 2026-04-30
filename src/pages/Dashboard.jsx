@@ -47,8 +47,9 @@ function Dashboard() {
     loadCalendar()
   }, [loadWeather, loadForecast, loadCalendar])
 
-  useAutoRefresh(loadWeather, 30000)
-  useAutoRefresh(loadForecast, 300000)
+  useAutoRefresh(loadWeather, 1800000)
+  useAutoRefresh(loadForecast, 1800000)
+  useAutoRefresh(loadCalendar, 300000)
 
   if (!current) {
     return <div className="h-screen bg-black" />
@@ -68,7 +69,7 @@ function Dashboard() {
     grid-rows-3
     md:grid-cols-6`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
         <Panel>
@@ -77,20 +78,17 @@ function Dashboard() {
       </div>
       {/* WEATHER (1 column) */}
       <div className="lg:col-span-1">
-        <Panel className="flex-[1]">
-          <WeatherCard weather={current}/>
-        </Panel>
-        <Panel className="flex-[1]">
-          <ForecastStrip daily={daily}/>
+        <Panel>
+          <WeatherCard weather={current} daily={daily}/>
         </Panel>
       </div>
     </div>
-    <div className="lg:col-span-6 -my-40">
+    <div className="lg:col-span-6 -my-42">
       <Panel>
         <WeeklyCalendar events={calendarEvents} />
       </Panel>
     </div>
-    <div className="lg:col-span-6 -my-7">
+    <div className="lg:col-span-6 -my-8">
       <Panel>
         <MonthlyCalendar events={calendarEvents} />
       </Panel>
