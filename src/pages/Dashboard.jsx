@@ -63,7 +63,7 @@ function Dashboard() {
 
   setInterval(() => {
     window.location.reload()
-  }, 60000)
+  }, 30000)
 
   return (
   <div className={
@@ -76,7 +76,6 @@ function Dashboard() {
     grid-rows-3
     md:grid-cols-6`
   }>
-    <h1>TEST TEST</h1>
     <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
