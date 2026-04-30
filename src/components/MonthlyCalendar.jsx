@@ -31,14 +31,19 @@ function MonthlyCalendar({ events = [] }) {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-7 gap-2 text-center text-sm text-white/50 mb-2">
+    <div className="flex flex-col">
+      
+      <div className="grid grid-cols-7 gap-2 text-center ">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d}>{d}</div>
+          <div className="text-sm text-white/90 mb-2" key={d}>{d}</div>
         ))}
+        <div className="items-center relative">
+          <h2 className="col-1 absolute top-8 left-8 text-white
+              font-serif font-bold text-center text-2xl italic">April</h2>
+        </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-4">
         {cells.map((day, index) => {
           const dayEvents = getEventsForDay(day)
           const isToday = isSameDay(day, today)

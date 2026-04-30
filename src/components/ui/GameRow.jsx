@@ -49,14 +49,18 @@ function GameRow({ game }) {
   })
   return (
     <main
-      className="
-        relative
-        bg-white/90
+      className="h-full
+        relative min-w-[220px]
+        bg-white/75
         backdrop-blur-xl
         border border-white/10
         rounded-xl
-        p-1.5
         text-white
+        grid
+        grid-rows-2 
+        grid-rows-[1fr_auto]
+        grid.cols-5
+        py-4
       "
       style={{
         borderLeft: `2px solid ${accentAway}`,
@@ -66,41 +70,40 @@ function GameRow({ game }) {
     >
 
       {/* SCORE GRID */}
-      <section className="grid grid-cols-3 items-center p-1">
+      <section className="items-center  row-start-1 col-span-5 grid grid-cols-subgrid gap-2">
 
         {/* AWAY */}
-        <div className="flex items-center">
-          <img 
+        <div className="flex items-center col-start-1 col-span-2">
+          <img  
             src={getLogo(away.abbrev)}
-            className="w-10 h-10 -mx-2 object-contain"
+            className="w-12 h-12 object-contain"
           />
-          <span className={`text-sm lg:text-lg font-semibold mx-1 ${awayWon ? "text-black" : "text-black/90"}`}>
+          <span className="text-md lg:text-xl font-bold text-black ">
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
-        <div className="text-center">
-          <div className="text-lg font-bold tracking-tight text-black">
-            {awayScore} - {homeScore}
-          </div>
+        <div className="flex text-center col-start-3 row-start-1 col-span-1
+            text-xl font-bold tracking-tighter text-black whitespace-nowrap">
+          {awayScore} - {homeScore}
         </div>
 
         {/* HOME */}
-        <div className="flex items-center justify-end">
-          <span className={`text-sm lg:text-lg font-semibold ${homeWon ? "text-black" : "text-black/90"}`}>
+        <div className="flex col-start-4 col-span-2 justify-end items-center row-start-1">
+          <span className="text-md lg:text-xl font-bold text-black">
             {home.abbrev}
           </span>
           <img 
             src={getLogo(home.abbrev)}
-            className="w-10 h-10 -mr-2 object-contain"
+            className="w-12 h-12 object-contain items-end"
           />
         </div>
 
       </section>
 
       {/* FOOTER */}
-      <section className="flex justify-between font-bold text-black/90 ml-1">
+      <section className="flex justify-between font-bold text-black/90 ml-1 row-2 col-span-5 px-2">
 
         <span>
           {isLive ? (
@@ -113,7 +116,7 @@ function GameRow({ game }) {
         </span>
 
         {
-          <span className="mr-2">
+          <span className="mr-1">
             {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>

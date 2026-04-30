@@ -67,25 +67,28 @@ function Dashboard() {
   }, 3000000)
 
   return (
-  <div className={
+    <div className={`bg-gradient-to-br ${theme} animated-bg
+    max-w-[1800px]
+    mx-auto
+    p-4 flex flex-col h-full`}>
+  {/* <div className={
     `bg-gradient-to-br ${theme} animated-bg
     max-w-[1800px]
     mx-auto
     p-4
     grid
-    grid-cols-1
-    grid-rows-3
-    md:grid-cols-6`
-  }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-4 space-x-2 -my-8">
+    grid-cols-6
+    grid-rows-3`
+  }> */}
+    <div className="-my-8 flex flex-row flex-auto">
       {/* NHL (wide) */}
-      <div className="lg:col-span-3">
+      <div className="flex-2">
         <Panel>
           <NhlPanel />
         </Panel>
       </div>
       {/* WEATHER (1 column) */}
-      <div className="lg:col-span-1">
+      <div className="flex-1">
         <Panel>
           {current != null && daily != null ?
           <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
@@ -94,7 +97,7 @@ function Dashboard() {
       </div>
     </div>
     
-    <div className="lg:col-span-6 -my-46">
+    <div className="flex-1 my-8">
       <Panel>
         {calendarEvents != null ?
         <WeeklyCalendar events={calendarEvents} />
@@ -102,7 +105,7 @@ function Dashboard() {
         }
       </Panel>
     </div>
-    <div className="lg:col-span-6 -my-6">
+    <div className="flex-1 -my-6">
       <Panel>
         {calendarEvents != null ?
         <MonthlyCalendar events={calendarEvents} />
