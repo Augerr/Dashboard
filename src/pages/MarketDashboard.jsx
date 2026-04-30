@@ -10,7 +10,14 @@ function MarketDashboard() {
         grid grid-cols-4 grid-rows-3
         md:grid-cols-6`">
 
-      <section className="grid grid-cols-4 gap-3 md:col-span-6 auto-rows-[minmax(150px,auto)]">
+      <section className="
+        grid 
+        grid-cols-2 
+        xl:grid-cols-4 
+        2xl:grid-cols-6 
+        gap-3 
+        auto-rows-[minmax(150px,auto)]
+      ">
         <WatchlistWidget />
 
         <MarketNewsWidget />

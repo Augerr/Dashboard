@@ -90,7 +90,7 @@ function StockWidget({ symbol }) {
         </span>
       </div>
 
-      <div className="mt-4 text-3xl font-bold">
+     <div className="mt-4 text-3xl 2xl:text-5xl font-bold">
         {formatMoney(stock.price)}
       </div>
 

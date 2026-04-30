@@ -29,9 +29,18 @@ function MarketNewsWidget() {
   useAutoRefresh(loadNews, 1800000)
 
   return (
-    <div className="col-span-2 row-span-2 rounded-2xl bg-white/10 p-4 text-white shadow-lg">
+    <div className="
+      col-span-2 
+      2xl:col-span-3 
+      row-span-2 
+      rounded-2xl 
+      bg-white/10 
+      p-4 
+      text-white 
+      shadow-lg
+    ">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Market News</h2>
+        <h2 className="text-lg 2xl:text-2xl font-semibold">Market News</h2>
         <span className="text-xs text-white/50">General</span>
       </div>
 
