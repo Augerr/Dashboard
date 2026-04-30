@@ -70,18 +70,26 @@ function Dashboard() {
       {/* WEATHER (1 column) */}
       <div className="lg:col-span-1">
         <Panel>
-          <WeatherCard weather={current} daily={daily}/>
+          {current != null && daily != null ?
+          <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
+          }
         </Panel>
       </div>
     </div>
+    
     <div className="lg:col-span-6 -my-42">
       <Panel>
+        {calendarEvents != null ?
         <WeeklyCalendar events={calendarEvents} />
+        : "Loading schedule..."
+        }
       </Panel>
     </div>
     <div className="lg:col-span-6 -my-8">
       <Panel>
+        calendarEvents != null ?
         <MonthlyCalendar events={calendarEvents} />
+        : "Loading calendar..."
       </Panel>
     </div>
   </div>
