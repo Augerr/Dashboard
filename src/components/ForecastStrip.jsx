@@ -4,20 +4,15 @@ function ForecastStrip({ daily }) {
   return (
     <div>
 
-      {/* <h3 className="text-white/80 text-sm mb-3">
-        7-Day Forecast
-      </h3> */}
-
-      <div className="flex gap-3 overflow-hidden pb-2 scroll-smooth snap-x">
+      <div className="flex gap-2 overflow-hidden scroll-smooth snap-x">
 
         {daily.slice(0, 7).map((day, i) => {
-          const date = day.date.slice(0,3)//new Date(day.dt * 1000)
-          //const label = date.toLocaleDateString("en-US", { weekday: "short" })
+          const date = day.date.slice(0,3)
 
           return (
             <div
               key={i}
-              className="min-w-[90px] snap-start flex-shrink-0
+              className="min-w-[82px] snap-start flex-shrink-0
                          bg-white/10 backdrop-blur-xl
                          border border-white/10
                          rounded-2xl p-3 text-center text-white"
@@ -25,7 +20,7 @@ function ForecastStrip({ daily }) {
               <p className="text-md opacity-80">{date}</p>
 
               <img
-                className="mx-auto w-14 h-14"
+                className="mx-auto w-8 h-8"
                 src={`https://openweathermap.org/img/wn/${day.icon}.png`}
                 alt=""
               />

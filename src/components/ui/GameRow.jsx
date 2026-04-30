@@ -54,8 +54,8 @@ function GameRow({ game }) {
         bg-black/30
         backdrop-blur-xl
         border border-white/10
-        rounded-2xl
-        p-4
+        rounded-xl
+        p-2
         text-white
       "
       style={{
@@ -72,48 +72,48 @@ function GameRow({ game }) {
         <div className="flex items-center -mx-1">
           <img 
             src={getLogo(away.abbrev)}
-            className="w-14 h-14 object-contain"
+            className="w-8 h-8 object-contain"
           />
-          <span className={`text-base md:text-xl ${awayWon ? "text-white" : "text-white/50"}`}>
+          <span className={`text-base md:text-lg ${awayWon ? "text-white" : "text-white/50"}`}>
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
         <div className="text-center">
-          <div className="text-xl font-bold tracking-tight">
+          <div className="text-2xl font-bold tracking-tight">
             {awayScore} - {homeScore}
           </div>
         </div>
 
         {/* HOME */}
         <div className="flex items-center justify-end -mx-1">
-          <span className={`mx-1 text-base md:text-xl ${homeWon ? "text-white" : "text-white/50"}`}>
+          <span className={`mx-1 text-base md:text-lg ${homeWon ? "text-white" : "text-white/50"}`}>
             {home.abbrev}
           </span>
           <img
             src={getLogo(home.abbrev)}
-            className="w-14 h-14 object-contain"
+            className="w-8 h-8 object-contain"
           />
         </div>
 
       </div>
 
       {/* FOOTER */}
-      <div className="mt-3 flex justify-between text-lg text-white/80">
+      <div className="mt-3 flex justify-between text-sm text-white/80">
 
-        <span className="mx-1 my-1">
+        <span>
           {isLive ? (
               <div className="flex items-center gap-1">
-                <span className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-md text-green-400">{period}</span>
+                <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                <span className="text-sm text-green-400">{period}</span>
               </div>
             ) : isFinal ? "Final" : time
           }
         </span>
 
         {
-          <span className="text-white/70 mx-1">
+          <span className="text-white/70 mx-1 text-sm">
             {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>

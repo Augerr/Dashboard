@@ -20,13 +20,13 @@ function WeatherCard() {
   const city = weather.name
 
   return (
-    <div className="w-full max-w-md p-6 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl min-w-[560px]">
+    <div className="w-full max-w-md p-4 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl min-w-[560px]">
       
       {/* Location */}
       <div className="text-center -mt-8">
         {/* <h2 className="text-2xl font-semibold">{city}</h2> */}
         <img
-          className="mx-auto w-32 h-32"
+          className="mx-auto w-24 h-24"
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
           alt=""
         />
@@ -34,12 +34,12 @@ function WeatherCard() {
       </div>
 
       {/* Temperature */}
-      <div className="text-center mt-4">
+      <div className="text-center mt-2">
         <h1 className="text-2xl md:text-2xl font-bold">{temp}°</h1>
       </div>
 
       {/* Extra Info */}
-      <div className="flex justify-between mt-6 text-md opacity-80">
+      <div className="flex justify-between text-sm opacity-80 -mt-10">
         <div>
           <p>Humidity</p>
           <p>{weather.main.humidity}%</p>
