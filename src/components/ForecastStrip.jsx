@@ -1,38 +1,34 @@
 function ForecastStrip({ daily }) {
   if (!daily) return null
   return (
-    <div>
+    <div className="flex gap-3 overflow-x-auto pb-2">
 
-      <div className="flex gap-3 overflow-x-auto pb-2">
+      {daily.slice(0, 5).map((day, i) => {
+        const date = day.date.slice(0,3)
 
-        {daily.slice(0, 5).map((day, i) => {
-          const date = day.date.slice(0,3)
+        return (
+          <div
+            key={i}
+            className="min-w-[60px] text-center flex-shrink-0 rounded-xl bg-white/10 p-3"
+          >
+            <p className="text-sm opacity-80">{date}</p>
 
-          return (
-            <div
-              key={i}
-              className="min-w-[120px] flex-shrink-0 rounded-xl bg-white/10 p-3"
-            >
-              <p className="text-sm opacity-80">{date}</p>
+            <img
+              className="mx-auto w-8 h-8"
+              src={`https://openweathermap.org/img/wn/${day.icon}.png`}
+              alt=""
+            />
 
-              <img
-                className="mx-auto w-8 h-8"
-                src={`https://openweathermap.org/img/wn/${day.icon}.png`}
-                alt=""
-              />
+            <p className="text-sm">
+              {Math.round(day.max)}°
+            </p>
 
-              <p className="text-sm">
-                {Math.round(day.max)}°
-              </p>
-
-              <p className="text-sm opacity-50">
-                {Math.round(day.min)}°
-              </p>
-            </div>
-          )
-        })}
-
-      </div>
+            <p className="text-sm opacity-50">
+              {Math.round(day.min)}°
+            </p>
+          </div>
+        )
+      })}
     </div>
   )
 }

@@ -49,9 +49,9 @@ function GameRow({ game }) {
   })
   return (
     <main
-      className="min-w-[200px]
+      className="
         relative
-        bg-white/50
+        bg-white/90
         backdrop-blur-xl
         border border-white/10
         rounded-xl
@@ -74,33 +74,33 @@ function GameRow({ game }) {
             src={getLogo(away.abbrev)}
             className="w-10 h-10 -mx-2 object-contain"
           />
-          <span className={`text-sm lg:text-lg mx-1 ${awayWon ? "text-white" : "text-white/80"}`}>
+          <span className={`text-sm lg:text-lg font-semibold mx-1 ${awayWon ? "text-black" : "text-black/90"}`}>
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
-        <div className="text-center mr-1">
-          <div className="text-lg font-bold tracking-tight">
+        <div className="text-center">
+          <div className="text-lg font-bold tracking-tight text-black">
             {awayScore} - {homeScore}
           </div>
         </div>
 
         {/* HOME */}
         <div className="flex items-center justify-end">
-          <span className={`text-sm lg:text-lg ${homeWon ? "text-white" : "text-white/80"}`}>
+          <span className={`text-sm lg:text-lg font-semibold ${homeWon ? "text-black" : "text-black/90"}`}>
             {home.abbrev}
           </span>
           <img 
             src={getLogo(home.abbrev)}
-            className="w-10 h-10 -mx-2 object-contain"
+            className="w-10 h-10 -mr-2 object-contain"
           />
         </div>
 
       </section>
 
       {/* FOOTER */}
-      <section className="flex justify-between font-semibold text-white/80 ml-1">
+      <section className="flex justify-between font-bold text-black/90 ml-1">
 
         <span>
           {isLive ? (
@@ -113,7 +113,7 @@ function GameRow({ game }) {
         </span>
 
         {
-          <span className="text-white/70 mr-2">
+          <span className="mr-2">
             {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>

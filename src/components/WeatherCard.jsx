@@ -9,9 +9,9 @@ function WeatherCard({weather, daily}) {
 
   return (
     <div>
-      <div className="w-full max-w-md p-2 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
+      <div className="w-full max-w-md p-4 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
         
-        <div className="text-center">
+        <div className="text-center -my-4">
           <img
             className="mx-auto w-24 h-24"
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
@@ -26,7 +26,7 @@ function WeatherCard({weather, daily}) {
         </div>
 
         {/* Extra Info */}
-        <div className="flex justify-between text-sm lg:text-md opacity-80 -mt-8 text-center">
+        <div className="flex justify-between text-sm lg:text-md opacity-80 -mt-4 -mx-2 text-center">
           <div>
             <p>Humidity</p>
             <p className="font-bold">{weather.main.humidity}%</p>
