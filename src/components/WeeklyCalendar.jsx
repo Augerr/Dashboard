@@ -77,13 +77,11 @@ function WeeklyCalendar({ events = [] }) {
 
           {/* Day headers */}
           {days.map((day) => {
-            const isToday = isSameDay(day, today)
-
             return (
               <div
                 key={day.toISOString()}
                 className={`text-center rounded-xl py-1
-                  ${isToday ? "bg-blue-500 text-white" : 
+                  ${isSameDay(day, today) ? "bg-blue-500 text-white" : 
                     isWeekend(day) ? "bg-white/10 text-white/60" : "bg-white/20 text-white/70"}
                 `}
               >

@@ -99,9 +99,10 @@ function Dashboard() {
     </div>
     <div className="lg:col-span-6 -my-8">
       <Panel>
-        calendarEvents != null ?
+        {calendarEvents != null ?
         <MonthlyCalendar events={calendarEvents} />
         : "Loading calendar..."
+        }
       </Panel>
     </div>
   </div>
