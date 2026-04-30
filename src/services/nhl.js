@@ -4,7 +4,6 @@ const API_BASE = import.meta.env.VITE_API_URL
 export const getNhlGames = async () => {
 
   const nhlGames = await axios.get(`${API_BASE}/api/nhl`)
-  console.log(nhlGames);
   return {
     yesterday: nhlGames.data.yesterday || [],
     today: nhlGames.data.today || [],

@@ -171,6 +171,113 @@ app.get("/api/weather/forecast", async (req, res) => {
   }
 })
 
+app.get("/api/market-news", async (req, res) => {
+  try {
+    const category = req.query.category || "general";
+
+    const url = `https://finnhub.io/api/v1/news?token=${process.env.FINNHUB_API_KEY}`;
+
+    const response = await fetch(url);
+   
+    if (!response.ok) {
+      throw new Error(`Finnhub news request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    const articles = data.slice(0, 8).map((article) => ({
+      id: article.id,
+      headline: article.headline,
+      summary: article.summary,
+      source: article.source,
+      url: article.url,
+      image: article.image,
+      datetime: article.datetime,
+    }));
+
+    res.json(articles);
+  } catch (error) {
+    console.error("Market news API error:", error);
+    res.status(500).json({ error: "Failed to fetch market news" });
+  }
+});
+
+app.get("/api/stocks/:symbol", async (req, res) => {
+  try {
+    const symbol = req.params.symbol.toUpperCase();
+    const url = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const now = new Date();
+    const utcDay = now.getUTCDay();
+    const utcHour = now.getUTCHours();
+    const utcMinute = now.getUTCMinutes();
+
+    const minutesSinceMidnight = utcHour * 60 + utcMinute;
+
+    // US market: 9:30 AM - 4:00 PM Eastern
+    // During daylight savings, Eastern = UTC-4
+    const marketOpen = 13 * 60 + 30;
+    const marketClose = 20 * 60;
+
+    const isWeekday = utcDay >= 1 && utcDay <= 5;
+    const isMarketOpen =
+      isWeekday &&
+      minutesSinceMidnight >= marketOpen &&
+      minutesSinceMidnight <= marketClose;
+    res.json({
+      marketStatus: isMarketOpen ? "Open" : "Closed",
+      symbol,
+      price: data.c,
+      change: data.d,
+      percentChange: data.dp,
+      high: data.h,
+      low: data.l,
+      open: data.o,
+      previousClose: data.pc,
+      updatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Stock API error:", error);
+    res.status(500).json({ error: "Failed to fetch stock data" });
+  }
+});
+
+app.get("/api/crypto/:symbol", async (req, res) => {
+  try {
+    const symbol = req.params.symbol.toUpperCase();
+
+    // Examples:
+    // BTCUSDT -> BINANCE:BTCUSDT
+    // ETHUSDT -> BINANCE:ETHUSDT
+    const finnhubSymbol = `BINANCE:${symbol}`;
+
+    const url = `https://finnhub.io/api/v1/quote?symbol=${finnhubSymbol}&token=${process.env.FINNHUB_API_KEY}`;
+
+    const response = await fetch(url);
+    console.log(response)
+    if (!response.ok) {
+      throw new Error(`Finnhub crypto request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data)
+    res.json({
+      symbol,
+      price: data.c,
+      change: data.d,
+      percentChange: data.dp,
+      high: data.h,
+      low: data.l,
+      open: data.o,
+      previousClose: data.pc,
+      updatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Crypto API error:", error);
+    res.status(500).json({ error: "Failed to fetch crypto data" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)

@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
+
 import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
-import { weatherTheme } from "../utils/weatherTheme"
 import { groupToDaily } from "../utils/groupForecast"
-import WeatherCard from "../components/WeatherCard"
-import WeeklyCalendar from "../components/WeeklyCalendar"
+import MonthlyCalendar from "../components/MonthlyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
+import WeatherCard from "../components/WeatherCard"
+import WeeklyCalendar from "../components/WeeklyCalendar"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { useCallback } from "react"
-import MonthlyCalendar from "../components/MonthlyCalendar"
-
+import { useEffect, useState } from "react"
+import { weatherTheme } from "../utils/weatherTheme"
 
 function Dashboard() {
   const [current, setCurrent] = useState(null)
@@ -20,6 +20,7 @@ function Dashboard() {
   const loadCalendar = useCallback(async () => {
     try{
       const data = await fetchCalendar()
+      console.log("load calendar")
       setCalendarEvents(data)
     } catch (err) {
       console.error("Weather failed:", err)
@@ -52,7 +53,7 @@ function Dashboard() {
 
   useAutoRefresh(loadWeather, 1800000)
   useAutoRefresh(loadForecast, 1800000)
-  useAutoRefresh(loadCalendar, 300000)
+  useAutoRefresh(loadCalendar, 1200000)
 
   if (!current) {
     return <div className="h-screen bg-black" />
@@ -63,7 +64,7 @@ function Dashboard() {
 
   setInterval(() => {
     window.location.reload()
-  }, 30000)
+  }, 3000000)
 
   return (
   <div className={
@@ -76,7 +77,7 @@ function Dashboard() {
     grid-rows-3
     md:grid-cols-6`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2 -my-12">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
         <Panel>
@@ -93,7 +94,7 @@ function Dashboard() {
       </div>
     </div>
     
-    <div className="lg:col-span-6 -my-42">
+    <div className="lg:col-span-6 -my-50">
       <Panel>
         {calendarEvents != null ?
         <WeeklyCalendar events={calendarEvents} />
@@ -101,7 +102,7 @@ function Dashboard() {
         }
       </Panel>
     </div>
-    <div className="lg:col-span-6 -my-8">
+    <div className="lg:col-span-6 -my-10">
       <Panel>
         {calendarEvents != null ?
         <MonthlyCalendar events={calendarEvents} />
