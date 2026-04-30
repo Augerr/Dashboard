@@ -48,14 +48,14 @@ function GameRow({ game }) {
     minute: "2-digit",
   })
   return (
-    <div
+    <main
       className="min-w-[200px]
         relative
-        bg-black/30
+        bg-white/50
         backdrop-blur-xl
         border border-white/10
         rounded-xl
-        p-2
+        p-1.5
         text-white
       "
       style={{
@@ -66,61 +66,61 @@ function GameRow({ game }) {
     >
 
       {/* SCORE GRID */}
-      <div className="grid grid-cols-3 items-center">
+      <section className="grid grid-cols-3 items-center p-1">
 
         {/* AWAY */}
-        <div className="flex items-center -ml-2.5 p-1">
+        <div className="flex items-center">
           <img 
             src={getLogo(away.abbrev)}
-            className="w-8 h-8 object-contain"
+            className="w-10 h-10 -mx-2 object-contain"
           />
-          <span className={`text-base md:text-md ${awayWon ? "text-white" : "text-white/80"}`}>
+          <span className={`text-sm lg:text-lg mx-1 ${awayWon ? "text-white" : "text-white/80"}`}>
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
-        <div className="text-center">
-          <div className="text-lg font-semibold tracking-tight">
+        <div className="text-center mr-1">
+          <div className="text-lg font-bold tracking-tight">
             {awayScore} - {homeScore}
           </div>
         </div>
 
         {/* HOME */}
-        <div className="flex items-center justify-end ml-4 p-1">
-          <span className={`text-sm md:text-md ${homeWon ? "text-white" : "text-white/80"}`}>
+        <div className="flex items-center justify-end">
+          <span className={`text-sm lg:text-lg ${homeWon ? "text-white" : "text-white/80"}`}>
             {home.abbrev}
           </span>
-          <img
+          <img 
             src={getLogo(home.abbrev)}
-            className="w-8 h-8 object-contain"
+            className="w-10 h-10 -mx-2 object-contain"
           />
         </div>
 
-      </div>
+      </section>
 
       {/* FOOTER */}
-      <div className="flex justify-between text-sm text-white/70">
+      <section className="flex justify-between font-semibold text-white/80 ml-1">
 
         <span>
           {isLive ? (
               <div className="flex items-center gap-1">
                 <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-sm text-green-400">{period}</span>
+                <span className="text-green-400">{period}</span>
               </div>
             ) : isFinal ? "Final" : time
           }
         </span>
 
         {
-          <span className="text-white/70 mr-2 text-sm">
+          <span className="text-white/70 mr-2">
             {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>
         }
-      </div>
+      </section>
 
-    </div>
+    </main>
   )
 }
 export default GameRow

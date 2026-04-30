@@ -3,7 +3,7 @@ function ForecastStrip({ daily }) {
   return (
     <div>
 
-      <div className="flex gap-2 overflow-hidden scroll-smooth snap-x mt-6">
+      <div className="flex gap-3 overflow-x-auto pb-2">
 
         {daily.slice(0, 5).map((day, i) => {
           const date = day.date.slice(0,3)
@@ -11,10 +11,7 @@ function ForecastStrip({ daily }) {
           return (
             <div
               key={i}
-              className="min-w-[98px] snap-start flex-shrink-0
-                         bg-white/10 backdrop-blur-xl
-                         border border-white/10
-                         rounded-2xl p-1 text-center text-white"
+              className="min-w-[120px] flex-shrink-0 rounded-xl bg-white/10 p-3"
             >
               <p className="text-sm opacity-80">{date}</p>
 

@@ -9,11 +9,11 @@ function WeatherCard({weather, daily}) {
 
   return (
     <div>
-      <div className="w-full max-w-md p-4 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
+      <div className="w-full max-w-md p-2 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
         
-        <div className="text-center -mt-4">
+        <div className="text-center">
           <img
-            className="mx-auto w-20 h-20"
+            className="mx-auto w-24 h-24"
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
             alt=""
           />
@@ -22,11 +22,11 @@ function WeatherCard({weather, daily}) {
 
         {/* Temperature */}
         <div className="text-center mt-2">
-          <h1 className="text-2xl md:text-2xl font-bold">{temp}°</h1>
+          <h1 className="text-2xl lg:text-xl font-bold">{temp}°</h1>
         </div>
 
         {/* Extra Info */}
-        <div className="flex justify-between text-sm opacity-80 -mt-10">
+        <div className="flex justify-between text-sm lg:text-md opacity-80 -mt-8 text-center">
           <div>
             <p>Humidity</p>
             <p className="font-bold">{weather.main.humidity}%</p>
