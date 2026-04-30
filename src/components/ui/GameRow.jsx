@@ -17,6 +17,8 @@ const getLogo = (teamName) => {
 }
 
 const getPeriod = (pNum) => {
+  if (pNum > 3)
+    pNum -= 3
   return pNum === 1 ? "1st" : pNum === 2 ? "2nd" : "3rd"
 }
 

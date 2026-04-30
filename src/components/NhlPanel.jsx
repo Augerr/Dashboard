@@ -11,7 +11,6 @@ function NhlPanel() {
     try {
       const data = await getNhlGames()
       setNhlGames(data)
-      console.log(data.today)
     } catch (err) {
       console.error("NHL games fetching error:", err)
     }

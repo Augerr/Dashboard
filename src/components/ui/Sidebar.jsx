@@ -7,12 +7,6 @@ function Sidebar() {
       items-center
     ">
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/10 my-2" />
-
-      
-
-
     </div>
   )
 }

@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react"
 import { getCurrentWeather, getForecast } from "../services/weather"
+import { fetchCalendar } from "../services/api"
 import { weatherTheme } from "../utils/weatherTheme"
 import { groupToDaily } from "../utils/groupForecast"
 import WeatherCard from "../components/WeatherCard"
 import ForecastStrip from "../components/ForecastStrip"
-import HourlyStrip from "../components/HourlyStrip"
+import WeeklyCalendar from "../components/WeeklyCalendar"
 import NhlPanel from "../components/NhlPanel"
-import NhlNews from "../components/NhlNews"
 import Panel from "../components/ui/Panel"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { useCallback } from "react"
+import MonthlyCalendar from "../components/MonthlyCalendar"
+
 
 function Dashboard() {
   const [current, setCurrent] = useState(null)
-  const [forecast, setForecast] = useState(null)
   const [daily, setDaily] = useState([])
+  const [calendarEvents, setCalendarEvents] = useState([])
+
+  const loadCalendar = useCallback(async () => {
+    const data = await fetchCalendar()
+    setCalendarEvents(data)
+  }, [])
 
   const loadWeather = useCallback(async () => {
     try {
@@ -29,7 +36,6 @@ function Dashboard() {
     try {
       const data = await getForecast()
       setDaily(groupToDaily(data.list))
-      setForecast(data)
     } catch (err) {
       console.error("Forecast error:", err)
     }
@@ -38,7 +44,8 @@ function Dashboard() {
   useEffect(() => {
     loadWeather()
     loadForecast()
-  }, [loadWeather, loadForecast])
+    loadCalendar()
+  }, [loadWeather, loadForecast, loadCalendar])
 
   useAutoRefresh(loadWeather, 30000)
   useAutoRefresh(loadForecast, 300000)
@@ -58,42 +65,35 @@ function Dashboard() {
     p-6
     grid
     grid-cols-1
-    md:grid-cols-6
-    gap-4`
+    grid-rows-3
+    md:grid-cols-6`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 gap-6x mb-2 md:mb-4 min-h-[420px]">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3">
       {/* NHL (wide) */}
       <div className="lg:col-span-2">
         <Panel>
           <NhlPanel />
         </Panel>
       </div>
-      {/* NEWS FEED (1 column) */}
+      {/* WEATHER (1 column) */}
       <div className="lg:col-span-1">
-        <Panel>
-          <NhlNews />
-        </Panel>
-      </div>
-    </div>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-      
-      {/* LEFT: WEATHER CARD (big) */}
-      <div className="lg:col-span-1">
-        <Panel className="h-full min-h-[300px]">
-          <WeatherCard weather={current}/>
-        </Panel>
-      </div>
-
-      {/* RIGHT: STACKED FORECASTS */}
-      <div className="lg:col-span-2 flex flex-col gap-4">
         <Panel className="flex-[1]">
-          <HourlyStrip data={forecast}/>
+          <WeatherCard weather={current}/>
         </Panel>
         <Panel className="flex-[1]">
           <ForecastStrip daily={daily}/>
         </Panel>
       </div>
-    
+    </div>
+    <div className="lg:col-span-6 -my-38">
+      <Panel>
+        <WeeklyCalendar events={calendarEvents} />
+      </Panel>
+    </div>
+    <div className="lg:col-span-6 my-12">
+      <Panel>
+        <MonthlyCalendar events={calendarEvents} />
+      </Panel>
     </div>
   </div>
 )
