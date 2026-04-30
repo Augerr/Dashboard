@@ -18,18 +18,30 @@ function Dashboard() {
   const [calendarEvents, setCalendarEvents] = useState([])
 
   const loadCalendar = useCallback(async () => {
-    const data = await fetchCalendar()
-    setCalendarEvents(data)
+    try{
+      const data = await fetchCalendar()
+      setCalendarEvents(data)
+    } catch (err) {
+      console.error("Weather failed:", err)
+    }
   }, [])
 
   const loadWeather = useCallback(async () => {
-    const data = await fetchWeather()
-    setCurrent(data)
+    try {
+      const data = await fetchWeather()
+      setCurrent(data)
+    } catch (err) {
+      console.error("Weather failed:", err)
+    }
   }, [])
 
   const loadForecast = useCallback(async () => {
-    const data = await fetchForecast()
-    setDaily(groupToDaily(data.list))
+    try {
+      const data = await fetchForecast()
+      setDaily(groupToDaily(data.list))
+    } catch (err) {
+      console.error("Weather failed:", err)
+    }
   }, [])
 
   useEffect(() => {
