@@ -1,5 +1,4 @@
 import MarketNewsWidget from "../components/MarketNewsWidget";
-import "./MarketDashboard.css";
 import WatchlistWidget from "../components/WatchlistWidget";
 import CryptoListWidget from "../components/CryptoListWidget";
 
