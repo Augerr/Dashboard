@@ -77,9 +77,9 @@ function Dashboard() {
     grid-rows-3
     md:grid-cols-6`
   }>
-    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-3 space-x-2 -my-8">
+    <div className="md:col-span-6 grid grid-cols-1 lg:grid-cols-4 space-x-2 -my-8">
       {/* NHL (wide) */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-3">
         <Panel>
           <NhlPanel />
         </Panel>

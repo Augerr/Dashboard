@@ -20,7 +20,7 @@ function NhlPanel() {
     loadNhlGames()
   }, [loadNhlGames])
 
-  useAutoRefresh(loadNhlGames, 60000)
+  useAutoRefresh(loadNhlGames, 600000)
 
   if (!nhlGames) {
     return (

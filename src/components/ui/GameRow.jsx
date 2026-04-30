@@ -49,7 +49,7 @@ function GameRow({ game }) {
   })
   return (
     <div
-      className="
+      className="min-w-[200px]
         relative
         bg-black/30
         backdrop-blur-xl
@@ -69,38 +69,38 @@ function GameRow({ game }) {
       <div className="grid grid-cols-3 items-center">
 
         {/* AWAY */}
-        <div className="flex items-center">
+        <div className="flex items-center -ml-2.5 p-1">
           <img 
             src={getLogo(away.abbrev)}
             className="w-8 h-8 object-contain"
           />
-          <span className={`text-base md:text-lg ${awayWon ? "text-white" : "text-white/50"}`}>
+          <span className={`text-base md:text-md ${awayWon ? "text-white" : "text-white/80"}`}>
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
         <div className="text-center">
-          <div className="text-2xl font-bold tracking-tight">
+          <div className="text-lg font-semibold tracking-tight">
             {awayScore} - {homeScore}
           </div>
         </div>
 
         {/* HOME */}
-        <div className="flex items-center justify-end">
-          <span className={`mx-1 text-sm md:text-lg ${homeWon ? "text-white" : "text-white/50"}`}>
+        <div className="flex items-center justify-end ml-4 p-1">
+          <span className={`text-sm md:text-md ${homeWon ? "text-white" : "text-white/80"}`}>
             {home.abbrev}
           </span>
           <img
             src={getLogo(home.abbrev)}
-            className="w-10 h-10 object-contain"
+            className="w-8 h-8 object-contain"
           />
         </div>
 
       </div>
 
       {/* FOOTER */}
-      <div className="flex justify-between text-sm text-white/80 mx-2">
+      <div className="flex justify-between text-sm text-white/70">
 
         <span>
           {isLive ? (
@@ -113,7 +113,7 @@ function GameRow({ game }) {
         </span>
 
         {
-          <span className="text-white/70 mx-1 text-sm">
+          <span className="text-white/70 mr-2 text-sm">
             {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
             {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
           </span>
