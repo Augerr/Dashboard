@@ -17,20 +17,17 @@ function WeatherCard() {
 
   const temp = Math.round(weather.main.temp)
   const condition = weather.weather[0].main
-  const city = weather.name
 
   return (
-    <div className="w-full max-w-md p-4 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl min-w-[560px]">
+    <div className="w-full max-w-md p-4 rounded-3xl backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
       
-      {/* Location */}
-      <div className="text-center -mt-8">
-        {/* <h2 className="text-2xl font-semibold">{city}</h2> */}
+      <div className="text-center -mt-4">
         <img
-          className="mx-auto w-24 h-24"
+          className="mx-auto w-20 h-20"
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
           alt=""
         />
-        <p className="text-lg md:text-lg opacity-80">{condition}</p>
+        <p className="text-lg md:text-lg opacity-80 -my-2">{condition}</p>
       </div>
 
       {/* Temperature */}
@@ -42,11 +39,11 @@ function WeatherCard() {
       <div className="flex justify-between text-sm opacity-80 -mt-10">
         <div>
           <p>Humidity</p>
-          <p>{weather.main.humidity}%</p>
+          <p className="font-bold">{weather.main.humidity}%</p>
         </div>
         <div>
           <p>Feels Like</p>
-          <p>{Math.round(weather.main.feels_like)}°</p>
+          <p className="font-bold">{Math.round(weather.main.feels_like)}°</p>
         </div>
       </div>
     </div>

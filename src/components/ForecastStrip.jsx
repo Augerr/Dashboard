@@ -15,7 +15,7 @@ function ForecastStrip({ daily }) {
               className="min-w-[82px] snap-start flex-shrink-0
                          bg-white/10 backdrop-blur-xl
                          border border-white/10
-                         rounded-2xl p-3 text-center text-white"
+                         rounded-2xl p-2 text-center text-white"
             >
               <p className="text-md opacity-80">{date}</p>
 

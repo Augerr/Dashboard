@@ -85,12 +85,12 @@ function Dashboard() {
         </Panel>
       </div>
     </div>
-    <div className="lg:col-span-6 -my-56">
+    <div className="lg:col-span-6 -my-40">
       <Panel>
         <WeeklyCalendar events={calendarEvents} />
       </Panel>
     </div>
-    <div className="lg:col-span-6 my-4">
+    <div className="lg:col-span-6 -my-7">
       <Panel>
         <MonthlyCalendar events={calendarEvents} />
       </Panel>

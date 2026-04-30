@@ -2,8 +2,8 @@ function WeeklyCalendar({ events = [] }) {
   const today = new Date()
 
   const daysToShow = 5
-  const startHour = 6
-  const endHour = 22
+  const startHour = 8
+  const endHour = 20
   const hourHeight = 48
 
   const days = Array.from({ length: daysToShow }, (_, i) => {
@@ -54,15 +54,6 @@ function WeeklyCalendar({ events = [] }) {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-white/80 text-lg font-semibold">
-          Calendar
-        </h3>
-
-        <span className="text-white/50 text-sm">
-          Next {daysToShow} days
-        </span>
-      </div>
 
       <div className="overflow-x-auto">
         <div className="min-w-[720px] grid grid-cols-[64px_repeat(5,1fr)] gap-2">

@@ -69,7 +69,7 @@ function GameRow({ game }) {
       <div className="grid grid-cols-3 items-center">
 
         {/* AWAY */}
-        <div className="flex items-center -mx-1">
+        <div className="flex items-center">
           <img 
             src={getLogo(away.abbrev)}
             className="w-8 h-8 object-contain"
@@ -87,20 +87,20 @@ function GameRow({ game }) {
         </div>
 
         {/* HOME */}
-        <div className="flex items-center justify-end -mx-1">
-          <span className={`mx-1 text-base md:text-lg ${homeWon ? "text-white" : "text-white/50"}`}>
+        <div className="flex items-center justify-end">
+          <span className={`mx-1 text-sm md:text-lg ${homeWon ? "text-white" : "text-white/50"}`}>
             {home.abbrev}
           </span>
           <img
             src={getLogo(home.abbrev)}
-            className="w-8 h-8 object-contain"
+            className="w-10 h-10 object-contain"
           />
         </div>
 
       </div>
 
       {/* FOOTER */}
-      <div className="mt-3 flex justify-between text-sm text-white/80">
+      <div className="flex justify-between text-sm text-white/80 mx-2">
 
         <span>
           {isLive ? (
