@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import { getCurrentWeather, getForecast } from "../services/weather"
+import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
 import { weatherTheme } from "../utils/weatherTheme"
 import { groupToDaily } from "../utils/groupForecast"
 import WeatherCard from "../components/WeatherCard"
-import ForecastStrip from "../components/ForecastStrip"
 import WeeklyCalendar from "../components/WeeklyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
@@ -24,21 +23,13 @@ function Dashboard() {
   }, [])
 
   const loadWeather = useCallback(async () => {
-    try {
-      const data = await getCurrentWeather()
-      setCurrent(data)
-    } catch (err) {
-      console.error("Weather error:", err)
-    }
+    const data = await fetchWeather()
+    setCurrent(data)
   }, [])
 
   const loadForecast = useCallback(async () => {
-    try {
-      const data = await getForecast()
-      setDaily(groupToDaily(data.list))
-    } catch (err) {
-      console.error("Forecast error:", err)
-    }
+    const data = await fetchForecast()
+    setDaily(groupToDaily(data.list))
   }, [])
 
   useEffect(() => {

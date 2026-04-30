@@ -1,38 +1,12 @@
 import axios from "axios"
+const API_BASE = import.meta.env.VITE_API_URL
 
-const API_KEY = "238b3480b35948e0e45181589e8d93ef"
-const CURRENT_WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
-const LAT = 45.24316555682251
-const LON = -73.57681729532432
-const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
-
-export const getCurrentWeather = async () => {
-    const res = await axios.get(
-    CURRENT_WEATHER_URL,
-    {
-      params: {
-        lat: LAT,
-        lon: LON,
-        units: "metric",
-        appid: API_KEY,
-      },
-    }
-  )
+export const fetchWeather = async () => {
+  const res = await axios.get(`${API_BASE}/api/weather/current`)
   return res.data
 }
 
-export const getForecast = async () => {
-  const res = await axios.get(
-    FORECAST_URL,
-    {
-      params: {
-        lat: LAT,
-        lon: LON,
-        units: "metric",
-        appid: API_KEY,
-      },
-    }
-  )
-  console.log(res.data)
+export const fetchForecast = async () => {
+  const res =  await axios.get(`${API_BASE}/api/weather/forecast`)
   return res.data
 }

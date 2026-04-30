@@ -1,12 +1,10 @@
 import axios from "axios"
-
-const BASE_URL = "http://localhost:3001/api/nhl"
+const API_BASE = import.meta.env.VITE_API_URL
 
 export const getNhlGames = async () => {
 
-  const nhlGames = await Promise.all([
-    axios.get(BASE_URL)
-  ])
+  const nhlGames = await axios.get(`${API_BASE}/api/nhl`)
+
   return {
     yesterday: nhlGames[0].data.yesterday || [],
     today: nhlGames[0].data.today || [],

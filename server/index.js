@@ -10,6 +10,13 @@ const app = express()
 const __dirname = path.resolve();
 
 const TIME_ZONE = "America/Montreal"
+const CURRENT_WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
+const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
+
+const LAT = 45.24316555682251
+const LON = -73.57681729532432
+
+const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY
 
 const formatDateInTimeZone = (date, timeZone = TIME_ZONE) => {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -109,7 +116,7 @@ app.get("/api/calendar", async (req, res) => {
       orderBy: "startTime",
       maxResults: 10,
     })
-    
+
     const events = result.data.items.map((event) => ({
       id: event.id,
       title: event.summary || "Untitled event",
@@ -122,6 +129,45 @@ app.get("/api/calendar", async (req, res) => {
   } catch (err) {
     console.error("Calendar fetch failed:", err.message)
     res.status(500).json({ error: "Failed to fetch calendar events" })
+  }
+})
+
+// 🌤 Current weather
+app.get("/api/weather/current", async (req, res) => {
+  try {
+    const response = await axios.get(CURRENT_WEATHER_URL, {
+      params: {
+        lat: LAT,
+        lon: LON,
+        units: "metric",
+        appid: OPENWEATHER_API_KEY,
+      },
+    })
+
+    res.json(response.data)
+  } catch (err) {
+    console.error("Weather error:", err.message)
+    res.status(500).json({ error: "Failed to fetch current weather" })
+  }
+})
+
+
+// 📅 Forecast
+app.get("/api/weather/forecast", async (req, res) => {
+  try {
+    const response = await axios.get(FORECAST_URL, {
+      params: {
+        lat: LAT,
+        lon: LON,
+        units: "metric",
+        appid: OPENWEATHER_API_KEY,
+      },
+    })
+
+    res.json(response.data)
+  } catch (err) {
+    console.error("Forecast error:", err.message)
+    res.status(500).json({ error: "Failed to fetch forecast" })
   }
 })
 
