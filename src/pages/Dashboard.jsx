@@ -2,7 +2,6 @@
 import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
 import { groupToDaily } from "../utils/groupForecast"
-import ClockWidget from "../components/ClockWidget";
 import MonthlyCalendar from "../components/MonthlyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
@@ -68,14 +67,9 @@ function Dashboard() {
   }, 3000000)
 
   return (
-    <div
-      className={`max-w-[1800px]
-        min-h-screen
-        bg-gradient-to-br ${theme} animated-bg
-        p-4
-      `}>
-
-      <div className="mx-auto grid gap-4 grid-cols-6 grid-rows-[auto_auto_1fr] items-stretch">
+    <div className={`min-h-screen bg-gradient-to-br ${theme} animated-bg p-4`}>
+      
+      <div className="mx-auto grid h-full max-w-[1800px] gap-4 grid-cols-6 grid-rows-[auto_auto_auto]">
 
         {/* NHL */}
         <div className="col-span-5 h-full">
@@ -95,7 +89,7 @@ function Dashboard() {
       </div>
       
       {/* WEEKLY */}
-      <div className="col-span-6">
+      <div className="col-span-6 h-full">
         <Panel>
           {calendarEvents != null ?
           <WeeklyCalendar events={calendarEvents} />
@@ -105,7 +99,7 @@ function Dashboard() {
       </div>
 
       {/* MONTHLY */}
-      <div className="col-span-6">
+      <div className="col-span-6 h-full">
         <Panel>
           {calendarEvents != null ?
           <MonthlyCalendar events={calendarEvents} />
