@@ -82,13 +82,13 @@ function Dashboard() {
   }> */}
     <div className="-my-8 flex flex-row flex-auto">
       {/* NHL (wide) */}
-      <div className="flex-2">
+      <div className="flex-1">
         <Panel>
           <NhlPanel />
         </Panel>
       </div>
       {/* WEATHER (1 column) */}
-      <div className="flex-1">
+      <div className="flex-basis-sm">
         <Panel>
           {current != null && daily != null ?
           <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
