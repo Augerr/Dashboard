@@ -31,7 +31,7 @@ function MonthlyCalendar({ events = [] }) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="animate-fade-in flex flex-col">
       
       <div className="grid grid-cols-7 gap-2 text-center ">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (

@@ -2,6 +2,7 @@
 import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
 import { groupToDaily } from "../utils/groupForecast"
+import CalendarPanel from "../components/CalendarPanel";
 import MonthlyCalendar from "../components/MonthlyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
@@ -88,23 +89,14 @@ function Dashboard() {
         </div>
       </div>
       
-      {/* WEEKLY */}
+      {/* CALENDAR */}
       <div className="col-span-6 h-full">
         <Panel>
-          {calendarEvents != null ?
-          <WeeklyCalendar events={calendarEvents} />
-          : "Loading schedule..."
-          }
-        </Panel>
-      </div>
-
-      {/* MONTHLY */}
-      <div className="col-span-6 h-full mt-8">
-        <Panel>
-          {calendarEvents != null ?
-          <MonthlyCalendar events={calendarEvents} />
-          : "Loading calendar..."
-          }
+          {calendarEvents != null ? (
+            <CalendarPanel events={calendarEvents} />
+          ) : (
+            "Loading calendar..."
+          )}
         </Panel>
       </div>
     </div>

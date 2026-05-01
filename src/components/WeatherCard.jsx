@@ -23,38 +23,45 @@ function WeatherCard({weather, daily}) {
   const condition = weather.weather[0].main
 
   return (
-    <div className="flex h-full w-full flex-col rounded-3xl bg-slate/20 p-4 text-white shadow-2xl backdrop-blur-2xl">
-      <div className="text-center text-md tracking-tight text-white/70">
-        {time}
+    <div className="animate-fade-in flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-4 text-white shadow-2xl backdrop-blur-2xl">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium text-white/60">Weather</p>
+        <p className="text-sm text-white/60">{time}</p>
       </div>
 
-      <div className="flex-1 text-center">
+      {/* Main weather */}
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
         <img
-          className="mx-auto h-16 w-16 object-contain"
-          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
+          className="h-20 w-20 object-contain drop-shadow-lg"
+          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           alt=""
         />
 
-        <p className="text-lg opacity-80">{condition}</p>
+        <p className="text-base font-medium text-white/75">{condition}</p>
 
-        <h1 className="mt-2 text-4xl font-bold">
+        <h1 className="mt-1 text-5xl font-bold tracking-tight">
           {temp}°
         </h1>
       </div>
 
-      <div className="mt-3 grid grid-cols-2 gap-3 text-center text-sm opacity-80 lg:text-base">
-        <div className="rounded-xl bg-white/10 p-2">
-          <p>Humidity</p>
-          <p className="font-bold">{weather.main.humidity}%</p>
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-2xl bg-black/20 p-3 text-center">
+          <p className="text-xs text-white/50">Humidity</p>
+          <p className="mt-1 text-lg font-bold">{weather.main.humidity}%</p>
         </div>
 
-        <div className="rounded-xl bg-white/10 p-2">
-          <p>Feels Like</p>
-          <p className="font-bold">{Math.round(weather.main.feels_like)}°</p>
+        <div className="rounded-2xl bg-black/20 p-3 text-center">
+          <p className="text-xs text-white/50">Feels Like</p>
+          <p className="mt-1 text-lg font-bold">
+            {Math.round(weather.main.feels_like)}°
+          </p>
         </div>
       </div>
 
-      <div className="mt-auto w-full pt-2">
+      {/* Forecast */}
+      <div className="mt-3 w-full">
         <ForecastStrip daily={daily} />
       </div>
     </div>

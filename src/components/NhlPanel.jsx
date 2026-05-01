@@ -8,7 +8,7 @@ function GameColumn({ title, games = [], isToday = false }) {
   const visibleGames = games.slice(0, 3);
 
   return (
-    <section className="grid min-h-0 grid-rows-[auto_1fr]">
+    <section className="animate-fade-in grid min-h-0 grid-rows-[auto_1fr]">
       <h2 className="mb-2 px-2 text-sm font-semibold text-white/70">
         {title}
       </h2>
