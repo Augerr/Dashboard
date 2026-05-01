@@ -1,17 +1,14 @@
 function ForecastStrip({ daily }) {
   if (!daily) return null
   return (
-    <div className="w-full flex flex-row gap-3 overflow-x-auto pb-2">
+    <div className="flex w-full gap-2 overflow-x-auto">
 
-      {daily.slice(0, 5).map((day, i) => {
-        const date = day.date.slice(0,3)
-
-        return (
+      {daily.slice(0, 5).map((day, i) => (
           <div
             key={i}
-            className="text-center flex-shrink-0 flex- rounded-xl bg-white/10 mt-2"
+            className="min-w-[70px] xl:min-w-0 xl:flex-1 rounded-xl bg-white/10 p-2 text-center"
           >
-            <p className="text-sm opacity-80">{date}</p>
+            <p className="text-sm opacity-80">{day.date.slice(0,3)}</p>
 
             <img
               className="mx-auto w-8 h-8"
@@ -28,7 +25,7 @@ function ForecastStrip({ daily }) {
             </p>
           </div>
         )
-      })}
+      )}
     </div>
   )
 }

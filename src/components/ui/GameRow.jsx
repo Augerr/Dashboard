@@ -43,7 +43,6 @@ function GameRow({ game }) {
   return (
     <main
       className="h-full
-        relative min-w-[220px]
         bg-white/75
         backdrop-blur-xl
         border border-white/10

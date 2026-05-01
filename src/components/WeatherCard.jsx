@@ -23,7 +23,7 @@ function WeatherCard({weather, daily}) {
   const condition = weather.weather[0].main
 
   return (
-    <div className="flex h-full w-full flex-col rounded-3xl border-4 border-white/50 bg-white/10 p-4 text-white shadow-2xl backdrop-blur-2xl">
+    <div className="flex h-full w-full flex-col rounded-3xl bg-slate/20 p-4 text-white shadow-2xl backdrop-blur-2xl">
       <div className="text-center text-md tracking-tight text-white/70">
         {time}
       </div>
@@ -54,7 +54,7 @@ function WeatherCard({weather, daily}) {
         </div>
       </div>
 
-      <div className="mt-auto pt-3">
+      <div className="mt-auto w-full pt-2">
         <ForecastStrip daily={daily} />
       </div>
     </div>

@@ -69,17 +69,17 @@ function Dashboard() {
   return (
     <div className={`min-h-screen bg-gradient-to-br ${theme} animated-bg p-4`}>
       
-      <div className="mx-auto grid h-full max-w-[1800px] gap-4 grid-cols-6 grid-rows-[auto_auto_auto]">
+      <div className="mx-auto grid h-full gap-4 grid-cols-6 grid-rows-[auto_auto_auto]">
 
         {/* NHL */}
-        <div className="col-span-5 h-full">
+        <div className="col-span-5 xl:col-span-4 h-full">
           <Panel>
             <NhlPanel />
           </Panel>
         </div>
 
         {/* WEATHER */}
-        <div className="col-span-1 h-full">
+        <div className="col-span-1 xl:col-span-2 h-full">
           <Panel>
             {current != null && daily != null ?
             <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
@@ -99,7 +99,7 @@ function Dashboard() {
       </div>
 
       {/* MONTHLY */}
-      <div className="col-span-6 h-full">
+      <div className="col-span-6 h-full mt-8">
         <Panel>
           {calendarEvents != null ?
           <MonthlyCalendar events={calendarEvents} />
