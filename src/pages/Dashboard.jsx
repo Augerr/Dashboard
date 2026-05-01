@@ -3,11 +3,9 @@ import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
 import { groupToDaily } from "../utils/groupForecast"
 import CalendarPanel from "../components/CalendarPanel";
-import MonthlyCalendar from "../components/MonthlyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
 import WeatherCard from "../components/WeatherCard"
-import WeeklyCalendar from "../components/WeeklyCalendar"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { useCallback } from "react"
 import { useEffect, useState } from "react"
@@ -23,6 +21,7 @@ function Dashboard() {
       const data = await fetchCalendar()
       console.log("load calendar")
       setCalendarEvents(data)
+      
     } catch (err) {
       console.error("Weather failed:", err)
     }
@@ -32,28 +31,20 @@ function Dashboard() {
     try {
       const data = await fetchWeather()
       setCurrent(data)
-    } catch (err) {
-      console.error("Weather failed:", err)
-    }
-  }, [])
 
-  const loadForecast = useCallback(async () => {
-    try {
-      const data = await fetchForecast()
-      setDaily(groupToDaily(data.list))
+      const daysForecast = await fetchForecast()
+      setDaily(groupToDaily(daysForecast))
     } catch (err) {
-      console.error("Weather failed:", err)
+      console.error("CurrentWeather failed:", err)
     }
   }, [])
 
   useEffect(() => {
     loadWeather()
-    loadForecast()
     loadCalendar()
-  }, [loadWeather, loadForecast, loadCalendar])
+  }, [loadWeather, loadCalendar])
 
   useAutoRefresh(loadWeather, 1800000)
-  useAutoRefresh(loadForecast, 1800000)
   useAutoRefresh(loadCalendar, 1200000)
 
   if (!current) {
@@ -70,17 +61,17 @@ function Dashboard() {
   return (
     <div className={`min-h-screen bg-gradient-to-br ${theme} animated-bg p-4`}>
       
-      <div className="mx-auto grid h-full gap-4 grid-cols-6 grid-rows-[auto_auto_auto]">
+      <div className="mx-auto grid h-full gap-4 grid-cols-6 grid-rows-[auto_auto_auto] portrait:grid-rows-3">
 
         {/* NHL */}
-        <div className="col-span-5 xl:col-span-4 h-full">
+        <div className="col-span-5 portrait:col-span-6 xl:col-span-4 h-full">
           <Panel>
             <NhlPanel />
           </Panel>
         </div>
 
         {/* WEATHER */}
-        <div className="col-span-1 xl:col-span-2 h-full">
+        <div className="col-span-1 xl:col-span-2 portrait:col-span-6 portrait:row-2 h-full">
           <Panel>
             {current != null && daily != null ?
             <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
@@ -93,7 +84,7 @@ function Dashboard() {
       <div className="col-span-6 h-full">
         <Panel>
           {calendarEvents != null ? (
-            <CalendarPanel events={calendarEvents} />
+            <CalendarPanel events={calendarEvents} daily={daily}  />
           ) : (
             "Loading calendar..."
           )}

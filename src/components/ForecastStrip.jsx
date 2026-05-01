@@ -8,7 +8,7 @@ function ForecastStrip({ daily }) {
             key={i}
             className="min-w-[70px] xl:min-w-0 xl:flex-1 rounded-xl bg-white/10 p-2 text-center"
           >
-            <p className="text-sm opacity-80">{day.date.slice(0,3)}</p>
+            <p className="text-sm opacity-80">{day.date.toDateString()}</p>
 
             <img
               className="mx-auto w-8 h-8"

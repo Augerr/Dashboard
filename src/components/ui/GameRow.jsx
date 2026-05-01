@@ -70,27 +70,27 @@ function GameRow({ game }) {
         <div className="flex items-center col-start-1 col-span-2">
           <img  
             src={getLogo(away.abbrev)}
-            className="w-12 h-12 2xl:w-24 2xl:h-24 object-contain"
+            className="w-8 h-8 2xl:w-24 2xl:h-24 object-contain"
           />
-          <span className="text-md lg:text-xl 2xl:text-3xl font-bold text-black ">
+          <span className="text-md 2xl:text-3xl font-bold text-black ">
             {away.abbrev}
           </span>
         </div>
 
         {/* SCORE CENTER */}
         <div className="col-start-3 col-span-1 flex justify-center 
-          text-center text-xl 2xl:text-4xl font-bold tracking-tighter text-black whitespace-nowrap">
+          text-center text-lg 2xl:text-4xl font-bold tracking-tighter text-black whitespace-nowrap">
           {awayScore} - {homeScore}
         </div>
 
         {/* HOME */}
         <div className="flex col-start-4 col-span-2 justify-end items-center row-start-1">
-          <span className="text-md lg:text-xl 2xl:text-3xl font-bold text-black ">
+          <span className="text-md 2xl:text-3xl font-bold text-black">
             {home.abbrev}
           </span>
           <img 
             src={getLogo(home.abbrev)}
-            className="w-12 h-12 2xl:w-24 2xl:h-24 object-contain items-end"
+            className="w-8 h-8 2xl:w-24 2xl:h-24 object-contain items-end"
           />
         </div>
 

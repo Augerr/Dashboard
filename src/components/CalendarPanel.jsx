@@ -2,7 +2,7 @@ import { useState } from "react";
 import WeeklyCalendar from "./WeeklyCalendar";
 import MonthlyCalendar from "./MonthlyCalendar";
 
-function CalendarPanel({ events }) {
+function CalendarPanel({ events, daily }) {
   const [view, setView] = useState("weekly");
 
   return (
@@ -39,7 +39,7 @@ function CalendarPanel({ events }) {
 
       <div className="min-h-0 flex-1">
         {view === "weekly" ? (
-          <WeeklyCalendar events={events} />
+          <WeeklyCalendar events={events} dailyForecast={daily} />
         ) : (
           <MonthlyCalendar events={events} />
         )}
