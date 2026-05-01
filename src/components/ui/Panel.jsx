@@ -1,19 +1,9 @@
-function Panel({ children, className = "" }) {
+function Panel({ children }) {
   return (
-    <div
-      className={`
-        bg-black/30
-        backdrop-blur-2xl
-        border border-white/10
-        rounded-3xl
-        p-4
-        text-white
-        ${className}
-      `}
-    >
+    <div className="h-full rounded-2xl bg-white/10 p-4 shadow-lg">
       {children}
     </div>
-  )
+  );
 }
 
-export default Panel
+export default Panel;

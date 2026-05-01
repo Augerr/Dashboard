@@ -2,6 +2,7 @@
 import { fetchWeather, fetchForecast } from "../services/weather"
 import { fetchCalendar } from "../services/api"
 import { groupToDaily } from "../utils/groupForecast"
+import ClockWidget from "../components/ClockWidget";
 import MonthlyCalendar from "../components/MonthlyCalendar"
 import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
@@ -67,53 +68,52 @@ function Dashboard() {
   }, 3000000)
 
   return (
-    <div className={`bg-gradient-to-br ${theme} animated-bg
-    max-w-[1800px]
-    mx-auto
-    p-4 flex flex-col h-full`}>
-  {/* <div className={
-    `bg-gradient-to-br ${theme} animated-bg
-    max-w-[1800px]
-    mx-auto
-    p-4
-    grid
-    grid-cols-6
-    grid-rows-3`
-  }> */}
-    <div className="-my-8 flex flex-row flex-auto">
-      {/* NHL (wide) */}
-      <div className="flex-1">
+    <div
+      className={`max-w-[1800px]
+        min-h-screen
+        bg-gradient-to-br ${theme} animated-bg
+        p-4
+      `}>
+
+      <div className="mx-auto grid gap-4 grid-cols-6 grid-rows-[auto_auto_1fr] items-stretch">
+
+        {/* NHL */}
+        <div className="col-span-5 h-full">
+          <Panel>
+            <NhlPanel />
+          </Panel>
+        </div>
+
+        {/* WEATHER */}
+        <div className="col-span-1 h-full">
+          <Panel>
+            {current != null && daily != null ?
+            <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
+            }
+          </Panel>
+        </div>
+      </div>
+      
+      {/* WEEKLY */}
+      <div className="col-span-6">
         <Panel>
-          <NhlPanel />
+          {calendarEvents != null ?
+          <WeeklyCalendar events={calendarEvents} />
+          : "Loading schedule..."
+          }
         </Panel>
       </div>
-      {/* WEATHER (1 column) */}
-      <div className="flex-basis-sm">
+
+      {/* MONTHLY */}
+      <div className="col-span-6">
         <Panel>
-          {current != null && daily != null ?
-          <WeatherCard weather={current} daily={daily}/> : "Loading weather forecast..."
+          {calendarEvents != null ?
+          <MonthlyCalendar events={calendarEvents} />
+          : "Loading calendar..."
           }
         </Panel>
       </div>
     </div>
-    
-    <div className="flex-1 my-8">
-      <Panel>
-        {calendarEvents != null ?
-        <WeeklyCalendar events={calendarEvents} />
-        : "Loading schedule..."
-        }
-      </Panel>
-    </div>
-    <div className="flex-1 -my-6">
-      <Panel>
-        {calendarEvents != null ?
-        <MonthlyCalendar events={calendarEvents} />
-        : "Loading calendar..."
-        }
-      </Panel>
-    </div>
-  </div>
 )
 }
 

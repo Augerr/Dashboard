@@ -4,73 +4,65 @@ import GameRow from "./ui/GameRow"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { useCallback } from "react"
 
+function GameColumn({ title, games = [], isToday = false }) {
+  const visibleGames = games.slice(0, 3);
+
+  return (
+    <section className="grid min-h-0 grid-rows-[auto_1fr]">
+      <h2 className="mb-2 px-2 text-sm font-semibold text-white/70">
+        {title}
+      </h2>
+
+      <div className="grid grid-rows-3 gap-2">
+        {visibleGames.map((game) => (
+          <GameRow key={game.id} game={game} isToday={isToday} />
+        ))}
+
+        {Array.from({ length: 3 - visibleGames.length }).map((_, index) => (
+          <div
+            key={`empty-${index}`}
+            className="rounded-xl border border-white/10 bg-white/5"
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NhlPanel() {
-  const [nhlGames, setNhlGames] = useState(null)
+  const [nhlGames, setNhlGames] = useState(null);
 
   const loadNhlGames = useCallback(async () => {
     try {
-      const data = await getNhlGames()
-      setNhlGames(data)
+      const data = await getNhlGames();
+      setNhlGames(data);
     } catch (err) {
-      console.error("NHL games fetching error:", err)
+      console.error("NHL games fetching error:", err);
     }
-  }, [])
-  
-  useEffect(() => {
-    loadNhlGames()
-  }, [loadNhlGames])
+  }, []);
 
-  useAutoRefresh(loadNhlGames, 600000)
+  useEffect(() => {
+    loadNhlGames();
+  }, [loadNhlGames]);
+
+  useAutoRefresh(loadNhlGames, 600000);
 
   if (!nhlGames) {
     return (
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-4 text-white">
+      <div className="flex h-full items-center justify-center rounded-3xl bg-white/10 p-4 text-white backdrop-blur-xl">
         Loading NHL data...
       </div>
-    )
+    );
   }
+
   return (
-      <div className="
-        w-full
-        text-white
-        ">
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-white/90 font-semibold">
-            {/* YESTERDAY (small) */}
-            <div className="md:col-span-1">
-                <p className="text-sm  mx-2 mb-1 -my-2">Yesterday</p>
-
-                <div className="space-y-1.5">
-                {nhlGames.yesterday?.map((game) => (
-                    <GameRow key={game.id} game={game} />
-                ))}
-                </div>
-            </div>
-
-            {/* TODAY (largest) */}
-            <div className="md:col-span-1">
-                <p className="text-sm mx-2 mb-1 -my-2">Today</p>
-
-                <div className="space-y-1.5">
-                {nhlGames.today?.map((game) => (
-                    <GameRow key={game.id} game={game} isToday />
-                ))}
-                </div>
-            </div>
-
-            {/* TOMORROW (medium) */}
-            <div className="md:col-span-1">
-                <p className="text-sm mx-2 mb-1 -my-2">Tomorrow</p>
-
-                <div className="space-y-1.5">
-                {nhlGames.tomorrow?.map((game) => (
-                    <GameRow key={game.id} game={game} />
-                ))}
-                </div>
-            </div>
-        </div>
+    <div className="h-full w-full text-white">
+      <div className="grid h-full grid-cols-1 gap-4 font-semibold text-white/90 md:grid-cols-3">
+        <GameColumn title="Yesterday" games={nhlGames.yesterday} />
+        <GameColumn title="Today" games={nhlGames.today} isToday />
+        <GameColumn title="Tomorrow" games={nhlGames.tomorrow} />
+      </div>
     </div>
-  )
+  );
 }
-
 export default NhlPanel
