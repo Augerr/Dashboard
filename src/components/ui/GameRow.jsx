@@ -40,84 +40,85 @@ function GameRow({ game }) {
     hour: "2-digit",
     minute: "2-digit",
   })
-  return (
-    <main
-      className={`relative h-full
-        bg-white/75
-        backdrop-blur-xl
-        border border-white/10
-        rounded-xl
-        text-white
-        grid
-        grid-rows-[1fr_auto]
-        grid-cols-5
-        md:py-4
-        2xl:py-2
-        transition-all duration-300
-        ${isLive ? "animate-pulse shadow-red-500/40" : ""}
-      `}
-      style={{
-        borderLeft: `2px solid ${accentAway}`,
-        borderRight: `2px solid ${accentHome}`,
-        boxShadow: `0 0 25px ${accentHome}22`,
-      }}
-    >
+  
+ return (
+  <main
+    className={`relative h-full min-h-[72px]
+      bg-white/75 backdrop-blur-xl
+      border border-white/10 rounded-xl
+      text-white
+      grid grid-rows-[1fr_auto] grid-cols-[2fr_auto_2fr]
+      px-2 py-2
+      md:min-h-[86px]
+      xl:min-h-[96px]
+      2xl:min-h-[120px]
+      transition-all duration-300
+      ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}
+    `}
+    style={{
+      borderLeft: `2px solid ${accentAway}`,
+      borderRight: `2px solid ${accentHome}`,
+      boxShadow: `0 0 25px ${accentHome}22`,
+    }}
+  >
+    {/* SCORE GRID */}
+    <section className="col-span-3 grid grid-cols-subgrid items-center gap-1 md:gap-2">
+      {/* AWAY */}
+      <div className="flex min-w-0 items-center gap-1 md:gap-2">
+        <img
+          src={getLogo(away.abbrev)}
+          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-20 2xl:w-20"
+        />
 
-      {/* SCORE GRID */}
-      <section className="items-center row-start-1 col-span-5 grid grid-cols-subgrid gap-2">
+        <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
+          {away.abbrev}
+        </span>
+      </div>
 
-        {/* AWAY */}
-        <div className="flex items-center col-start-1 col-span-2">
-          <img  
-            src={getLogo(away.abbrev)}
-            className="w-8 h-8 2xl:w-24 2xl:h-24 object-contain"
-          />
-          <span className="text-md 2xl:text-3xl font-bold text-black ">
-            {away.abbrev}
-          </span>
-        </div>
+      {/* SCORE CENTER */}
+      <div className="flex justify-center whitespace-nowrap px-1 text-center text-lg font-bold tracking-tighter text-black md:text-2xl xl:text-3xl 2xl:text-4xl">
+        {awayScore} - {homeScore}
+      </div>
 
-        {/* SCORE CENTER */}
-        <div className="col-start-3 col-span-1 flex justify-center 
-          text-center text-lg 2xl:text-4xl font-bold tracking-tighter text-black whitespace-nowrap">
-          {awayScore} - {homeScore}
-        </div>
+      {/* HOME */}
+      <div className="flex min-w-0 items-center justify-end gap-1 md:gap-2">
+        <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
+          {home.abbrev}
+        </span>
 
-        {/* HOME */}
-        <div className="flex col-start-4 col-span-2 justify-end items-center row-start-1">
-          <span className="text-md 2xl:text-3xl font-bold text-black">
-            {home.abbrev}
-          </span>
-          <img 
-            src={getLogo(home.abbrev)}
-            className="w-8 h-8 2xl:w-24 2xl:h-24 object-contain items-end"
-          />
-        </div>
+        <img
+          src={getLogo(home.abbrev)}
+          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-20 2xl:w-20"
+        />
+      </div>
+    </section>
 
-      </section>
+    {/* FOOTER */}
+    <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 px-1 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg">
+      <div className="min-w-0 whitespace-nowrap">
+        {isLive ? (
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse md:h-3 md:w-3"></span>
+            <span className="text-red-600">{period}</span>
+          </div>
+        ) : isFinal ? (
+          "Final"
+        ) : (
+          time
+        )}
+      </div>
 
-      {/* FOOTER */}
-      <section className="row-start-2 col-span-5 flex items-center justify-between px-2 text-sm 2xl:text-lg font-bold text-black/90">
-
-        <div className="ml-2">
-          {isLive ? (
-              <div className="flex items-center gap-1">
-                <span className="w-3 h-3 bg-red-600 rounded-full animate-pulse"></span>
-                <span className="text-red-600">{period}</span>
-              </div>
-            ) : isFinal ? "Final" : time
-          }
-        </div>
-
-        {
-          <span className="mr-2 tracking-tighter">
-            {bottomSeedWins > topSeedWins ? bottomSeed + " " : topSeedWins > bottomSeedWins ? topSeed  + " " : "Tied "} 
-            {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} - {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
-          </span>
-        }
-      </section>
-
-    </main>
-  )
+      <span className="truncate whitespace-nowrap tracking-tighter">
+        {bottomSeedWins > topSeedWins
+          ? bottomSeed + " "
+          : topSeedWins > bottomSeedWins
+          ? topSeed + " "
+          : "Tied "}
+        {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} -{" "}
+        {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
+      </span>
+    </section>
+  </main>
+);
 }
 export default GameRow
