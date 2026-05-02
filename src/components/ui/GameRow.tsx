@@ -99,6 +99,7 @@ function GameRow({ game }: GameRowProps) {
       md:min-h-[86px]
       xl:min-h-[96px]
       2xl:min-h-[120px]
+      2xl:max-h-[120px]
       transition-all duration-300
       ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}
     `}
@@ -109,35 +110,35 @@ function GameRow({ game }: GameRowProps) {
       }}
     >
       {/* SCORE GRID */}
-      <section className="col-span-3 grid grid-cols-subgrid items-center gap-1 md:gap-2">
+      <section className="col-span-3 grid grid-col-3 grid-cols-subgrid items-center gap-1 md:gap-2">
         {/* AWAY */}
-        <div className="flex min-w-0 items-center gap-1 md:gap-2">
+        <div className="flex-2 grid grid-col-3">
           <img
             src={getTeamLogoUrl(away.abbrev)}
             alt={`${away.placeName?.default ?? away.abbrev} logo`}
             loading="lazy"
-            className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-16 2xl:-mb-16"
+            className="2xl:col-3 h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-30 2xl:w-30 2xl:-mt-14 2xl:-mb-16"
           />
         </div>
 
         {/* SCORE CENTER */}
-        <div className="flex justify-center whitespace-nowrap px-1 text-center text-lg font-bold tracking-tighter text-black md:text-2xl xl:text-3xl 2xl:text-4xl">
+        <div className="flex-1 col-2 whitespace-nowrap px-1 text-center text-lg font-bold tracking-tighter text-black md:text-2xl xl:text-3xl 2xl:text-4xl">
           {awayScore} - {homeScore}
         </div>
 
         {/* HOME */}
-        <div className="flex min-w-0 items-center justify-end gap-1 md:gap-2">
+        <div className="flex-2 grid grid-col-3">
           <img
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-16 2xl:-mb-16"
+            className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-14 2xl:-mb-16"
           />
         </div>
       </section>
 
       {/* FOOTER */}
-      <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 px-1 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-xl">
+      <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg">
         <div className="min-w-0 whitespace-nowrap">
           {isLive ? (
             <div className="flex items-center gap-1">

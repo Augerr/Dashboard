@@ -5,9 +5,7 @@ function WatchlistWidget() {
 
   return (
     <div className="
-      col-span-2 
-      2xl:col-span-3 
-      row-span-2 
+      xl:col-span-2 
       rounded-2xl 
       bg-white/10 
       p-4 

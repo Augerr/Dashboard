@@ -57,8 +57,13 @@ export type MarketQuote = {
 
 export type MarketNewsArticle = {
   id: string | number;
-  url: string;
-  image?: string;
-  headline: string;
-  source?: string;
+  title: string;
+  link: string;
+  thumbnail?: string;
+  source?: {
+    name?: string;
+    icon?: string;
+  };
+  date?: string;
+  isoDate?: string;
 };

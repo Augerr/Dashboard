@@ -7,8 +7,8 @@ function CryptoListWidget() {
   ];
 
   return (
-    <div className="col-span-2 row-span-2 rounded-2xl bg-black/20 p-4 text-white shadow-lg">
-      <div className="grid grid-cols-2 gap-3">
+    <div className="xl:col-span-1 rounded-2xl bg-black/20 p-4 text-white shadow-lg">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
         {symbols.map((crypto) => (
           <CryptoWidget key={crypto.symbol} symbol={crypto.symbol} label={crypto.label} />
         ))}

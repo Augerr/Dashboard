@@ -10,17 +10,16 @@ function MarketDashboard() {
 
       <section className="
         grid 
-        grid-cols-2 
-        xl:grid-cols-4 
-        2xl:grid-cols-6 
+        grid-cols-1 
+        xl:grid-cols-3 
         gap-3 
         auto-rows-[minmax(150px,auto)]
       ">
         <WatchlistWidget />
 
-        <MarketNewsWidget />
+        <CryptoListWidget />
 
-        <CryptoListWidget />    
+        <MarketNewsWidget />
       </section>
     </main>
   );
