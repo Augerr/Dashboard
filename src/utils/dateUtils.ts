@@ -1,14 +1,17 @@
-export const isSameDay = (a, b) => {
-  const sameDay = 
+import type { CalendarEvent } from "../types/app"
+
+export const isSameDay = (a?: Date | null, b?: Date | null): boolean => {
+  const sameDay = Boolean(
     a &&
     b &&
     a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
+  )
   return sameDay
 }
 
-export const isPastDay = (date) => {
+export const isPastDay = (date?: Date | null): boolean => {
   if (!date) return false;
 
   const todayStart = new Date();
@@ -20,7 +23,10 @@ export const isPastDay = (date) => {
   return dayStart < todayStart;
 };
 
-export const getEventsForDay = (events, day) => {
+export const getEventsForDay = (
+  events: CalendarEvent[],
+  day?: Date | null,
+): CalendarEvent[] => {
   if (!day) return []
 
   return events.filter((event) => {

@@ -1,4 +1,4 @@
-export const getWeatherTheme = (condition) => {
+export const getWeatherTheme = (condition: string): string => {
   switch (condition) {
     case "Clear":
       return "from-blue-400 via-sky-500 to-indigo-600"

@@ -1,5 +1,14 @@
-export const groupToDaily = (forecast) => {
-  const days = {}
+import type { DailyForecast, ForecastResponse } from "../types/app"
+
+type DailyAccumulator = {
+  date: Date;
+  icon: string;
+  temps: number[];
+  weather: DailyForecast["weather"];
+};
+
+export const groupToDaily = (forecast: ForecastResponse): DailyForecast[] => {
+  const days: Record<number, DailyAccumulator> = {}
 
   for (const dayForecast of forecast.list) {
     const date = new Date(dayForecast.dt * 1000)
@@ -23,7 +32,7 @@ export const groupToDaily = (forecast) => {
     days[dayOfMonth].temps.push(dayForecast.main.temp_min)
     days[dayOfMonth].temps.push(dayForecast.main.temp_max)
   }
-  const newWeek = Object.values(days).map((value) => ({
+  const newWeek = Object.values(days).map((value): DailyForecast => ({
     date: value.date,
     icon: value.icon,
     min: Math.min(...value.temps),

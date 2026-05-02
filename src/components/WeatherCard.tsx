@@ -1,7 +1,13 @@
 import ForecastStrip from "./ForecastStrip"
 import { useEffect, useState } from "react";
+import type { CurrentWeather, DailyForecast } from "../types/app";
 
-function WeatherCard({weather, daily}) {
+type WeatherCardProps = {
+  weather: CurrentWeather | null;
+  daily: DailyForecast[];
+};
+
+function WeatherCard({weather, daily}: WeatherCardProps) {
   const [now, setNow] = useState(new Date());
   
   useEffect(() => {
@@ -15,7 +21,7 @@ function WeatherCard({weather, daily}) {
   if (!weather) return <div className="text-white">Loading...</div>
 
   const temp = Math.round(weather.main.temp)
-  const condition = weather.weather[0].main
+  const condition = weather.weather[0]?.main ?? ""
 
   return (
     <div className="animate-fade-in flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-4 text-white shadow-2xl backdrop-blur-2xl">
@@ -29,7 +35,7 @@ function WeatherCard({weather, daily}) {
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <img
           className="h-20 w-20 mb-2" 
-          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+          src={`https://openweathermap.org/img/wn/${weather.weather[0]?.icon}@2x.png`}
           alt=""
         />
 

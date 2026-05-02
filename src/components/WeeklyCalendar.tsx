@@ -1,7 +1,13 @@
 import DayWeatherHeader from "./ui/DayWeatherHeader"
 import {isPastDay} from "../utils/dateUtils"
+import type { CalendarEvent, DailyForecast } from "../types/app"
 
-function WeeklyCalendar({ events = [], dailyForecast }) {
+type WeeklyCalendarProps = {
+  events?: CalendarEvent[];
+  dailyForecast?: DailyForecast[];
+};
+
+function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
   const forecasts = dailyForecast ?? [];
   const today = new Date()
   const daysToShow = 7
@@ -24,29 +30,29 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
     (_, i) => startHour + i
   )
 
-  const isSameDay = (a, b) =>
+  const isSameDay = (a: Date, b: Date): boolean =>
     a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
 
-  const isWeekend = (date) => {
+  const isWeekend = (date: Date): boolean => {
     const day = date.getDay()
     return day === 0 || day === 6 // Sunday (0) or Saturday (6)
   }
-  const formatHour = (hour) => {
+  const formatHour = (hour: number): string => {
     if (hour === 0) return "12 AM"
     if (hour === 12) return "12 PM"
     return hour > 12 ? `${hour - 12} PM` : `${hour} AM`
   }
 
-  const getEventsForDay = (day) => {
+  const getEventsForDay = (day: Date): CalendarEvent[] => {
     return events.filter((event) => {
       const start = new Date(event.start)
       return isSameDay(start, day)
     })
   }
 
-  const getEventStyle = (event) => {
+  const getEventStyle = (event: CalendarEvent): { top: string; height: string } => {
     const start = new Date(event.start)
     const end = event.end ? new Date(event.end) : new Date(start.getTime() + 60 * 60 * 1000)
 
@@ -62,7 +68,7 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
     }
   }
 
-  const getCurrentTimePosition = () => {
+  const getCurrentTimePosition = (): number | null => {
     const now = new Date()
     const currentDecimal = now.getHours() + now.getMinutes() / 60
 
@@ -119,6 +125,7 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
           {days.map((day) => {
             const dayEvents = getEventsForDay(day);
             const isToday = isSameDay(day, today);
+            const currentTimePosition = getCurrentTimePosition();
 
             return (
               <div
@@ -148,10 +155,10 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
                 ))}
 
                 {/* Current time line */}
-                {isToday && getCurrentTimePosition() !== null && (
+                {isToday && currentTimePosition !== null && (
                   <div
                     className="absolute left-0 right-0 z-20 flex items-center"
-                    style={{ top: `${getCurrentTimePosition()}px` }}
+                    style={{ top: `${currentTimePosition}px` }}
                   >
                     <div className="h-2 w-2 rounded-full bg-red-400 shadow-lg shadow-red-500/50" />
                     <div className="h-[2px] flex-1 bg-red-400 shadow-lg shadow-red-500/40" />

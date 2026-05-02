@@ -1,4 +1,10 @@
-function AppLayout({ children }) {
+import type { ReactNode } from "react"
+
+type AppLayoutProps = {
+  children: ReactNode;
+};
+
+function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#020617] to-black text-white">
 

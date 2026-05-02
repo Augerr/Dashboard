@@ -2,8 +2,15 @@ import { useCallback, useState } from "react"
 import { getNhlGames } from "../services/nhl"
 import GameRow from "./ui/GameRow"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
+import type { NHLGame, NHLGamesByDay } from "../types/nhl"
 
-function GameColumn({ title, games = [], isToday = false }) {
+type GameColumnProps = {
+  title: string;
+  games?: NHLGame[];
+  isToday?: boolean;
+};
+
+function GameColumn({ title, games = [], isToday = false }: GameColumnProps) {
   const visibleGames = games.slice(0, 3);
 
   return (
@@ -29,7 +36,7 @@ function GameColumn({ title, games = [], isToday = false }) {
 }
 
 function NhlPanel() {
-  const [nhlGames, setNhlGames] = useState(null);
+  const [nhlGames, setNhlGames] = useState<NHLGamesByDay | null>(null);
 
   const loadNhlGames = useCallback(async () => {
     try {

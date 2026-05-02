@@ -3,8 +3,10 @@ import Dashboard from "./pages/Dashboard"
 import MarketDashboard from "./pages/MarketDashboard";
 import { useState, useEffect } from "react"
 
+type Page = "dashboard" | "market";
+
 function App() {
-  const [page, setPage] = useState("dashboard");
+  const [page, setPage] = useState<Page>("dashboard");
 
   useEffect(() => {
     const timers = [500, 1500, 3000].map((delay) =>
@@ -18,8 +20,8 @@ function App() {
 
   // ✅ Keyboard navigation (global)
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "ArrowRight") setPage("second");
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") setPage("market");
       if (e.key === "ArrowLeft") setPage("dashboard");
     };
 

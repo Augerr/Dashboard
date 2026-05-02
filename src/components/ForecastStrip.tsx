@@ -1,4 +1,10 @@
-function ForecastStrip({ daily }) {
+import type { DailyForecast } from "../types/app"
+
+type ForecastStripProps = {
+  daily: DailyForecast[];
+};
+
+function ForecastStrip({ daily }: ForecastStripProps) {
   if (!daily) return null
   return (
     <div className="flex w-full gap-2 overflow-x-auto">

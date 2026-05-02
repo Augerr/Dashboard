@@ -1,4 +1,11 @@
-function DayWeatherHeader({ day, forecast }) {
+import type { DailyForecast } from "../../types/app"
+
+type DayWeatherHeaderProps = {
+  day: Date;
+  forecast?: DailyForecast;
+};
+
+function DayWeatherHeader({ day, forecast }: DayWeatherHeaderProps) {
   
   const icon = forecast?.icon;
   const min = forecast?.min

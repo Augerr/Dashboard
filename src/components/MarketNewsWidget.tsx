@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { fetchMarketNews } from "../services/market";
+import type { MarketNewsArticle } from "../types/app";
 
 function MarketNewsWidget() {
-  const [news, setNews] = useState([]);
-  const [error, setError] = useState(null);
+  const [news, setNews] = useState<MarketNewsArticle[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const loadNews = useCallback(async () => {
     try {
@@ -15,7 +16,7 @@ function MarketNewsWidget() {
       setNews(data || []);
     } catch (err) {
       console.error("Market news error:", err);
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "Unknown error");
     }
   }, [])
 

@@ -1,9 +1,17 @@
 import { useState } from "react";
 import WeeklyCalendar from "./WeeklyCalendar";
 import MonthlyCalendar from "./MonthlyCalendar";
+import type { CalendarEvent, DailyForecast } from "../types/app";
 
-function CalendarPanel({ events, daily }) {
-  const [view, setView] = useState("weekly");
+type CalendarPanelProps = {
+  events: CalendarEvent[];
+  daily: DailyForecast[];
+};
+
+type CalendarView = "weekly" | "monthly";
+
+function CalendarPanel({ events, daily }: CalendarPanelProps) {
+  const [view, setView] = useState<CalendarView>("weekly");
 
   return (
     <div className="animate-fade-in flex h-full w-full flex-col text-white">

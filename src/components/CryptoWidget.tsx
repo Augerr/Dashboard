@@ -1,8 +1,14 @@
 import { useCallback, useState } from "react";
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { fetchCrypto } from "../services/market";
+import type { MarketNumber, MarketQuote } from "../types/app";
 
-function formatMoney(value) {
+type CryptoWidgetProps = {
+  symbol?: string;
+  label?: string;
+};
+
+function formatMoney(value: MarketNumber): string {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "--";
   }
@@ -13,7 +19,7 @@ function formatMoney(value) {
   })}`;
 }
 
-function formatPercent(value) {
+function formatPercent(value: MarketNumber): string {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "--";
   }
@@ -21,9 +27,9 @@ function formatPercent(value) {
   return `${Number(value).toFixed(2)}%`;
 }
 
-function CryptoWidget({ symbol = "BTCUSDT", label = "Bitcoin" }) {
-  const [crypto, setCrypto] = useState(null);
-  const [error, setError] = useState(null);
+function CryptoWidget({ symbol = "BTCUSDT", label = "Bitcoin" }: CryptoWidgetProps) {
+  const [crypto, setCrypto] = useState<MarketQuote | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const loadCrypto = useCallback(async () => {
     try {
@@ -31,10 +37,10 @@ function CryptoWidget({ symbol = "BTCUSDT", label = "Bitcoin" }) {
 
       const data = await fetchCrypto(symbol);
 
-      setCrypto(data || []);
+      setCrypto(data);
     } catch (err) {
       console.error("Crypto fetch error:", err);
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "Unknown error");
     }
   }, [symbol])
 

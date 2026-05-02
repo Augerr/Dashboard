@@ -9,11 +9,12 @@ import WeatherCard from "../components/WeatherCard"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { useCallback, useEffect, useState } from "react"
 import { weatherTheme } from "../utils/weatherTheme"
+import type { CalendarEvent, CurrentWeather, DailyForecast } from "../types/app"
 
 function Dashboard() {
-  const [current, setCurrent] = useState(null)
-  const [daily, setDaily] = useState([])
-  const [calendarEvents, setCalendarEvents] = useState([])
+  const [current, setCurrent] = useState<CurrentWeather | null>(null)
+  const [daily, setDaily] = useState<DailyForecast[]>([])
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([])
 
   const loadCalendar = useCallback(async () => {
     try{
@@ -52,11 +53,11 @@ function Dashboard() {
     return <div className="h-screen bg-black" />
   }
 
-  const condition = current.weather[0].main
-  const theme = weatherTheme[condition]
+  const condition = current.weather[0]?.main ?? "default"
+  const theme = weatherTheme[condition] ?? weatherTheme.default
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${theme} animated-bg p-4`}>
+    <div className={`min-h-screen bg-gradient-to-br ${theme.bg} animated-bg p-4`}>
       
       <div className="mx-auto grid h-full gap-4 grid-cols-6 grid-rows-[auto_auto_auto] portrait:grid-rows-3">
 

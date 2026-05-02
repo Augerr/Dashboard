@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export function useAutoRefresh(callback, interval = 60000) {
+export function useAutoRefresh(callback: () => void | Promise<void>, interval = 60000) {
   useEffect(() => {
     callback() // run immediately
 

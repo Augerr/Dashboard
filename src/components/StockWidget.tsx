@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchStock } from "../services/market"
+import type { MarketNumber, MarketQuote } from "../types/app";
 
-function formatMoney(value) {
+type StockWidgetProps = {
+  symbol: string;
+};
+
+function formatMoney(value: MarketNumber): string {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "--";
   }
@@ -9,7 +14,7 @@ function formatMoney(value) {
   return `$${Number(value).toFixed(2)}`;
 }
 
-function formatPercent(value) {
+function formatPercent(value: MarketNumber): string {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return "--";
   }
@@ -17,9 +22,9 @@ function formatPercent(value) {
   return `${Number(value).toFixed(2)}%`;
 }
 
-function StockWidget({ symbol }) {
-  const [stock, setStock] = useState(null);
-  const [error, setError] = useState(null);
+function StockWidget({ symbol }: StockWidgetProps) {
+  const [stock, setStock] = useState<MarketQuote | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadStock() {
@@ -35,7 +40,7 @@ function StockWidget({ symbol }) {
         setStock(stock);
       } catch (err) {
         console.error("Stock widget error:", err);
-        setError(err.message);
+        setError(err instanceof Error ? err.message : "Unknown error");
       }
     }
 

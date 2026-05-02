@@ -1,6 +1,11 @@
 import {getEventsForDay, isPastDay, isSameDay} from "../utils/dateUtils"
+import type { CalendarEvent } from "../types/app"
 
-function MonthlyCalendar({ events = [] }) {
+type MonthlyCalendarProps = {
+  events?: CalendarEvent[];
+};
+
+function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
   console.log(events)
   const today = new Date()
   const year = today.getFullYear()
@@ -12,7 +17,7 @@ function MonthlyCalendar({ events = [] }) {
   const startDay = firstDay.getDay()
   const daysInMonth = lastDay.getDate()
 
-  const cells = []
+  const cells: Array<Date | null> = []
 
   for (let i = 0; i < startDay; i++) cells.push(null)
   for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(year, month, d))

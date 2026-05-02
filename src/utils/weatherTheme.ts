@@ -1,4 +1,9 @@
-export const weatherTheme = {
+export type WeatherTheme = {
+  bg: string;
+  glow: string;
+};
+
+export const weatherTheme: Record<string, WeatherTheme> = {
   Clear: {
     bg: "from-sky-400 via-blue-500 to-indigo-900",
     glow: "rgba(59,130,246,0.4)",

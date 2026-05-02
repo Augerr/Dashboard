@@ -1,4 +1,10 @@
-function Panel({ children }) {
+import type { ReactNode } from "react"
+
+type PanelProps = {
+  children: ReactNode;
+};
+
+function Panel({ children }: PanelProps) {
   return (
     <div className="
       h-full w-full rounded-3xl bg-white/10 p-4 shadow-2xl
