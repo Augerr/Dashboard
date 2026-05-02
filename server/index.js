@@ -36,6 +36,7 @@ const formatDateInTimeZone = (date, timeZone = TIME_ZONE) => {
 const getDateKey = (offsetDays = 0) => {
   const now = new Date()
 
+
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: TIME_ZONE,
     year: "numeric",
@@ -106,15 +107,16 @@ app.get("/api/calendar", async (req, res) => {
     })
 
     const now = new Date()
-    const end = new Date()
-    end.setDate(now.getDate() + 7)
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1, 0, 0, 0 );
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
+
     const result = await calendar.events.list({
       calendarId: process.env.GOOGLE_CALENDAR_ID,
-      timeMin: now.toISOString(),
-      timeMax: end.toISOString(),
+      timeMin: startOfMonth.toISOString(),
+      timeMax: endOfMonth.toISOString(),
       singleEvents: true,
       orderBy: "startTime",
-      maxResults: 10,
+      maxResults: 250,
     })
 
     const events = result.data.items.map((event) => ({

@@ -25,7 +25,7 @@ return (
         <p className="text-base font-semibold leading-tight">
           {day.toLocaleDateString([], { weekday: "short" })}
         </p>
-        <p className="text-xs text-white/60 leading-tight">
+        <p className="text-xs fonnt-bold text-white/60 leading-tight">
           {day.toLocaleDateString([], { month: "short", day: "numeric" })}
         </p>
 

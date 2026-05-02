@@ -1,4 +1,5 @@
 import DayWeatherHeader from "./ui/DayWeatherHeader"
+import {isPastDay} from "../utils/dateUtils"
 
 function WeeklyCalendar({ events = [], dailyForecast }) {
   const forecasts = dailyForecast ?? [];
@@ -8,10 +9,13 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
   const endHour = 20
   const hourHeight = 48
 
+  const startOfWeek = new Date(today)
+  startOfWeek.setDate(today.getDate() - today.getDay()) // Sunday
+  startOfWeek.setHours(0, 0, 0, 0)
+
   const days = Array.from({ length: daysToShow }, (_, i) => {
-    const d = new Date()
-    d.setDate(today.getDate() + i)
-    d.setHours(0, 0, 0, 0)
+    const d = new Date(startOfWeek)
+    d.setDate(startOfWeek.getDate() + i)
     return d
   })
 
@@ -129,7 +133,10 @@ function WeeklyCalendar({ events = [], dailyForecast }) {
                       : "border-white/10 bg-black/20"
                   }
                 `}
-                style={{ height: `${hours.length * hourHeight}px` }}
+                style={{ height: `${hours.length * hourHeight}px`,
+                  opacity: isPastDay(day) ? 0.45 : 1,
+                  filter: isPastDay(day) ? "grayscale(1)" : "none",
+                }}
               >
                 {/* Hour lines */}
                 {hours.map((hour) => (

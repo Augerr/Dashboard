@@ -8,10 +8,6 @@ function CalendarPanel({ events, daily }) {
   return (
     <div className="animate-fade-in flex h-full w-full flex-col text-white">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">
-          {view === "weekly" ? "Weekly Schedule" : "Monthly Calendar"}
-        </h2>
-
         <div className="flex rounded-xl bg-white/10 p-1 text-sm">
           <button
             onClick={() => setView("weekly")}

@@ -19,7 +19,6 @@ function Dashboard() {
   const loadCalendar = useCallback(async () => {
     try{
       const data = await fetchCalendar()
-      console.log("load calendar")
       setCalendarEvents(data)
       
     } catch (err) {
