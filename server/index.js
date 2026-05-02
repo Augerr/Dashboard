@@ -61,6 +61,10 @@ app.get("/", (req, res) => {
 });
 const PORT = 3001
 
+app.get("/api/health", (req, res) => {
+  res.json({ ok: true });
+});
+
 app.get("/api/nhl", async (req, res) => {
   try {
     const BASE_URL = "https://api-web.nhle.com/v1/schedule"
