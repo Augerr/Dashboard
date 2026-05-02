@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { fetchCrypto } from "../services/market";
 
@@ -26,26 +26,19 @@ function CryptoWidget({ symbol = "BTCUSDT", label = "Bitcoin" }) {
   const [error, setError] = useState(null);
 
   const loadCrypto = useCallback(async () => {
-        try {
-          setError(null);
-  
-          const data = await fetchCrypto(symbol);
-  
-          setCrypto(data || []);
-        } catch (err) {
-          console.error("Market news error:", err);
-          setError(err.message);
-        }
-      }, [])
+    try {
+      setError(null);
 
-  useEffect(() => {
-    loadCrypto();
+      const data = await fetchCrypto(symbol);
 
-    const interval = setInterval(loadCrypto, 30 * 1000);
-    return () => clearInterval(interval);
-  }, [loadCrypto, symbol]);
+      setCrypto(data || []);
+    } catch (err) {
+      console.error("Crypto fetch error:", err);
+      setError(err.message);
+    }
+  }, [symbol])
 
-   useAutoRefresh(loadCrypto, 1800000)
+  useAutoRefresh(loadCrypto, 30 * 1000)
 
   if (error) {
     return (

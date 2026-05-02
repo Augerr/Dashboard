@@ -1,15 +1,15 @@
 import { teamColorMap } from "../../utils/nhlColors"
 import { teamAbbrevMap } from "../../utils/nhlTeams"
 
+const DEFAULT_TEAM_COLOR = "#ffffff"
+const DEFAULT_GAME_TIME = "TBD"
+
 const getKeyByValue = (object, value) => {
-  return Object.keys(object).find(key => object[key] === value);
+  return Object.keys(object).find((key) => object[key] === value)
 }
 
 const getTeamColor = (team) => {
-  return (
-    teamColorMap[getKeyByValue(teamAbbrevMap, team)] ||
-    "#ffffff"
-  )
+  return teamColorMap[getKeyByValue(teamAbbrevMap, team)] || DEFAULT_TEAM_COLOR
 }
 
 const getLogo = (teamName) => {
@@ -17,9 +17,41 @@ const getLogo = (teamName) => {
 }
 
 const getPeriod = (pNum) => {
-  if (pNum > 3)
-    pNum -= 3
-  return pNum === 1 ? "1st" : pNum === 2 ? "2nd" : "3rd"
+  const normalizedPeriod = pNum > 3 ? pNum - 3 : pNum
+  return normalizedPeriod === 1 ? "1st" : normalizedPeriod === 2 ? "2nd" : "3rd"
+}
+
+const formatGameTime = (startTimeUTC) => {
+  if (!startTimeUTC) return DEFAULT_GAME_TIME
+
+  const date = new Date(startTimeUTC)
+  if (Number.isNaN(date.getTime())) return DEFAULT_GAME_TIME
+
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+}
+
+const getSeriesSummary = (seriesStatus = {}) => {
+  const {
+    bottomSeedTeamAbbrev,
+    topSeedTeamAbbrev,
+    bottomSeedWins = 0,
+    topSeedWins = 0,
+  } = seriesStatus
+
+  if (!bottomSeedTeamAbbrev || !topSeedTeamAbbrev) return null
+
+  if (bottomSeedWins > topSeedWins) {
+    return `${bottomSeedTeamAbbrev} ${bottomSeedWins} - ${topSeedWins}`
+  }
+
+  if (topSeedWins > bottomSeedWins) {
+    return `${topSeedTeamAbbrev} ${topSeedWins} - ${bottomSeedWins}`
+  }
+
+  return `Tied ${bottomSeedWins} - ${topSeedWins}`
 }
 
 function GameRow({ game }) {
@@ -29,20 +61,16 @@ function GameRow({ game }) {
   const accentAway = getTeamColor(away.abbrev)
   const isLive = game.gameState === "LIVE" || game.gameState === "CRIT"
   const isFinal = game.gameState === "OFF"
-  const period = `${getPeriod(game.periodDescriptor.number)} ${game.periodDescriptor.periodType}`
+  const periodNumber = game.periodDescriptor?.number ?? 1
+  const periodType = game.periodDescriptor?.periodType ?? ""
+  const period = `${getPeriod(periodNumber)} ${periodType}`.trim()
   const homeScore = Number(home.score ?? 0)
   const awayScore = Number(away.score ?? 0)
-  const bottomSeed = game.seriesStatus.bottomSeedTeamAbbrev
-  const topSeed = game.seriesStatus.topSeedTeamAbbrev
-  const bottomSeedWins = game.seriesStatus.bottomSeedWins
-  const topSeedWins = game.seriesStatus.topSeedWins
-  const time = new Date(game.startTimeUTC).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })
+  const time = formatGameTime(game.startTimeUTC)
+  const seriesSummary = getSeriesSummary(game.seriesStatus)
 
  return (
-  <main
+  <article
     className={`relative h-full min-h-[72px]
       bg-white/75 backdrop-blur-xl
       border border-white/10 rounded-xl
@@ -67,12 +95,14 @@ function GameRow({ game }) {
       <div className="flex min-w-0 items-center gap-1 md:gap-2">
         <img
           src={getLogo(away.abbrev)}
-          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-64 2xl:w-64 2xl:-mt-16 2xl:-mb-16"
+          alt={`${away.placeName?.default ?? away.abbrev} logo`}
+          loading="lazy"
+          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-16 2xl:-mb-16"
         />
 
-        <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
+        {/* <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
           {away.abbrev}
-        </span>
+        </span> */}
       </div>
 
       {/* SCORE CENTER */}
@@ -88,7 +118,9 @@ function GameRow({ game }) {
 
         <img
           src={getLogo(home.abbrev)}
-          className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-48 2xl:w-48 2xl:-mt-16 2xl:-mb-16"
+          alt={`${home.placeName?.default ?? home.abbrev} logo`}
+          loading="lazy"
+          className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-16 2xl:-mb-16"
         />
       </div>
     </section>
@@ -108,17 +140,13 @@ function GameRow({ game }) {
         )}
       </div>
 
-      <span className="whitespace-nowrap tracking-tighter">
-        {bottomSeedWins > topSeedWins
-          ? bottomSeed + " "
-          : topSeedWins > bottomSeedWins
-          ? topSeed + " "
-          : "Tied "}
-        {bottomSeedWins > topSeedWins ? bottomSeedWins : topSeedWins} -{" "}
-        {bottomSeedWins > topSeedWins ? topSeedWins : bottomSeedWins}
-      </span>
+      {seriesSummary && (
+        <span className="whitespace-nowrap tracking-tighter">
+          {seriesSummary}
+        </span>
+      )}
     </section>
-  </main>
+  </article>
 );
 }
 export default GameRow

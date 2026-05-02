@@ -7,8 +7,7 @@ import NhlPanel from "../components/NhlPanel"
 import Panel from "../components/ui/Panel"
 import WeatherCard from "../components/WeatherCard"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
-import { useCallback } from "react"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { weatherTheme } from "../utils/weatherTheme"
 
 function Dashboard() {
@@ -38,13 +37,16 @@ function Dashboard() {
     }
   }, [])
 
-  useEffect(() => {
-    loadWeather()
-    loadCalendar()
-  }, [loadWeather, loadCalendar])
-
   useAutoRefresh(loadWeather, 1800000)
   useAutoRefresh(loadCalendar, 1200000)
+
+  useEffect(() => {
+    const reloadTimer = setInterval(() => {
+      window.location.reload()
+    }, 3000000)
+
+    return () => clearInterval(reloadTimer)
+  }, [])
 
   if (!current) {
     return <div className="h-screen bg-black" />
@@ -52,10 +54,6 @@ function Dashboard() {
 
   const condition = current.weather[0].main
   const theme = weatherTheme[condition]
-
-  setInterval(() => {
-    window.location.reload()
-  }, 3000000)
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${theme} animated-bg p-4`}>

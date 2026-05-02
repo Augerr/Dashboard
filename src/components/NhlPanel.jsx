@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { getNhlGames } from "../services/nhl"
 import GameRow from "./ui/GameRow"
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
-import { useCallback } from "react"
 
 function GameColumn({ title, games = [], isToday = false }) {
   const visibleGames = games.slice(0, 3);
@@ -40,10 +39,6 @@ function NhlPanel() {
       console.error("NHL games fetching error:", err);
     }
   }, []);
-
-  useEffect(() => {
-    loadNhlGames();
-  }, [loadNhlGames]);
 
   useAutoRefresh(loadNhlGames, 600000);
 
