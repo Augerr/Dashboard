@@ -6,6 +6,16 @@ import { useState, useEffect } from "react"
 function App() {
   const [page, setPage] = useState("dashboard");
 
+  useEffect(() => {
+    const timers = [500, 1500, 3000].map((delay) =>
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize"));
+      }, delay)
+    );
+
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
   // ✅ Keyboard navigation (global)
   useEffect(() => {
     const onKeyDown = (e) => {
