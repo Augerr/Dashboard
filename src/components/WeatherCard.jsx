@@ -12,11 +12,6 @@ function WeatherCard({weather, daily}) {
     return () => clearInterval(interval);
   }, []);
 
-  const time = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
   if (!weather) return <div className="text-white">Loading...</div>
 
   const temp = Math.round(weather.main.temp)

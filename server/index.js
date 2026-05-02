@@ -179,8 +179,6 @@ app.get("/api/weather/forecast", async (req, res) => {
 
 app.get("/api/market-news", async (req, res) => {
   try {
-    const category = req.query.category || "general";
-
     const url = `https://finnhub.io/api/v1/news?token=${process.env.FINNHUB_API_KEY}`;
 
     const response = await fetch(url);

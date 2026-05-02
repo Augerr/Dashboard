@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useAutoRefresh } from "../hooks/useAutoRefresh"
 import { fetchMarketNews } from "../services/market";
 
@@ -7,26 +7,19 @@ function MarketNewsWidget() {
   const [error, setError] = useState(null);
 
   const loadNews = useCallback(async () => {
-      try {
-        setError(null);
+    try {
+      setError(null);
 
-        const data = await fetchMarketNews();
+      const data = await fetchMarketNews();
 
-        setNews(data || []);
-      } catch (err) {
-        console.error("Market news error:", err);
-        setError(err.message);
-      }
-    }, [])
+      setNews(data || []);
+    } catch (err) {
+      console.error("Market news error:", err);
+      setError(err.message);
+    }
+  }, [])
 
-  useEffect(() => {
-    loadNews();
-
-    const interval = setInterval(loadNews, 10 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, [loadNews]);
-
-  useAutoRefresh(loadNews, 1800000)
+  useAutoRefresh(loadNews, 10 * 60 * 1000)
 
   return (
     <div className="

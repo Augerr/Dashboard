@@ -23,7 +23,7 @@ export const groupToDaily = (forecast) => {
     days[dayOfMonth].temps.push(dayForecast.main.temp_min)
     days[dayOfMonth].temps.push(dayForecast.main.temp_max)
   }
-  const newWeek = Object.entries(days).map(([date, value]) => ({
+  const newWeek = Object.values(days).map((value) => ({
     date: value.date,
     icon: value.icon,
     min: Math.min(...value.temps),
