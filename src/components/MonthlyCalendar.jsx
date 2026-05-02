@@ -53,20 +53,20 @@ function MonthlyCalendar({ events = [] }) {
                 <>
                   <div className="flex justify-between items-center mb-2">
                     <span
-                      className={`
-                        flex items-center justify-center
-                        w-7 h-7 rounded-full text-sm font-semibold
+                      className={`p-4
+                        flex items-center justify-center 
+                        w-6 h-6 rounded-full text-xl font-bold
                         ${isToday ? "bg-blue-500 text-white" : "text-white/70"}
                       `}
                     >
                       {day.getDate()}
                     </span>
 
-                    {dayEvents.length > 0 && (
+                    {/* {dayEvents.length > 0 && (
                       <span className="text-xs text-white/40">
                         {dayEvents.length}
                       </span>
-                    )}
+                    )} */}
                   </div>
                   {/* Events */}
                   <div className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">

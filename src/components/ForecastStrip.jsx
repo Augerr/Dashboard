@@ -2,13 +2,14 @@ function ForecastStrip({ daily }) {
   if (!daily) return null
   return (
     <div className="flex w-full gap-2 overflow-x-auto">
-
-      {daily.slice(0, 5).map((day, i) => (
+      {daily.slice(0, 5).map((day, i) => {
+         const date = day?.date?.toDateString().slice(0,3)
+         return (
           <div
             key={i}
             className="min-w-[70px] xl:min-w-0 xl:flex-1 rounded-xl bg-white/10 p-2 text-center"
           >
-            <p className="text-sm opacity-80">{day.date.toDateString()}</p>
+            <p className="text-sm opacity-80">{date}</p>
 
             <img
               className="mx-auto w-8 h-8"
@@ -24,7 +25,8 @@ function ForecastStrip({ daily }) {
               {Math.round(day.min)}°
             </p>
           </div>
-        )
+          )
+      }
       )}
     </div>
   )

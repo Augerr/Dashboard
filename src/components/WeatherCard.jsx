@@ -25,22 +25,22 @@ function WeatherCard({weather, daily}) {
   return (
     <div className="animate-fade-in flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-4 text-white shadow-2xl backdrop-blur-2xl">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-white/60">Weather</p>
-        <p className="text-sm text-white/60">{time}</p>
+      <div className="flex justify-center">
+        <p className="text-basis font-semibold text-white/80">{now.toString().slice(0, 24)}</p>
+        {/* <p className="text-sm text-white/60">{time}</p> */}
       </div>
 
       {/* Main weather */}
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <img
-          className="h-20 w-20 object-contain drop-shadow-lg"
+          className="h-20 w-20 mb-2" 
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           alt=""
         />
 
-        <p className="text-base font-medium text-white/75">{condition}</p>
+        <p className="text-base font-medium text-white/75 -mt-4">{condition}</p>
 
-        <h1 className="mt-1 text-5xl font-bold tracking-tight">
+        <h1 className="text-5xl font-bold tracking-tight">
           {temp}°
         </h1>
       </div>

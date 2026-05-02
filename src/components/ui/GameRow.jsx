@@ -40,7 +40,7 @@ function GameRow({ game }) {
     hour: "2-digit",
     minute: "2-digit",
   })
-  
+
  return (
   <main
     className={`relative h-full min-h-[72px]
@@ -67,7 +67,7 @@ function GameRow({ game }) {
       <div className="flex min-w-0 items-center gap-1 md:gap-2">
         <img
           src={getLogo(away.abbrev)}
-          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-20 2xl:w-20"
+          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-64 2xl:w-64 2xl:-mt-16 2xl:-mb-16"
         />
 
         <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
@@ -82,19 +82,19 @@ function GameRow({ game }) {
 
       {/* HOME */}
       <div className="flex min-w-0 items-center justify-end gap-1 md:gap-2">
-        <span className="truncate text-sm font-bold text-black md:text-lg xl:text-xl 2xl:text-3xl">
+        {/* <span className="truncate text-sm font-bold text-black xl:text-xl 2xl:text-3xl">
           {home.abbrev}
-        </span>
+        </span> */}
 
         <img
           src={getLogo(home.abbrev)}
-          className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-20 2xl:w-20"
+          className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-48 2xl:w-48 2xl:-mt-16 2xl:-mb-16"
         />
       </div>
     </section>
 
     {/* FOOTER */}
-    <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 px-1 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg">
+    <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 px-1 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-xl">
       <div className="min-w-0 whitespace-nowrap">
         {isLive ? (
           <div className="flex items-center gap-1">
@@ -108,7 +108,7 @@ function GameRow({ game }) {
         )}
       </div>
 
-      <span className="truncate whitespace-nowrap tracking-tighter">
+      <span className="whitespace-nowrap tracking-tighter">
         {bottomSeedWins > topSeedWins
           ? bottomSeed + " "
           : topSeedWins > bottomSeedWins
