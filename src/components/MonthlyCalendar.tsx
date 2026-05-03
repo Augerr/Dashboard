@@ -1,44 +1,48 @@
-import {getEventsForDay, isPastDay, isSameDay} from "../utils/dateUtils"
-import type { CalendarEvent } from "../types/app"
+import { getEventsForDay, isPastDay, isSameDay } from "../utils/dateUtils";
+import type { CalendarEvent } from "../types/app";
 
 type MonthlyCalendarProps = {
   events?: CalendarEvent[];
 };
 
 function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
-  console.log(events)
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = today.getMonth()
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
 
-  const startDay = firstDay.getDay()
-  const daysInMonth = lastDay.getDate()
+  const startDay = firstDay.getDay();
+  const daysInMonth = lastDay.getDate();
 
-  const cells: Array<Date | null> = []
+  const cells: Array<Date | null> = [];
 
-  for (let i = 0; i < startDay; i++) cells.push(null)
-  for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(year, month, d))
+  for (let i = 0; i < startDay; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(year, month, d));
 
   return (
     <div className="animate-fade-in flex flex-col grid h-full min-h-0">
-      
       <div className="grid grid-cols-7 gap-2 text-center ">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div className="text-sm text-white/90 mb-2" key={d}>{d}</div>
+          <div className="text-sm text-white/90 mb-2" key={d}>
+            {d}
+          </div>
         ))}
         <div className="shrink-0">
-          <h2 className="col-1 absolute top-8 left-8 text-white
-              font-serif font-bold text-center text-2xl">May 2026</h2>
+          <h2
+            className="col-1 absolute top-8 left-8 text-white
+              font-serif font-bold text-center text-2xl"
+          >
+            May 2026
+          </h2>
         </div>
       </div>
 
       <div className="grid grid-cols-7 gap-4">
         {cells.map((day, index) => {
-          const dayEvents = getEventsForDay(events, day)
-          const isToday = isSameDay(day, today)
+          const dayEvents = getEventsForDay(events, day);
+          const isToday = isSameDay(day, today);
 
           return (
             <div
@@ -51,7 +55,7 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                 overflow-hidden
                 ${isPastDay(day) ? "opacity-40 grayscale pointer-events-none" : ""}
                 ${day ? "bg-black/20 border-white/10" : "bg-transparent border-transparent"}
-                ${isToday ? "ring-2 ring-blue-400 shadow-lg shadow-blue-500/20" : ""}
+                ${isToday ? "ring-4 ring-green-400 shadow-lg shadow-blue-500/20" : ""}
               `}
             >
               {day && (
@@ -61,23 +65,17 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                       className={`p-4
                         flex items-center justify-center 
                         w-6 h-6 rounded-full text-xl font-bold
-                        ${isToday ? "bg-blue-500 text-white" : "text-white/70"}
+                        ${isToday ? "bg-green-500/90 text-white" : "text-white/70"}
                       `}
                     >
                       {day.getDate()}
                     </span>
-
-                    {/* {dayEvents.length > 0 && (
-                      <span className="text-xs text-white/40">
-                        {dayEvents.length}
-                      </span>
-                    )} */}
                   </div>
                   {/* Events */}
                   <div className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">
                     {dayEvents.map((event) => {
-                      const start = new Date(event.start)
-                      const allDay = !event.start.includes("T")
+                      const start = new Date(event.start);
+                      const allDay = !event.start.includes("T");
 
                       return (
                         <div
@@ -85,8 +83,8 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                           className="
                             truncate 
                             rounded-lg 
-                            bg-blue-500/70 
-                            px-2 
+                            bg-green-500/90 
+                            px-2 font-semibold
                             py-1 
                             text-xs text-white"
                         >
@@ -101,17 +99,17 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
 
                           {event.title}
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 </>
               )}
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default MonthlyCalendar
+export default MonthlyCalendar;

@@ -15,8 +15,8 @@ function CalendarPanel({ events, daily }: CalendarPanelProps) {
 
   return (
     <div className="animate-fade-in flex h-full w-full flex-col text-white">
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex rounded-xl bg-white/10 p-1 text-sm">
+      <div className="flex items-center justify-between">
+        <div className="flex rounded-xl bg-black/30 text-sm">
           <button
             onClick={() => setView("weekly")}
             className={`rounded-lg px-3 py-1 transition ${
