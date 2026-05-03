@@ -18,13 +18,21 @@ describe("dateUtils", () => {
 
   it("filters calendar events for a given day", () => {
     const events: CalendarEvent[] = [
-      { id: 1, title: "Morning", start: new Date(2026, 4, 3, 9).toISOString() },
-      { id: 2, title: "Tomorrow", start: new Date(2026, 4, 4, 9).toISOString() },
+      {
+        id: 1,
+        title: "Morning",
+        start: new Date(2026, 4, 3, 9).toISOString(),
+        color: "",
+      },
+      {
+        id: 2,
+        title: "Tomorrow",
+        start: new Date(2026, 4, 4, 9).toISOString(),
+        color: "",
+      },
     ];
 
-    expect(getEventsForDay(events, new Date(2026, 4, 3))).toEqual([
-      events[0],
-    ]);
+    expect(getEventsForDay(events, new Date(2026, 4, 3))).toEqual([events[0]]);
     expect(getEventsForDay(events, null)).toEqual([]);
   });
 

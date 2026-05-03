@@ -6,7 +6,7 @@ import CalendarPanel from "./CalendarPanel";
 describe("CalendarPanel", () => {
   it("switches between weekly and monthly calendar views", async () => {
     const user = userEvent.setup();
-    render(<CalendarPanel events={[]} daily={[]} />);
+    render(<CalendarPanel events={[]} daily={[]} eventColor="" />);
 
     expect(screen.getByRole("button", { name: "Week" })).toBeInTheDocument();
     expect(screen.getByText("12 PM")).toBeInTheDocument();
