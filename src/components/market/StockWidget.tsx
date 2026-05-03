@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchStock } from "../services/market"
-import type { MarketNumber, MarketQuote } from "../types/app";
+import { fetchStock } from "@/services/market"
+import type { MarketNumber, MarketQuote } from "@/types/app";
 
 type StockWidgetProps = {
   symbol: string;

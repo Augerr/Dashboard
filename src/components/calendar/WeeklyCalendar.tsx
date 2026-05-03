@@ -1,6 +1,6 @@
-import DayWeatherHeader from "./ui/DayWeatherHeader";
-import { isPastDay } from "../utils/dateUtils";
-import type { CalendarEvent, DailyForecast } from "../types/app";
+import DayWeatherHeader from "./DayWeatherHeader";
+import type { CalendarEvent, DailyForecast } from "@/types/app";
+import { isPastDay } from "@/utils/dateUtils";
 
 type WeeklyCalendarProps = {
   events?: CalendarEvent[];
@@ -35,10 +35,6 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate();
 
-  const isWeekend = (date: Date): boolean => {
-    const day = date.getDay();
-    return day === 0 || day === 6; // Sunday (0) or Saturday (6)
-  };
   const formatHour = (hour: number): string => {
     if (hour === 0) return "12 AM";
     if (hour === 12) return "12 PM";
@@ -136,8 +132,8 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
                   relative overflow-hidden rounded-2xl border
                   ${
                     isToday
-                      ? "border-blue-400/40 bg-black/40 shadow-[0_0_30px_rgba(59,130,246,0.18)]"
-                      : "border-white/10 bg-black/20"
+                      ? "border-blue-400/80 bg-black/40 shadow-[0_0_30px_rgba(59,130,246,0.18)]"
+                      : "border-black/10 bg-white/10"
                   }
                 `}
                   style={{

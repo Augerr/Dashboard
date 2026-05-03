@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { NHLGamesByDay } from "../types/nhl"
+import type { NHLGamesByDay } from "@/types/nhl"
 
 const API_BASE = import.meta.env.VITE_API_URL
 

@@ -1,4 +1,4 @@
-import type { CalendarEvent } from "../types/app"
+import type { CalendarEvent } from "@/types/app"
 
 export const isSameDay = (a?: Date | null, b?: Date | null): boolean => {
   const sameDay = Boolean(

@@ -1,4 +1,4 @@
-import type { DailyForecast, ForecastResponse } from "../types/app"
+import type { DailyForecast, ForecastResponse } from "@/types/app"
 
 type DailyAccumulator = {
   date: Date;

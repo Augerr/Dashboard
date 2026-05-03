@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { useAutoRefresh } from "../hooks/useAutoRefresh"
-import { fetchCrypto } from "../services/market";
-import type { MarketNumber, MarketQuote } from "../types/app";
+import { useAutoRefresh } from "@/hooks/useAutoRefresh"
+import { fetchCrypto } from "@/services/market";
+import type { MarketNumber, MarketQuote } from "@/types/app";
 
 type CryptoWidgetProps = {
   symbol?: string;

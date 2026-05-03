@@ -1,7 +1,7 @@
-import AppLayout from "./layout/AppLayout";
-import Dashboard from "./pages/Dashboard";
-import MarketDashboard from "./pages/MarketDashboard";
 import { useState, useEffect } from "react";
+import AppLayout from "@/layout/AppLayout";
+import Dashboard from "@/pages/Dashboard";
+import MarketDashboard from "@/pages/MarketDashboard";
 
 type Page = "dashboard" | "market";
 

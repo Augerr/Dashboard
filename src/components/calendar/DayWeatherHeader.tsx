@@ -1,4 +1,4 @@
-import type { DailyForecast } from "../../types/app";
+import type { DailyForecast } from "@/types/app";
 
 type DayWeatherHeaderProps = {
   day: Date;
@@ -34,11 +34,12 @@ function DayWeatherHeader({ day, forecast }: DayWeatherHeaderProps) {
         </p>
 
         {/* TEMPS CENTERED */}
-        <div className="mt-1 flex w-full justify-center gap-3">
-          <span className="text-sm font-bold text-orange-300">
+        <div className="flex w-full justify-center">
+          <span className="font-bold text-orange-300">
             {max != null ? `${Math.round(max)}°` : "--"}
           </span>
-          <span className="text-sm text-blue-300">
+          <span className="font-semibold mx-1">/</span>
+          <span className="font-bold text-blue-300">
             {min != null ? `${Math.round(min)}°` : ""}
           </span>
         </div>

@@ -1,4 +1,4 @@
-import type { DailyForecast } from "../types/app";
+import type { DailyForecast } from "@/types/app";
 
 type ForecastStripProps = {
   daily: DailyForecast[];

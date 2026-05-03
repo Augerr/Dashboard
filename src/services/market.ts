@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { MarketNewsArticle, MarketQuote } from "../types/app"
+import type { MarketNewsArticle, MarketQuote } from "@/types/app"
 
 const API_BASE = import.meta.env.VITE_API_URL
 

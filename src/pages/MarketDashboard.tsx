@@ -1,6 +1,6 @@
-import MarketNewsWidget from "../components/MarketNewsWidget";
-import WatchlistWidget from "../components/WatchlistWidget";
-import CryptoListWidget from "../components/CryptoListWidget";
+import CryptoListWidget from "@/components/market/CryptoListWidget";
+import MarketNewsWidget from "@/components/market/MarketNewsWidget";
+import WatchlistWidget from "@/components/market/WatchlistWidget";
 
 function MarketDashboard() {
    return (

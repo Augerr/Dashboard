@@ -1,5 +1,5 @@
-import { teamColorMap, teamAbbrevMap } from "../../utils/nhlUtils";
-import type { NHLGame } from "../../types/nhl";
+import type { NHLGame } from "@/types/nhl";
+import { teamColorMap, teamAbbrevMap } from "@/utils/nhlUtils";
 
 type GameRowProps = {
   game: NHLGame;

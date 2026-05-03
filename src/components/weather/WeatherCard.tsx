@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ForecastStrip from "./ForecastStrip";
-import type { CurrentWeather, DailyForecast } from "../types/app";
+import type { CurrentWeather, DailyForecast } from "@/types/app";
 
 type WeatherCardProps = {
   weather: CurrentWeather | null;

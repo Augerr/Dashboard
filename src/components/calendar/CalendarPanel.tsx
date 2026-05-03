@@ -1,7 +1,7 @@
 import { useState } from "react";
 import WeeklyCalendar from "./WeeklyCalendar";
 import MonthlyCalendar from "./MonthlyCalendar";
-import type { CalendarEvent, DailyForecast } from "../types/app";
+import type { CalendarEvent, DailyForecast } from "@/types/app";
 
 type CalendarPanelProps = {
   events: CalendarEvent[];
@@ -15,7 +15,7 @@ function CalendarPanel({ events, daily }: CalendarPanelProps) {
 
   return (
     <div className="animate-fade-in flex h-full w-full flex-col text-white">
-      <div className="flex items-center justify-between">
+      <div className="flex mb-2 ml-2 items-center justify-between">
         <div className="flex rounded-xl bg-black/30 text-sm">
           <button
             onClick={() => setView("weekly")}

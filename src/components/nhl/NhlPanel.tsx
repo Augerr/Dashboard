@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
-import { getNhlGames } from "../services/nhl";
-import GameRow from "./ui/GameRow";
-import { useAutoRefresh } from "../hooks/useAutoRefresh";
-import type { NHLGame, NHLGamesByDay } from "../types/nhl";
-import { retryAsync } from "../utils/retry";
+import GameRow from "./GameRow";
+import { useAutoRefresh } from "@/hooks/useAutoRefresh";
+import { getNhlGames } from "@/services/nhl";
+import type { NHLGame, NHLGamesByDay } from "@/types/nhl";
+import { retryAsync } from "@/utils/retry";
 
 type GameColumnProps = {
   title: string;

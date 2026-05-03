@@ -1,19 +1,19 @@
-import { fetchWeather, fetchForecast } from "../services/weather";
-import { fetchCalendar } from "../services/api";
-import { groupToDaily } from "../utils/groupForecast";
-import CalendarPanel from "../components/CalendarPanel";
-import NhlPanel from "../components/NhlPanel";
-import Panel from "../components/ui/Panel";
-import WeatherCard from "../components/WeatherCard";
-import { retryAsync } from "../utils/retry";
-import { useAutoRefresh } from "../hooks/useAutoRefresh";
 import { useCallback, useEffect, useState } from "react";
-import { weatherTheme } from "../utils/weatherTheme";
+import CalendarPanel from "@/components/calendar/CalendarPanel";
+import NhlPanel from "@/components/nhl/NhlPanel";
+import Panel from "@/components/ui/Panel";
+import WeatherCard from "@/components/weather/WeatherCard";
+import { useAutoRefresh } from "@/hooks/useAutoRefresh";
+import { fetchCalendar } from "@/services/api";
+import { fetchWeather, fetchForecast } from "@/services/weather";
 import type {
   CalendarEvent,
   CurrentWeather,
   DailyForecast,
-} from "../types/app";
+} from "@/types/app";
+import { groupToDaily } from "@/utils/groupForecast";
+import { retryAsync } from "@/utils/retry";
+import { weatherTheme } from "@/utils/weatherTheme";
 
 function Dashboard() {
   const [current, setCurrent] = useState<CurrentWeather | null>(null);

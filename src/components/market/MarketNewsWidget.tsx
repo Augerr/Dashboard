@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { useAutoRefresh } from "../hooks/useAutoRefresh";
-import { fetchMarketNews } from "../services/market";
-import type { MarketNewsArticle } from "../types/app";
+import { useAutoRefresh } from "@/hooks/useAutoRefresh";
+import { fetchMarketNews } from "@/services/market";
+import type { MarketNewsArticle } from "@/types/app";
 
 function MarketNewsWidget() {
   const [news, setNews] = useState<MarketNewsArticle[]>([]);

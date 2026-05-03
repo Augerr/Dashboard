@@ -1,5 +1,5 @@
-import { getEventsForDay, isPastDay, isSameDay } from "../utils/dateUtils";
-import type { CalendarEvent } from "../types/app";
+import type { CalendarEvent } from "@/types/app";
+import { getEventsForDay, isPastDay, isSameDay } from "@/utils/dateUtils";
 
 type MonthlyCalendarProps = {
   events?: CalendarEvent[];
