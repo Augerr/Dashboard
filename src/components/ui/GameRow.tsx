@@ -110,14 +110,14 @@ function GameRow({ game }: GameRowProps) {
       }}
     >
       {/* SCORE GRID */}
-      <section className="col-span-3 grid grid-col-3 grid-cols-subgrid items-center gap-1 md:gap-2">
+      <section className="col-span-3 grid grid-col-3 grid-cols-subgrid items-center gap-1 md:gap-2 mb-2">
         {/* AWAY */}
         <div className="flex-2 grid grid-col-3">
           <img
             src={getTeamLogoUrl(away.abbrev)}
             alt={`${away.placeName?.default ?? away.abbrev} logo`}
             loading="lazy"
-            className="2xl:col-3 h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-30 2xl:w-30 2xl:-mt-14 2xl:-mb-16"
+            className="2xl:col-3 h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-30 2xl:w-30 2xl:-mt-14 2xl:-mb-16 -mr-4 2xl:-mr-8"
           />
         </div>
 
@@ -132,13 +132,13 @@ function GameRow({ game }: GameRowProps) {
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-14 2xl:-mb-16"
+            className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-14 2xl:-mb-16 -ml-4 2xl:-ml-1"
           />
         </div>
       </section>
 
       {/* FOOTER */}
-      <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg">
+      <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg -mb-2">
         <div className="min-w-0 whitespace-nowrap">
           {isLive ? (
             <div className="flex items-center gap-1">
