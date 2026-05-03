@@ -3,9 +3,10 @@ import { getEventsForDay, isPastDay, isSameDay } from "@/utils/dateUtils";
 
 type MonthlyCalendarProps = {
   events?: CalendarEvent[];
+  eventColor: string;
 };
 
-function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
+function MonthlyCalendar({ events = [], eventColor }: MonthlyCalendarProps) {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth();
@@ -54,8 +55,8 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                 p-2 grid-col-7 grid-rows-6 gap-2
                 overflow-hidden
                 ${isPastDay(day) ? "opacity-40 grayscale pointer-events-none" : ""}
-                ${day ? "bg-black/20 border-white/10" : "bg-transparent border-transparent"}
-                ${isToday ? "ring-4 ring-green-400 shadow-lg shadow-blue-500/20" : ""}
+                ${day ? "bg-black/2 border-white/50" : "bg-transparent border-transparent"}
+                ${isToday ? "ring-4 ring-stone/70 shadow-lg shadow-blue-500/20" : ""}
               `}
             >
               {day && (
@@ -65,7 +66,7 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                       className={`p-4
                         flex items-center justify-center 
                         w-6 h-6 rounded-full text-xl font-bold
-                        ${isToday ? "bg-green-500/90 text-white" : "text-white/70"}
+                        ${isToday ? "bg-green-400/90 text-white" : "text-white/70"}
                       `}
                     >
                       {day.getDate()}
@@ -80,13 +81,13 @@ function MonthlyCalendar({ events = [] }: MonthlyCalendarProps) {
                       return (
                         <div
                           key={event.id}
-                          className="
+                          style={{ backgroundColor: eventColor }}
+                          className={`
                             truncate 
                             rounded-lg 
-                            bg-green-500/90 
                             px-2 font-semibold
                             py-1 
-                            text-xs text-white"
+                            text-xs text-white`}
                         >
                           {!allDay && (
                             <span className="text-white/70 mr-1">

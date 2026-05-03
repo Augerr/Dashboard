@@ -39,6 +39,7 @@ export type CalendarEvent = {
   title: string;
   start: string;
   end?: string;
+  color: string;
 };
 
 export type MarketNumber = number | string | null | undefined;

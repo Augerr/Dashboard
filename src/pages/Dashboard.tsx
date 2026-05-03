@@ -6,11 +6,7 @@ import WeatherCard from "@/components/weather/WeatherCard";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 import { fetchCalendar } from "@/services/api";
 import { fetchWeather, fetchForecast } from "@/services/weather";
-import type {
-  CalendarEvent,
-  CurrentWeather,
-  DailyForecast,
-} from "@/types/app";
+import type { CalendarEvent, CurrentWeather, DailyForecast } from "@/types/app";
 import { groupToDaily } from "@/utils/groupForecast";
 import { retryAsync } from "@/utils/retry";
 import { weatherTheme } from "@/utils/weatherTheme";
@@ -57,6 +53,7 @@ function Dashboard() {
   }
 
   const condition = current.weather[0]?.main ?? "default";
+  console.log(condition + ": " + weatherTheme[condition].bg);
   const theme = weatherTheme[condition] ?? weatherTheme.default;
 
   return (
@@ -87,7 +84,11 @@ function Dashboard() {
       <div className="col-span-6 h-full">
         <Panel>
           {calendarEvents != null ? (
-            <CalendarPanel events={calendarEvents} daily={daily} />
+            <CalendarPanel
+              events={calendarEvents}
+              daily={daily}
+              eventColor={theme.secondary}
+            />
           ) : (
             "Loading calendar..."
           )}

@@ -5,9 +5,14 @@ import { isPastDay } from "@/utils/dateUtils";
 type WeeklyCalendarProps = {
   events?: CalendarEvent[];
   dailyForecast?: DailyForecast[];
+  eventColor: string;
 };
 
-function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
+function WeeklyCalendar({
+  events = [],
+  dailyForecast,
+  eventColor,
+}: WeeklyCalendarProps) {
   const forecasts = dailyForecast ?? [];
   const today = new Date();
   const daysToShow = 7;
@@ -50,7 +55,8 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
 
   const getEventStyle = (
     event: CalendarEvent,
-  ): { top: string; height: string } => {
+    eventColor: string,
+  ): { top: string; height: string; backgroundColor: string } => {
     const start = new Date(event.start);
     const end = event.end
       ? new Date(event.end)
@@ -65,6 +71,7 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
     return {
       top: `${top}px`,
       height: `${height}px`,
+      backgroundColor: eventColor,
     };
   };
 
@@ -128,7 +135,7 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
               return (
                 <div
                   key={day.toISOString()}
-                  className={`
+                  className={` 
                   relative overflow-hidden rounded-2xl border
                   ${
                     isToday
@@ -171,7 +178,8 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
                       return (
                         <div
                           key={event.id}
-                          className="absolute left-2 right-2 top-2 rounded-xl bg-purple-500/80 p-2 text-xs text-white"
+                          style={{ backgroundColor: eventColor }}
+                          className={`absolute left-2 right-2 top-2 rounded-xl p-2 text-xs text-white`}
                         >
                           {event.title}
                         </div>
@@ -181,15 +189,14 @@ function WeeklyCalendar({ events = [], dailyForecast }: WeeklyCalendarProps) {
                     return (
                       <div
                         key={event.id}
-                        className="
-                        absolute left-2 right-2
-                        overflow-hidden rounded-xl
-                        border border-white/20
-                        bg-blue-500/80
-                        p-2 text-xs text-white
-                        shadow-lg
-                      "
-                        style={getEventStyle(event)}
+                        className={`
+                          absolute left-2 right-2
+                          overflow-hidden rounded-xl
+                          border border-white/20
+                          p-2 text-xs text-white
+                          shadow-lg
+                        `}
+                        style={getEventStyle(event, eventColor)}
                       >
                         <div className="truncate font-semibold">
                           {event.title}

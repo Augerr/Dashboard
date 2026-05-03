@@ -6,11 +6,12 @@ import type { CalendarEvent, DailyForecast } from "@/types/app";
 type CalendarPanelProps = {
   events: CalendarEvent[];
   daily: DailyForecast[];
+  eventColor: string;
 };
 
 type CalendarView = "weekly" | "monthly";
 
-function CalendarPanel({ events, daily }: CalendarPanelProps) {
+function CalendarPanel({ events, daily, eventColor }: CalendarPanelProps) {
   const [view, setView] = useState<CalendarView>("weekly");
 
   return (
@@ -43,9 +44,13 @@ function CalendarPanel({ events, daily }: CalendarPanelProps) {
 
       <div className="min-h-0 flex-1">
         {view === "weekly" ? (
-          <WeeklyCalendar events={events} dailyForecast={daily} />
+          <WeeklyCalendar
+            events={events}
+            dailyForecast={daily}
+            eventColor={eventColor}
+          />
         ) : (
-          <MonthlyCalendar events={events} />
+          <MonthlyCalendar events={events} eventColor={eventColor} />
         )}
       </div>
     </div>
