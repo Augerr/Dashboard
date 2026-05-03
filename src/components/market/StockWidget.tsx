@@ -97,7 +97,7 @@ function StockWidget({ symbol }: StockWidgetProps) {
 
       <div className="mt-2 flex items-end justify-between gap-2">
         <div>
-          <div className="text-2xl font-bold leading-none 2xl:text-3xl">
+          <div className="text-xl font-bold leading-none">
             {formatMoney(stock.price)}
           </div>
 
@@ -111,7 +111,7 @@ function StockWidget({ symbol }: StockWidgetProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-sm text-white/80">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-[11px] 2xl:text-sm text-white/60">
           <div>O {formatMoney(stock.open)}</div>
           <div>H {formatMoney(stock.high)}</div>
           <div>L {formatMoney(stock.low)}</div>
