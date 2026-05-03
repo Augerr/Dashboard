@@ -25,7 +25,7 @@ function MarketNewsWidget() {
   return (
     <div
       className="
-      xl:col-span-3 
+      col-span-5
       rounded-2xl 
       bg-white/10 
       p-4 
@@ -72,7 +72,9 @@ function MarketNewsWidget() {
                 </h3>
 
                 <p className="mt-1 text-xs text-white/50">
-                  {[article.source?.name, article.date].filter(Boolean).join(" - ")}
+                  {[article.source?.name, article.date]
+                    .filter(Boolean)
+                    .join(" - ")}
                 </p>
               </div>
             </div>

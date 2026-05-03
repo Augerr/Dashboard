@@ -3,18 +3,20 @@ import MarketNewsWidget from "@/components/market/MarketNewsWidget";
 import WatchlistWidget from "@/components/market/WatchlistWidget";
 
 function MarketDashboard() {
-   return (
-    <main className="min-h-screen text-white
+  return (
+    <main
+      className="min-h-screen text-white
        bg-gradient-to-br from-[#0f172a] via-[#020617] to-black 
-       p-3 pr-11">
-
-      <section className="
+       p-3 pr-11"
+    >
+      <section
+        className="
         grid 
-        grid-cols-1 
-        xl:grid-cols-3 
+        grid-cols-5 
         gap-3 
         auto-rows-[minmax(150px,auto)]
-      ">
+      "
+      >
         <WatchlistWidget />
 
         <CryptoListWidget />
