@@ -34,52 +34,57 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
   }).format(now);
 
   return (
-    <div className="animate-fade-in flex h-full min-h-0 w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-4 text-white shadow-2xl backdrop-blur-2xl">
-      <div className="shrink-0 text-center leading-tight">
-        <p className="text-xs font-semibold uppercase tracking-wide text-white/50">
-          {currentDate}
-        </p>
-        <p className="mt-1 text-xl font-bold text-white 2xl:text-2xl">
-          {currentTime}
-        </p>
-      </div>
+    <div className="animate-fade-in flex w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-3 text-white shadow-2xl backdrop-blur-2xl">
+      {/* TOP COMPACT ROW */}
+      <div className="relative flex flex-row shrink-0 items-center justify-center">
+        {/* Date / time */}
+        <div className="min-w-0 flex flex-row absolute top-0 left-0">
+          <p className="truncate text-xs 2xl:text-sm font-semibold uppercase tracking-wide text-white/70 mr-1">
+            {currentDate}
+          </p>
+          <p className="text-md font-semibold leading-tight text-white ml-0.5">
+            {currentTime}
+          </p>
+        </div>
 
-      <div className="mt-3 flex shrink-0 items-center justify-center gap-1">
-        <div className="flex min-w-0 flex-col items-center justify-center px-1 py-3 text-center">
-          <div className="flex items-center justify-center">
-            <h1 className="text-5xl font-bold tracking-tight 2xl:text-6xl">
+        {/* Temperature / icon / condition */}
+        <div className="flex flex-col -mt-2">
+          <div className="flex shrink-0 items-center">
+            <h1 className="text-4xl font-bold leading-none tracking-tighter">
               {temp}°
             </h1>
+
             {icon && (
               <img
-                className="h-16 w-16 shrink-0 2xl:h-20 2xl:w-20"
+                className="h-16 w-16 shrink-0 -m-2"
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt=""
               />
             )}
           </div>
-
-          <p className="-mt-2 text-base font-semibold text-white/85">
+          <p className="max-w-[80px] justify-center ml-3 -my-2 gap-1 truncate font-semibold text-white/90">
             {condition}
           </p>
         </div>
+      </div>
 
-        <div className="flex min-w-0 flex-col">
-          <div className="px-1 py-2 text-center">
-            <p className="text-xs text-white/50">Humidity</p>
-            <p className="mt-1 text-lg font-bold">{weather.main.humidity}%</p>
-          </div>
+      {/* STATS */}
+      <div className="mt-3 grid shrink-0 grid-cols-2 gap-2 text-center">
+        <div className="rounded-xl bg-black/30 px-3 py-2">
+          <p className="text-xs text-white/50">Humidity</p>
+          <p className="text-base font-bold">{weather.main.humidity}%</p>
+        </div>
 
-          <div className="px-1 py-2 text-center">
-            <p className="text-xs text-white/50">Feels Like</p>
-            <p className="mt-1 text-lg font-bold">
-              {Math.round(weather.main.feels_like)}°
-            </p>
-          </div>
+        <div className="rounded-xl bg-black/30 px-3 py-2">
+          <p className="text-xs text-white/50">Feels Like</p>
+          <p className="text-base font-bold">
+            {Math.round(weather.main.feels_like)}°
+          </p>
         </div>
       </div>
 
-      <div className="mt-3 min-h-0 w-full flex-1">
+      {/* FORECAST */}
+      <div className="mt-2 w-full shrink-0">
         <ForecastStrip daily={daily} />
       </div>
     </div>

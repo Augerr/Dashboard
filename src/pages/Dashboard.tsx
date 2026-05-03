@@ -5,6 +5,7 @@ import CalendarPanel from "../components/CalendarPanel";
 import NhlPanel from "../components/NhlPanel";
 import Panel from "../components/ui/Panel";
 import WeatherCard from "../components/WeatherCard";
+import { retryAsync } from "../utils/retry";
 import { useAutoRefresh } from "../hooks/useAutoRefresh";
 import { useCallback, useEffect, useState } from "react";
 import { weatherTheme } from "../utils/weatherTheme";
@@ -21,7 +22,7 @@ function Dashboard() {
 
   const loadCalendar = useCallback(async () => {
     try {
-      const data = await fetchCalendar();
+      const data = await retryAsync(() => fetchCalendar());
       setCalendarEvents(data);
     } catch (err) {
       console.error("Weather failed:", err);
@@ -30,10 +31,10 @@ function Dashboard() {
 
   const loadWeather = useCallback(async () => {
     try {
-      const data = await fetchWeather();
+      const data = await retryAsync(() => fetchWeather());
       setCurrent(data);
 
-      const daysForecast = await fetchForecast();
+      const daysForecast = await retryAsync(() => fetchForecast());
       setDaily(groupToDaily(daysForecast));
     } catch (err) {
       console.error("CurrentWeather failed:", err);
@@ -62,7 +63,7 @@ function Dashboard() {
     <div
       className={`min-h-screen bg-gradient-to-br ${theme.bg} animated-bg p-4`}
     >
-      <div className="mx-auto grid h-full gap-4 grid-cols-6 grid-rows-[auto_auto_auto] portrait:grid-rows-3">
+      <div className="mx-auto grid gap-4 grid-cols-6 mb-4">
         {/* NHL */}
         <div className="col-span-5 portrait:col-span-6 xl:col-span-4 h-full">
           <Panel>
@@ -71,7 +72,7 @@ function Dashboard() {
         </div>
 
         {/* WEATHER */}
-        <div className="col-span-1 xl:col-span-2 portrait:col-span-6 portrait:row-2 h-full">
+        <div className="col-span-1 xl:col-span-2 portrait:col-span-6 portrait:row-2">
           <Panel>
             {current != null && daily != null ? (
               <WeatherCard weather={current} daily={daily} />

@@ -1,4 +1,4 @@
-import type { DailyForecast } from "../../types/app"
+import type { DailyForecast } from "../../types/app";
 
 type DayWeatherHeaderProps = {
   day: Date;
@@ -6,14 +6,12 @@ type DayWeatherHeaderProps = {
 };
 
 function DayWeatherHeader({ day, forecast }: DayWeatherHeaderProps) {
-  
   const icon = forecast?.icon;
-  const min = forecast?.min
-  const max = forecast?.max
+  const min = forecast?.min;
+  const max = forecast?.max;
 
-return (
-    <div className="flex items-center rounded-xl bg-white/10 px-3 py-2 text-white">
-      
+  return (
+    <div className="flex items-center rounded-xl bg-black/30 px-3 py-2 text-white">
       {/* ICON (bigger + pushed left) */}
       <div className="flex w-14 2xl:w-16 justify-start">
         {icon && (
@@ -27,7 +25,6 @@ return (
 
       {/* RIGHT CONTENT */}
       <div className="flex flex-1 flex-col items-center text-center mr-4 2xl:mr-12">
-        
         {/* DATE */}
         <p className="text-base font-semibold leading-tight">
           {day.toLocaleDateString([], { weekday: "short" })}
@@ -45,7 +42,6 @@ return (
             {min != null ? `${Math.round(min)}°` : ""}
           </span>
         </div>
-
       </div>
     </div>
   );

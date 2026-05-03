@@ -1,7 +1,7 @@
-import AppLayout from "./layout/AppLayout"
-import Dashboard from "./pages/Dashboard"
+import AppLayout from "./layout/AppLayout";
+import Dashboard from "./pages/Dashboard";
 import MarketDashboard from "./pages/MarketDashboard";
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 type Page = "dashboard" | "market";
 
@@ -9,10 +9,10 @@ function App() {
   const [page, setPage] = useState<Page>("dashboard");
 
   useEffect(() => {
-    const timers = [500, 1500, 3000].map((delay) =>
+    const timers = [1500, 3000, 10000].map((delay) =>
       setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
-      }, delay)
+      }, delay),
     );
 
     return () => timers.forEach(clearTimeout);
@@ -28,13 +28,13 @@ function App() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
-  
+
   return (
     <AppLayout>
       {page === "dashboard" && <Dashboard />}
       {page === "market" && <MarketDashboard />}
     </AppLayout>
-  )
+  );
 }
 
-export default App
+export default App;
