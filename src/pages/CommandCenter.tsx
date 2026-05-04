@@ -60,7 +60,7 @@ function CommandCenter() {
         return start >= now && start <= windowEnd;
       })
       .map((event) => ({
-        id: event.id,
+        id: String(event.id),
         type: "calendar",
         title: event.title,
         subtitle: "Calendar event",
