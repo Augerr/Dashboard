@@ -38,11 +38,11 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
       {/* TOP COMPACT ROW */}
       <div className="relative flex flex-row shrink-0 items-center justify-center">
         {/* Date / time */}
-        <div className="min-w-0 flex flex-row absolute top-0 left-0">
-          <p className="truncate text-xs 2xl:text-sm font-semibold uppercase tracking-wide text-white/70 mr-1">
+        <div className="min-w-0 flex flex-row absolute top-0 right-0">
+          <p className="truncate text-xs 2xl:text-sm font-semibold uppercase tracking-wide text-white/80 mr-1">
             {currentDate}
           </p>
-          <p className="text-md font-semibold leading-tight text-white ml-0.5">
+          <p className="text-md font-bold leading-tight text-white ml-0.5">
             {currentTime}
           </p>
         </div>
