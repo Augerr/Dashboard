@@ -34,7 +34,7 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
   }).format(now);
 
   return (
-    <div className="animate-fade-in flex w-full flex-col overflow-hidden rounded-3xl bg-white/10 p-3 text-white shadow-2xl backdrop-blur-2xl">
+    <div className="animate-fade-in flex w-full flex-col overflow-hidden rounded-3xl p-3 text-white shadow-2xl backdrop-blur-2xl">
       {/* TOP COMPACT ROW */}
       <div className="relative flex flex-row shrink-0 items-center justify-center">
         {/* Date / time */}

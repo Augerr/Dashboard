@@ -60,7 +60,7 @@ function NhlPanel() {
   }
 
   return (
-    <div className="h-full w-full text-white">
+    <div className="h-full w-full text-white rounded-3xl backdrop-blur-2xl">
       <div className="grid grid-cols-1 gap-4 font-semibold text-white/90 md:grid-cols-3">
         <GameColumn title="Yesterday" games={nhlGames.yesterday} />
         <GameColumn title="Today" games={nhlGames.today} isToday />
