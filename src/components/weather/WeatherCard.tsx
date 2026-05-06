@@ -50,7 +50,7 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
           </Typography>
         </Stack>
 
-        <Box className="-mt-2 flex flex-col">
+        <Box className="flex flex-col">
           <Stack direction="row" className="shrink-0 items-center">
             <Typography
               component="h1"
@@ -61,14 +61,14 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
 
             {icon && (
               <img
-                className="-m-4 h-16 w-16 2xl:h-32 2xl:w-32 shrink-0"
+                className="-m-4 size-16 lg:size-24 2xl:size-32 shrink-0"
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt=""
               />
             )}
           </Stack>
           <Stack direction="row" className="justify-center">
-            <Typography className="!-my-2 2xl:!-ml-8 max-w-[80px] !font-medium truncate text-white/90 2xl:!text-xl">
+            <Typography className="!-my-2 2xl:!-ml-8 max-w-[80px] !font-medium truncate text-white/90 xl:!text-xl">
               {condition}
             </Typography>
           </Stack>
