@@ -7,6 +7,8 @@ import type { MarketNumber, MarketQuote } from "@/types/app";
 
 type StockWidgetProps = {
   symbol: string;
+  isSelected?: boolean;
+  onClick?: () => void;
 };
 
 function formatMoney(value: MarketNumber): string {
@@ -25,7 +27,7 @@ function formatPercent(value: MarketNumber): string {
   return `${Number(value).toFixed(2)}%`;
 }
 
-function StockWidget({ symbol }: StockWidgetProps) {
+function StockWidget({ symbol, isSelected, onClick }: StockWidgetProps) {
   const [stock, setStock] = useState<MarketQuote | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -84,7 +86,10 @@ function StockWidget({ symbol }: StockWidgetProps) {
   const isUp = change >= 0;
 
   return (
-    <Paper className="rounded-lg bg-black/50 p-3 text-white shadow-lg transition hover:bg-white/15">
+    <Paper
+      onClick={onClick}
+      className={`rounded-lg !bg-black/50 p-3 text-white shadow-lg transition hover:!bg-white/15  ${isSelected ? "!ring-2 !ring-blue-400 !bg-white/20" : ""}`}
+    >
       <Stack direction="row" className="items-center justify-between gap-2">
         <Box className="min-w-0">
           <Typography

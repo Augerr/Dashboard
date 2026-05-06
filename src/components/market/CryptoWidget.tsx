@@ -83,7 +83,7 @@ function CryptoWidget({
   const isUp = change >= 0;
 
   return (
-    <Paper className="rounded-lg bg-black/50 p-4 text-white shadow-lg transition hover:bg-white/15">
+    <Paper className="rounded-lg !bg-black/50 p-4 text-white shadow-lg transition hover:bg-white/15">
       <Stack direction="row" className="items-start justify-between gap-2">
         <Box>
           <Typography component="h2" className="text-xl font-semibold">

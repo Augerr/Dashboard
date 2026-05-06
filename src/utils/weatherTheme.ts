@@ -18,7 +18,7 @@ export const weatherTheme: Record<string, WeatherTheme> = {
   Rain: {
     bg: "from-slate-900 via-blue-900 to-black",
     glow: "rgba(59,130,246,0.25)",
-    secondary: "rgb(0, 191, 255)",
+    secondary: "rgba(82, 81, 81, 0.78)",
   },
   Snow: {
     bg: "from-blue-200 via-slate-300 to-gray-500",

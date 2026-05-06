@@ -1,7 +1,12 @@
 import { Box, Paper } from "@mui/material";
 import StockWidget from "./StockWidget";
 
-function WatchlistWidget() {
+type Props = {
+  selectedSymbol: string;
+  onSelect: (symbol: string) => void;
+};
+
+function WatchlistWidget({ selectedSymbol, onSelect }: Props) {
   const symbols = [
     "AAPL",
     "MSFT",
@@ -17,7 +22,12 @@ function WatchlistWidget() {
     <Paper className="col-1 col-span-3 rounded-lg bg-white/10 p-4 text-white shadow-lg">
       <Box className="grid grid-cols-3 gap-3">
         {symbols.map((symbol, index) => (
-          <StockWidget key={`${symbol}-${index}`} symbol={symbol} />
+          <StockWidget
+            key={`${symbol}-${index}`}
+            symbol={symbol}
+            isSelected={selectedSymbol === symbol}
+            onClick={() => onSelect(symbol)}
+          />
         ))}
       </Box>
     </Paper>

@@ -1,9 +1,11 @@
 import { Box } from "@mui/material";
+import { useState } from "react";
 import CryptoListWidget from "@/components/market/CryptoListWidget";
-import MarketNewsWidget from "@/components/market/MarketNewsWidget";
+import StockHistoryWidget from "@/components/market/StockHistoryWidget";
 import WatchlistWidget from "@/components/market/WatchlistWidget";
 
 function MarketDashboard() {
+  const [selectedSymbol, setSelectedSymbol] = useState("AAPL");
   return (
     <Box
       component="main"
@@ -15,16 +17,20 @@ function MarketDashboard() {
         component="section"
         className="
         grid 
-        grid-cols-5 
+        grid-cols-5
+        grid-rows-2 
         gap-3 
         auto-rows-[minmax(150px,auto)]
       "
       >
-        <WatchlistWidget />
+        <WatchlistWidget
+          selectedSymbol={selectedSymbol}
+          onSelect={setSelectedSymbol}
+        />
 
         <CryptoListWidget />
 
-        <MarketNewsWidget />
+        <StockHistoryWidget symbol={selectedSymbol} />
       </Box>
     </Box>
   );

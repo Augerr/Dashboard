@@ -7,6 +7,7 @@ import {
 import {
   getCryptoQuote,
   getStockQuote,
+  getStockHistory,
 } from "../services/marketQuoteService.js";
 import { getErrorMessage } from "../utils/errors.js";
 
@@ -38,6 +39,19 @@ marketRouter.get("/market-news", async (_req, res) => {
     res.status(500).json({ error: "Failed to fetch market news" });
   }
 });
+
+marketRouter.get(
+  "/stocks/:symbol/history",
+  async (req: Request<{ symbol: string }>, res) => {
+    try {
+      const history = await getStockHistory(req.params.symbol);
+      res.json(history);
+    } catch (error) {
+      console.error("Stock API error:", getErrorMessage(error));
+      res.status(500).json({ error: "Failed to fetch stock data" });
+    }
+  },
+);
 
 marketRouter.get(
   "/stocks/:symbol",

@@ -1,6 +1,12 @@
 import { env } from "../config/env.js";
 import type { MarketQuoteResponse } from "../types/api.js";
-import type { FinnhubQuote } from "../types/external.js";
+import type {
+  FinnhubQuote,
+  AlphaVantageDailyEntry,
+  AlphaVantageMetaData,
+  AlphaVantageResponse,
+  AlphaVantageTimeSeries,
+} from "../types/external.js";
 import { getMarketStatus } from "../utils/market.js";
 
 const getFinnhubQuote = async (symbol: string): Promise<FinnhubQuote> => {
@@ -12,6 +18,34 @@ const getFinnhubQuote = async (symbol: string): Promise<FinnhubQuote> => {
   }
 
   return (await response.json()) as FinnhubQuote;
+};
+
+export function transformAlphaVantage(
+  data: AlphaVantageResponse,
+): StockHistoryPoint[] {
+  const series = data["Time Series (Daily)"];
+
+  return Object.entries(series)
+    .map(([date, values]) => ({
+      date,
+      open: parseFloat(values["1. open"]),
+      high: parseFloat(values["2. high"]),
+      low: parseFloat(values["3. low"]),
+      close: parseFloat(values["4. close"]),
+      volume: parseInt(values["5. volume"], 10),
+    }))
+    .sort((a, b) => a.date.localeCompare(b.date)); // chronological order
+}
+
+const getAlphavantageHistory = async (
+  symbol: string,
+): Promise<StockHistoryPoint[]> => {
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${env.alphavantageApiKey}`;
+  const res = await fetch(url);
+  console.log(res);
+  return transformAlphaVantage(
+    (await res.json()) as AlphaVantageResponse,
+  ) as StockHistoryPoint[];
 };
 
 const toMarketQuoteResponse = (
@@ -45,4 +79,11 @@ export const getCryptoQuote = async (
   const symbol = rawSymbol.toUpperCase();
   const data = await getFinnhubQuote(`BINANCE:${symbol}`);
   return toMarketQuoteResponse(symbol, data);
+};
+
+export const getStockHistory = async (
+  rawSymbol: string,
+): Promise<StockHistoryPoint[]> => {
+  const history = await getAlphavantageHistory(rawSymbol.toUpperCase());
+  return history;
 };

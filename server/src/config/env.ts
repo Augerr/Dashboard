@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const env = {
+  alphavantageApiKey: process.env.ALPHAVANTAGE_API_KEY,
   finnhubApiKey: process.env.FINNHUB_API_KEY,
   googleCalendarApiKey: process.env.GOOGLE_CALENDAR_API_KEY,
   googleCalendarId: process.env.GOOGLE_CALENDAR_ID,

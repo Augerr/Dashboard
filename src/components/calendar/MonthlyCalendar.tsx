@@ -66,7 +66,7 @@ function MonthlyCalendar({ events = [], eventColor }: MonthlyCalendarProps) {
                       className={`p-4
                         flex items-center justify-center 
                         w-6 h-6 rounded-full text-xl font-bold
-                        ${isToday ? "bg-green-400/90 text-white" : "text-white/70"}
+                        ${isToday ? "bg-blue-500 text-white" : "text-white/70"}
                       `}
                     >
                       {day.getDate()}
@@ -85,12 +85,12 @@ function MonthlyCalendar({ events = [], eventColor }: MonthlyCalendarProps) {
                           className={`
                             truncate 
                             rounded-lg 
-                            px-2 font-semibold
-                            py-1 
-                            text-xs text-white`}
+                            px-2 font-bold
+                            py-1 text-white
+                            text-sm`}
                         >
                           {!allDay && (
-                            <span className="text-white/70 mr-1">
+                            <span className="text-white/80 mr-2">
                               {start.toLocaleTimeString([], {
                                 hour: "2-digit",
                                 minute: "2-digit",
