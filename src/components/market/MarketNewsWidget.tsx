@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { Box, Chip, Link, Paper, Stack, Typography } from "@mui/material";
+import ArticleIcon from "@mui/icons-material/Article";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 import { fetchMarketNews } from "@/services/market";
 import type { MarketNewsArticle } from "@/types/app";
@@ -23,41 +25,42 @@ function MarketNewsWidget() {
   useAutoRefresh(loadNews, 60 * 60 * 1000);
 
   return (
-    <div
-      className="
-      col-span-5
-      rounded-2xl 
-      bg-white/10 
-      p-4 
-      text-white 
-      shadow-lg
-    "
-    >
-      <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg 2xl:text-2xl font-semibold">Market News</h2>
-        <span className="text-xs text-white/50">General</span>
-      </div>
+    <Paper className="col-span-5 rounded-lg bg-white/10 p-4 text-white shadow-lg">
+      <Stack direction="row" className="mb-3 items-center justify-between">
+        <Typography component="h2" className="text-lg font-semibold 2xl:text-2xl">
+          Market News
+        </Typography>
+        <Chip
+          size="small"
+          icon={<ArticleIcon />}
+          label="General"
+          className="bg-black/20 text-white/70"
+        />
+      </Stack>
 
       {error && (
-        <p className="text-sm text-red-300">
+        <Typography className="text-sm text-red-300">
           Unable to load market news: {error}
-        </p>
+        </Typography>
       )}
 
       {!error && news.length === 0 && (
-        <p className="text-sm text-white/60">Loading market news...</p>
+        <Typography className="text-sm text-white/60">
+          Loading market news...
+        </Typography>
       )}
 
-      <div className="space-y-3">
+      <Stack spacing={1.5}>
         {news.map((article) => (
-          <a
+          <Link
             key={article.id}
             href={article.link}
             target="_blank"
             rel="noreferrer"
-            className="block rounded-xl bg-black/20 p-3 transition hover:bg-white/10"
+            underline="none"
+            className="block rounded-lg bg-black/20 p-3 text-white transition hover:bg-white/10"
           >
-            <div className="flex gap-3">
+            <Stack direction="row" spacing={1.5}>
               {article.thumbnail && (
                 <img
                   src={article.thumbnail}
@@ -66,22 +69,22 @@ function MarketNewsWidget() {
                 />
               )}
 
-              <div className="min-w-0">
-                <h3 className="line-clamp-2 text-sm font-semibold">
+              <Box className="min-w-0">
+                <Typography component="h3" className="line-clamp-2 text-sm font-semibold">
                   {article.title}
-                </h3>
+                </Typography>
 
-                <p className="mt-1 text-xs text-white/50">
+                <Typography className="mt-1 text-xs text-white/50">
                   {[article.source?.name, article.date]
                     .filter(Boolean)
                     .join(" - ")}
-                </p>
-              </div>
-            </div>
-          </a>
+                </Typography>
+              </Box>
+            </Stack>
+          </Link>
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Paper>
   );
 }
 

@@ -4,7 +4,20 @@ import { fetchWeather, fetchForecast } from "@/services/weather";
 import { groupToDaily } from "@/utils/groupForecast";
 import { retryAsync } from "@/utils/retry";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
+import {
+  Box,
+  Chip,
+  Divider,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import CloudIcon from "@mui/icons-material/Cloud";
+import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { ReactElement } from "react";
 
 type TimelineItem = {
   id: string;
@@ -51,7 +64,10 @@ function CommandCenter() {
   useAutoRefresh(loadCalendar, 1200000);
 
   const nextHours = 6;
-  const windowEnd = new Date(now.getTime() + nextHours * 60 * 60 * 1000);
+  const windowEnd = useMemo(
+    () => new Date(now.getTime() + nextHours * 60 * 60 * 1000),
+    [now],
+  );
 
   const timelineItems = useMemo<TimelineItem[]>(() => {
     const calendarItems: TimelineItem[] = calendarEvents
@@ -84,7 +100,7 @@ function CommandCenter() {
           title: `${condition} expected`,
           subtitle:
             max != null && min != null
-              ? `High ${max}° / Low ${min}°`
+              ? `High ${max} / Low ${min}`
               : "Weather forecast",
           time: new Date(forecast.date),
           priority:
@@ -126,48 +142,58 @@ function CommandCenter() {
   });
 
   return (
-    <main className="min-h-screen bg-slate-950 p-4 text-white">
-      <div className="mx-auto grid max-w-[1800px] grid-cols-12 gap-4">
-        {/* NOW BAR */}
-        <section className="col-span-12 rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
-          <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-wide text-white/50">
-                Command Center
-              </p>
-              <h1 className="text-5xl font-bold tracking-tight">{timeText}</h1>
-              <p className="mt-1 text-white/60">{dateText}</p>
-            </div>
+    <Box component="main" className="min-h-screen bg-slate-950 p-4 text-white">
+      <Box className="mx-auto grid max-w-[1800px] grid-cols-12 gap-4">
+        <Paper className="col-span-12 rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
+          <Stack className="gap-3 xl:flex-row xl:items-center xl:justify-between">
+            <Box>
+              <Stack direction="row" className="mb-1 items-center gap-2">
+                <DashboardCustomizeIcon fontSize="small" className="text-white/50" />
+                <Typography className="text-sm uppercase tracking-wide text-white/50">
+                  Command Center
+                </Typography>
+              </Stack>
+              <Typography component="h1" className="text-5xl font-bold">
+                {timeText}
+              </Typography>
+              <Typography className="mt-1 text-white/60">{dateText}</Typography>
+            </Box>
 
-            <div className="rounded-2xl bg-black/30 px-5 py-4 text-right">
-              <p className="text-sm text-white/50">Next up</p>
+            <Paper className="rounded-lg bg-black/30 px-5 py-4 text-right">
+              <Typography className="text-sm text-white/50">Next up</Typography>
               {nextEvent ? (
                 <>
-                  <p className="text-xl font-semibold">{nextEvent.title}</p>
-                  <p className="text-sm text-white/60">
+                  <Typography className="text-xl font-semibold">
+                    {nextEvent.title}
+                  </Typography>
+                  <Typography className="text-sm text-white/60">
                     {formatCountdown(nextEvent.time, now)}
-                  </p>
+                  </Typography>
                 </>
               ) : (
-                <p className="text-xl font-semibold text-white/70">
+                <Typography className="text-xl font-semibold text-white/70">
                   No events in the next {nextHours} hours
-                </p>
+                </Typography>
               )}
-            </div>
-          </div>
-        </section>
+            </Paper>
+          </Stack>
+        </Paper>
 
-        {/* TIMELINE */}
-        <section className="col-span-12 rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl xl:col-span-8">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Next {nextHours} Hours</h2>
-            <span className="text-sm text-white/50">
-              {timelineItems.length} event
-              {timelineItems.length === 1 ? "" : "s"}
-            </span>
-          </div>
+        <Paper className="col-span-12 rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl xl:col-span-8">
+          <Stack direction="row" className="mb-4 items-center justify-between">
+            <Typography component="h2" className="text-2xl font-bold">
+              Next {nextHours} Hours
+            </Typography>
+            <Chip
+              size="small"
+              label={`${timelineItems.length} event${
+                timelineItems.length === 1 ? "" : "s"
+              }`}
+              className="bg-black/20 text-white/60"
+            />
+          </Stack>
 
-          <div className="space-y-3">
+          <Stack spacing={1.5}>
             {timelineItems.length > 0 ? (
               timelineItems.map((item, index) => (
                 <TimelineEvent
@@ -178,25 +204,25 @@ function CommandCenter() {
                 />
               ))
             ) : (
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-6 text-center text-white/60">
+              <Paper className="rounded-lg border border-white/10 bg-black/20 p-6 text-center text-white/60">
                 Nothing scheduled soon.
-              </div>
+              </Paper>
             )}
-          </div>
-        </section>
+          </Stack>
+        </Paper>
 
-        {/* RIGHT CONTEXT */}
-        <aside className="col-span-12 flex flex-col gap-4 xl:col-span-4">
+        <Stack component="aside" className="col-span-12 gap-4 xl:col-span-4">
           <MiniWeather current={current} daily={daily} />
           <MiniMarket />
           <MiniStatus />
-        </aside>
+        </Stack>
 
-        {/* BOTTOM */}
-        <section className="col-span-12 rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
-          <h2 className="mb-3 text-xl font-bold">Today at a glance</h2>
+        <Paper className="col-span-12 rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
+          <Typography component="h2" className="mb-3 text-xl font-bold">
+            Today at a glance
+          </Typography>
 
-          <div className="grid gap-3 md:grid-cols-3">
+          <Box className="grid gap-3 md:grid-cols-3">
             <InfoCard label="Upcoming" value={`${upcomingEvents.length}`} />
             <InfoCard label="Window" value={`${nextHours} hours`} />
             <InfoCard
@@ -207,10 +233,10 @@ function CommandCenter() {
                 "Unknown"
               }
             />
-          </div>
-        </section>
-      </div>
-    </main>
+          </Box>
+        </Paper>
+      </Box>
+    </Box>
   );
 }
 
@@ -224,45 +250,51 @@ function TimelineEvent({
   isNext: boolean;
 }) {
   const start = item.time;
+  const Icon = item.type === "weather" ? CloudIcon : CalendarMonthIcon;
 
   return (
-    <div
-      className={`
-        flex items-center gap-4 rounded-2xl border p-4 transition
-        ${
-          isNext
-            ? "border-blue-300/40 bg-blue-500/20 shadow-lg shadow-blue-500/20"
-            : item.type === "weather"
-              ? "border-yellow-300/30 bg-yellow-500/10"
-              : "border-white/10 bg-black/20"
-        }
-      `}
+    <Paper
+      className={`flex items-center gap-4 rounded-lg border p-4 transition ${
+        isNext
+          ? "border-blue-300/40 bg-blue-500/20 shadow-lg shadow-blue-500/20"
+          : item.type === "weather"
+            ? "border-yellow-300/30 bg-yellow-500/10"
+            : "border-white/10 bg-black/20"
+      }`}
     >
-      <div className="w-20 shrink-0 text-center">
-        <p className="text-lg font-bold">
+      <Box className="w-20 shrink-0 text-center">
+        <Typography className="text-lg font-bold">
           {start.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })}
-        </p>
-        <p className="text-xs text-white/50">{formatCountdown(start, now)}</p>
-      </div>
+        </Typography>
+        <Typography className="text-xs text-white/50">
+          {formatCountdown(start, now)}
+        </Typography>
+      </Box>
 
-      <div className="h-12 w-[2px] rounded-full bg-white/20" />
+      <Divider orientation="vertical" flexItem className="border-white/20" />
 
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-lg font-semibold">{item.title}</p>
-        <p className="text-sm text-white/50">
+      <Icon className="shrink-0 text-white/60" />
+
+      <Box className="min-w-0 flex-1">
+        <Typography className="truncate text-lg font-semibold">
+          {item.title}
+        </Typography>
+        <Typography className="text-sm text-white/50">
           {item.type === "weather" ? "Weather" : item.subtitle}
-        </p>
-      </div>
+        </Typography>
+      </Box>
 
       {isNext && (
-        <span className="rounded-full bg-blue-400/20 px-3 py-1 text-sm font-semibold text-blue-200">
-          Next
-        </span>
+        <Chip
+          size="small"
+          label="Next"
+          className="bg-blue-400/20 font-semibold text-blue-200"
+        />
       )}
-    </div>
+    </Paper>
   );
 }
 
@@ -279,10 +311,12 @@ function MiniWeather({
   const condition = current?.weather?.[0]?.main ?? "Weather";
 
   return (
-    <section className="rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
-      <h2 className="mb-3 text-xl font-bold">Weather</h2>
+    <Paper className="rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
+      <Typography component="h2" className="mb-3 text-xl font-bold">
+        Weather
+      </Typography>
 
-      <div className="flex items-center justify-center gap-3">
+      <Stack direction="row" className="items-center justify-center gap-3">
         {icon && (
           <img
             className="h-20 w-20"
@@ -291,79 +325,97 @@ function MiniWeather({
           />
         )}
 
-        <div>
-          <p className="text-5xl font-bold">
+        <Box>
+          <Typography className="text-5xl font-bold">
             {temp != null ? `${temp}°` : "--"}
-          </p>
-          <p className="text-white/60">{condition}</p>
-        </div>
-      </div>
+          </Typography>
+          <Typography className="text-white/60">{condition}</Typography>
+        </Box>
+      </Stack>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
+      <Box className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
         {daily?.slice(0, 3).map((day, index) => {
           const max = day?.max;
           const min = day?.min;
 
           return (
-            <div key={index} className="rounded-xl bg-black/20 p-2">
-              <p className="font-semibold">
+            <Paper key={index} className="rounded-lg bg-black/20 p-2">
+              <Typography className="font-semibold">
                 {day?.date
                   ? new Date(day.date).toLocaleDateString([], {
                       weekday: "short",
                     })
                   : `Day ${index + 1}`}
-              </p>
-              <p className="text-xs text-white/60">
+              </Typography>
+              <Typography className="text-xs text-white/60">
                 {max != null ? Math.round(max) : "--"}° /{" "}
                 {min != null ? Math.round(min) : "--"}°
-              </p>
-            </div>
+              </Typography>
+            </Paper>
           );
         })}
-      </div>
-    </section>
+      </Box>
+    </Paper>
   );
 }
 
 function MiniMarket() {
   return (
-    <section className="rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
-      <h2 className="mb-3 text-xl font-bold">Market Pulse</h2>
+    <Paper className="rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
+      <Typography component="h2" className="mb-3 text-xl font-bold">
+        Market Pulse
+      </Typography>
 
-      <div className="space-y-2 text-sm">
-        <div className="flex justify-between rounded-xl bg-black/20 p-3">
-          <span>SPY</span>
-          <span className="text-white/50">Coming soon</span>
-        </div>
-        <div className="flex justify-between rounded-xl bg-black/20 p-3">
-          <span>BTC</span>
-          <span className="text-white/50">Coming soon</span>
-        </div>
-      </div>
-    </section>
+      <Stack spacing={1} className="text-sm">
+        <StatusRow label="SPY" value="Coming soon" icon={<ShowChartIcon />} />
+        <StatusRow label="BTC" value="Coming soon" icon={<ShowChartIcon />} />
+      </Stack>
+    </Paper>
   );
 }
 
 function MiniStatus() {
   return (
-    <section className="rounded-3xl bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
-      <h2 className="mb-3 text-xl font-bold">System</h2>
+    <Paper className="rounded-lg bg-white/10 p-5 shadow-2xl backdrop-blur-2xl">
+      <Typography component="h2" className="mb-3 text-xl font-bold">
+        System
+      </Typography>
 
-      <div className="space-y-2 text-sm text-white/70">
-        <p>Dashboard online</p>
-        <p>Auto-refresh active</p>
-        <p>Kiosk mode ready</p>
-      </div>
-    </section>
+      <Stack spacing={1} className="text-sm text-white/70">
+        <Typography>Dashboard online</Typography>
+        <Typography>Auto-refresh active</Typography>
+        <Typography>Kiosk mode ready</Typography>
+      </Stack>
+    </Paper>
+  );
+}
+
+function StatusRow({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string;
+  icon: ReactElement;
+}) {
+  return (
+    <Paper className="flex items-center justify-between rounded-lg bg-black/20 p-3">
+      <Stack direction="row" className="items-center gap-2">
+        {icon}
+        <Typography>{label}</Typography>
+      </Stack>
+      <Typography className="text-white/50">{value}</Typography>
+    </Paper>
   );
 }
 
 function InfoCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-black/20 p-4">
-      <p className="text-sm text-white/50">{label}</p>
-      <p className="mt-1 text-2xl font-bold">{value}</p>
-    </div>
+    <Paper className="rounded-lg bg-black/20 p-4">
+      <Typography className="text-sm text-white/50">{label}</Typography>
+      <Typography className="mt-1 text-2xl font-bold">{value}</Typography>
+    </Paper>
   );
 }
 

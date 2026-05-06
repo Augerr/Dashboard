@@ -1,3 +1,4 @@
+import { Box, Paper } from "@mui/material";
 import CryptoWidget from "./CryptoWidget";
 
 function CryptoListWidget() {
@@ -9,8 +10,8 @@ function CryptoListWidget() {
   ];
 
   return (
-    <div className="col-span-2 rounded-2xl bg-white/10 p-4 text-white shadow-lg">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+    <Paper className="col-span-2 rounded-lg bg-white/10 p-4 text-white shadow-lg">
+      <Box className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
         {symbols.map((crypto) => (
           <CryptoWidget
             key={crypto.symbol}
@@ -18,8 +19,8 @@ function CryptoListWidget() {
             label={crypto.label}
           />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Paper>
   );
 }
 

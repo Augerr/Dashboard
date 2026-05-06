@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import ForecastStrip from "./ForecastStrip";
 import type { CurrentWeather, DailyForecast } from "@/types/app";
 
@@ -18,7 +19,7 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
     return () => clearInterval(interval);
   }, []);
 
-  if (!weather) return <div className="text-white">Loading...</div>;
+  if (!weather) return <Typography color="text.primary">Loading...</Typography>;
 
   const temp = Math.round(weather.main.temp);
   const condition = weather.weather[0]?.main ?? "";
@@ -34,60 +35,64 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
   }).format(now);
 
   return (
-    <div className="animate-fade-in flex w-full flex-col overflow-hidden rounded-3xl p-3 text-white shadow-2xl backdrop-blur-2xl">
-      {/* TOP COMPACT ROW */}
-      <div className="relative flex flex-row shrink-0 items-center justify-center">
-        {/* Date / time */}
-        <div className="min-w-0 flex flex-row absolute top-0 right-0">
-          <p className="truncate text-xs 2xl:text-sm font-semibold uppercase tracking-wide text-white/80 mr-1">
+    <Box className="animate-fade-in flex w-full flex-col overflow-hidden p-3 text-white">
+      <Box className="relative flex shrink-0 flex-row items-center justify-center">
+        <Stack
+          direction="row"
+          spacing={0.5}
+          className="absolute right-0 top-0 min-w-0"
+        >
+          <Typography className="mr-1 truncate text-xs font-semibold uppercase tracking-wide text-white/80 2xl:text-sm">
             {currentDate}
-          </p>
-          <p className="text-md font-bold leading-tight text-white ml-0.5">
+          </Typography>
+          <Typography className="ml-0.5 text-base font-bold leading-tight text-white">
             {currentTime}
-          </p>
-        </div>
+          </Typography>
+        </Stack>
 
-        {/* Temperature / icon / condition */}
-        <div className="flex flex-col -mt-2">
-          <div className="flex shrink-0 items-center">
-            <h1 className="text-4xl font-bold leading-none tracking-tighter">
-              {temp}°
-            </h1>
+        <Box className="-mt-2 flex flex-col">
+          <Stack direction="row" className="shrink-0 items-center">
+            <Typography
+              component="h1"
+              className="text-4xl font-bold leading-none"
+            >
+              {temp}&deg;
+            </Typography>
 
             {icon && (
               <img
-                className="h-16 w-16 shrink-0 -m-2"
+                className="-m-2 h-16 w-16 shrink-0"
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt=""
               />
             )}
-          </div>
-          <p className="max-w-[80px] justify-center ml-3 -my-2 gap-1 truncate font-semibold text-white/90">
+          </Stack>
+          <Typography className="-my-2 ml-3 max-w-[80px] truncate font-semibold text-white/90">
             {condition}
-          </p>
-        </div>
-      </div>
+          </Typography>
+        </Box>
+      </Box>
 
-      {/* STATS */}
-      <div className="mt-3 grid shrink-0 grid-cols-2 gap-2 text-center">
-        <div className="rounded-xl bg-black/30 px-3 py-2">
-          <p className="text-xs text-white/50">Humidity</p>
-          <p className="text-base font-bold">{weather.main.humidity}%</p>
-        </div>
+      <Box className="mt-3 grid shrink-0 grid-cols-2 gap-2 text-center">
+        <Paper className="rounded-lg bg-black/30 px-3 py-2">
+          <Typography className="text-xs text-white/50">Humidity</Typography>
+          <Typography className="text-base font-bold">
+            {weather.main.humidity}%
+          </Typography>
+        </Paper>
 
-        <div className="rounded-xl bg-black/30 px-3 py-2">
-          <p className="text-xs text-white/50">Feels Like</p>
-          <p className="text-base font-bold">
-            {Math.round(weather.main.feels_like)}°
-          </p>
-        </div>
-      </div>
+        <Paper className="rounded-lg bg-black/30 px-3 py-2">
+          <Typography className="text-xs text-white/50">Feels Like</Typography>
+          <Typography className="text-base font-bold">
+            {Math.round(weather.main.feels_like)}&deg;
+          </Typography>
+        </Paper>
+      </Box>
 
-      {/* FORECAST */}
-      <div className="mt-2 w-full shrink-0">
+      <Box className="mt-2 w-full shrink-0">
         <ForecastStrip daily={daily} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

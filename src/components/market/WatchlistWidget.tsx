@@ -1,3 +1,4 @@
+import { Box, Paper } from "@mui/material";
 import StockWidget from "./StockWidget";
 
 function WatchlistWidget() {
@@ -13,22 +14,13 @@ function WatchlistWidget() {
   ];
 
   return (
-    <div
-      className="
-      rounded-2xl 
-      bg-white/10 
-      p-4  col-1
-      col-span-3
-      text-white 
-      shadow-lg
-    "
-    >
-      <div className="grid grid-cols-3 gap-3">
-        {symbols.map((symbol) => (
-          <StockWidget key={symbol} symbol={symbol} />
+    <Paper className="col-1 col-span-3 rounded-lg bg-white/10 p-4 text-white shadow-lg">
+      <Box className="grid grid-cols-3 gap-3">
+        {symbols.map((symbol, index) => (
+          <StockWidget key={`${symbol}-${index}`} symbol={symbol} />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Paper>
   );
 }
 

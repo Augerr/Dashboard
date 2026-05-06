@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import CalendarPanel from "@/components/calendar/CalendarPanel";
 import NhlPanel from "@/components/nhl/NhlPanel";
 import Panel from "@/components/ui/Panel";
@@ -49,39 +50,42 @@ function Dashboard() {
   }, []);
 
   if (!current) {
-    return <div className="h-screen bg-black" />;
+    return (
+      <Box className="flex h-screen items-center justify-center bg-black">
+        <CircularProgress color="primary" />
+      </Box>
+    );
   }
 
   const condition = current.weather[0]?.main ?? "default";
-  console.log(condition + ": " + weatherTheme[condition].bg);
   const theme = weatherTheme[condition] ?? weatherTheme.default;
 
   return (
-    <div
+    <Box
+      component="main"
       className={`min-h-screen bg-gradient-to-br ${theme.bg} animated-bg p-4`}
     >
-      <div className="mx-auto grid gap-4 grid-cols-6 mb-4">
-        {/* NHL */}
-        <div className="col-span-5 portrait:col-span-6 xl:col-span-4 h-full">
-          <Panel>
+      <Box className="mx-auto mb-4 grid grid-cols-6 gap-4">
+        <Box className="col-span-5 h-full portrait:col-span-6 xl:col-span-4">
+          <Panel className="!bg-white/10">
             <NhlPanel />
           </Panel>
-        </div>
+        </Box>
 
-        {/* WEATHER */}
-        <div className="col-span-1 xl:col-span-2 portrait:col-span-6 portrait:row-2">
+        <Box className="col-span-1 portrait:col-span-6 portrait:row-2 xl:col-span-2">
           <Panel>
             {current != null && daily != null ? (
               <WeatherCard weather={current} daily={daily} />
             ) : (
-              "Loading weather forecast..."
+              <Typography color="text.secondary">
+                Loading weather forecast...
+              </Typography>
             )}
           </Panel>
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      {/* CALENDAR */}
-      <div className="col-span-6 h-full">
+      <Box className="col-span-6 h-full">
         <Panel>
           {calendarEvents != null ? (
             <CalendarPanel
@@ -90,11 +94,11 @@ function Dashboard() {
               eventColor={theme.secondary}
             />
           ) : (
-            "Loading calendar..."
+            <Typography color="text.secondary">Loading calendar...</Typography>
           )}
         </Panel>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
