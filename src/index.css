@@ -1,4 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 48rem;
+  --breakpoint-lg: 66rem;
+  --breakpoint-xl: 102rem;
+  --breakpoint-2xl: 138rem;
+  --breakpoint-3xl: 192rem;
+}
+
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
