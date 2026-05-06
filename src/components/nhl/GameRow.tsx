@@ -127,7 +127,7 @@ function GameRow({ game }: GameRowProps) {
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="col-2 !-ml-4 h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:-mb-16 2xl:!-ml-8 2xl:-mt-14 2xl:h-30 2xl:w-30"
+            className="col-2 !-ml-4 h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:-mb-16 2xl:!-ml-8 2xl:-mt-14 2xl:h-30 2xl:w-30 xl:ml-16"
           />
         </Box>
       </Box>
