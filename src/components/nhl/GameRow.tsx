@@ -118,7 +118,7 @@ function GameRow({ game }: GameRowProps) {
           />
         </Box>
 
-        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300">
+        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300 2xl:!text-4xl">
           {awayScore} - {homeScore}
         </Typography>
 
@@ -155,7 +155,7 @@ function GameRow({ game }: GameRowProps) {
           <Chip
             size="small"
             label={seriesSummary}
-            className="h-6 whitespace-nowrap !bg-slate-900 text-xs font-bold !text-yellow-300 text-scoreBoard"
+            className="h-6 whitespace-nowrap font-bold !text-yellow-300 text-scoreBoard 2xl:!text-lg"
           />
         )}
       </Box>
