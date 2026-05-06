@@ -98,22 +98,22 @@ function GameRow({ game }: GameRowProps) {
   return (
     <Paper
       component="article"
-      className={`relative grid h-full min-h-[72px] max-h-[120px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
+      className={`relative grid h-full min-h-[112px] max-h-[140px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
         border-l-[var(--accent-away)] border-r-[var(--accent-home)] !bg-black px-2 py-2 shadow-[0_0_25px_var(--accent-home-shadow)] backdrop-blur-xl 
-        transition-all duration-300 md:min-h-[86px] xl:min-h-[96px] 2xl:max-h-[140px] 2xl:min-h-[140px] text-scoreBoard 
+        transition-all duration-300 md:min-h-[86px] lg:min-h-[96px] 2xl:max-h-[160px] 2xl:min-h-[160px] text-scoreBoard 
         ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}`}
       style={accentStyles}
     >
       <Box
         component="section"
-        className="col-span-3 mb-2 grid grid-col-5 grid-cols-subgrid items-center gap-1 md:gap-2 2xl:text-3xl mb-2"
+        className="col-span-3 grid grid-col-5 grid-cols-subgrid items-center 2xl:text-3xl -mt-4"
       >
         <Box className="grid grid-col-3">
           <img
             src={getTeamLogoUrl(away.abbrev)}
             alt={`${away.placeName?.default ?? away.abbrev} logo`}
             loading="lazy"
-            className="h-12 w-12 shrink-0 object-contain col-2 lg:h-24 lg:w-24 2xl:-mb-8 2xl:-mt-8 2xl:h-32 2xl:w-32"
+            className="col-2 shrink-0 object-contain size-12 lg:size-24 2xl:size-30"
           />
         </Box>
 
@@ -126,14 +126,14 @@ function GameRow({ game }: GameRowProps) {
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="col-2 h-12 w-12 shrink-0 object-contain lg:h-24 lg:w-24 2xl:-mb-8 2xl:-mt-8 2xl:h-32 2xl:w-32"
+            className="col-2 shrink-0 object-contain size-12 lg:size-24 2xl:size-30"
           />
         </Box>
       </Box>
 
       <Box
         component="section"
-        className="-mb-2 col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold md:text-sm lg:text-lg"
+        className="col-span-3 flex min-w-0 items-center justify-between gap-2 font-bold text-sm lg:text-lg -mt-4"
       >
         <Box className="min-w-0 whitespace-nowrap text-yellow-300">
           {isLive ? (

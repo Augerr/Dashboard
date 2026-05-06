@@ -18,7 +18,7 @@ function GameColumn({ title, games = [], isToday = false }: GameColumnProps) {
 
   return (
     <Box component="section" className="animate-fade-in grid min-h-0">
-      <Typography component="h2" className="px-2 !text-white/80 !text-lg">
+      <Typography component="h2" className="px-2 py-1 !text-white/80 !text-lg">
         {title}
       </Typography>
 
