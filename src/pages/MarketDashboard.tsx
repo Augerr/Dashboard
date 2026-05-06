@@ -1,15 +1,18 @@
+import { Box } from "@mui/material";
 import CryptoListWidget from "@/components/market/CryptoListWidget";
 import MarketNewsWidget from "@/components/market/MarketNewsWidget";
 import WatchlistWidget from "@/components/market/WatchlistWidget";
 
 function MarketDashboard() {
   return (
-    <main
+    <Box
+      component="main"
       className="min-h-screen text-white
        bg-gradient-to-br from-[#0f172a] via-[#020617] to-black 
        p-3 pr-11"
     >
-      <section
+      <Box
+        component="section"
         className="
         grid 
         grid-cols-5 
@@ -22,8 +25,8 @@ function MarketDashboard() {
         <CryptoListWidget />
 
         <MarketNewsWidget />
-      </section>
-    </main>
+      </Box>
+    </Box>
   );
 }
 

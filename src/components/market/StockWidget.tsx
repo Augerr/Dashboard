@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { fetchStock } from "@/services/market";
 import type { MarketNumber, MarketQuote } from "@/types/app";
 
@@ -52,20 +55,28 @@ function StockWidget({ symbol }: StockWidgetProps) {
 
   if (error) {
     return (
-      <div className="rounded-2xl bg-white/10 p-4 text-white shadow-lg">
-        <h2 className="text-xl font-semibold">{symbol}</h2>
-        <p className="mt-2 text-sm text-red-300">Unable to load stock data</p>
-        <p className="mt-1 text-xs text-white/50">{error}</p>
-      </div>
+      <Paper className="rounded-lg bg-white/10 p-4 text-white shadow-lg">
+        <Typography component="h2" className="text-xl font-semibold">
+          {symbol}
+        </Typography>
+        <Typography className="mt-2 text-sm text-red-300">
+          Unable to load stock data
+        </Typography>
+        <Typography className="mt-1 text-xs text-white/50">{error}</Typography>
+      </Paper>
     );
   }
 
   if (!stock) {
     return (
-      <div className="rounded-2xl bg-white/10 p-4 text-white shadow-lg">
-        <h2 className="text-xl font-semibold">{symbol}</h2>
-        <p className="mt-2 text-sm text-white/70">Loading...</p>
-      </div>
+      <Paper className="rounded-lg bg-white/10 p-4 text-white shadow-lg">
+        <Typography component="h2" className="text-xl font-semibold">
+          {symbol}
+        </Typography>
+        <Typography className="mt-2 text-sm text-white/70">
+          Loading...
+        </Typography>
+      </Paper>
     );
   }
 
@@ -73,52 +84,56 @@ function StockWidget({ symbol }: StockWidgetProps) {
   const isUp = change >= 0;
 
   return (
-    <div className="rounded-2xl bg-black/50 p-3 text-white shadow-lg transition hover:bg-white/15">
-      <div className="flex items-center justify-between gap-2">
-        <div className="min-w-0">
-          <h2 className="truncate text-lg font-semibold leading-tight">
+    <Paper className="rounded-lg bg-black/50 p-3 text-white shadow-lg transition hover:bg-white/15">
+      <Stack direction="row" className="items-center justify-between gap-2">
+        <Box className="min-w-0">
+          <Typography
+            component="h2"
+            className="truncate text-lg font-semibold leading-tight"
+          >
             {stock.symbol || symbol}
-          </h2>
-          <p className="text-xs leading-tight text-white/50">
+          </Typography>
+          <Typography className="text-xs leading-tight text-white/50">
             Market {stock.marketStatus || "Unknown"}
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
-        <span
-          className={`shrink-0 rounded-full px-2 py-0.5 text-sm font-bold ${
+        <Chip
+          size="small"
+          icon={isUp ? <TrendingUpIcon /> : <TrendingDownIcon />}
+          label={formatPercent(stock.percentChange)}
+          className={`shrink-0 font-bold ${
             isUp
               ? "bg-green-500/20 text-green-300"
               : "bg-red-500/20 text-red-300"
           }`}
-        >
-          {isUp ? "▲" : "▼"} {formatPercent(stock.percentChange)}
-        </span>
-      </div>
+        />
+      </Stack>
 
-      <div className="mt-2 flex items-end justify-between gap-2">
-        <div>
-          <div className="text-xl font-bold leading-none">
+      <Box className="mt-2 flex items-end justify-between gap-2">
+        <Box>
+          <Typography className="text-xl font-bold leading-none">
             {formatMoney(stock.price)}
-          </div>
+          </Typography>
 
-          <div
+          <Typography
             className={`mt-1 text-sm font-bold leading-tight ${
               isUp ? "text-green-300" : "text-red-300"
             }`}
           >
             {isUp ? "+" : ""}
             {Number.isNaN(change) ? "--" : change.toFixed(2)}
-          </div>
-        </div>
+          </Typography>
+        </Box>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-[11px] 2xl:text-sm text-white/60">
+        <Box className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-[11px] text-white/60 2xl:text-sm">
           <div>O {formatMoney(stock.open)}</div>
           <div>H {formatMoney(stock.high)}</div>
           <div>L {formatMoney(stock.low)}</div>
           <div>P {formatMoney(stock.previousClose)}</div>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Paper>
   );
 }
 

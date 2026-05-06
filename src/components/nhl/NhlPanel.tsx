@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import GameRow from "./GameRow";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 import { getNhlGames } from "@/services/nhl";
@@ -16,24 +17,30 @@ function GameColumn({ title, games = [], isToday = false }: GameColumnProps) {
   const visibleGames = games.slice(0, rowCount);
 
   return (
-    <section className="animate-fade-in grid min-h-0">
-      <h2 className="mb-2 px-2 text-sm font-semibold text-white/70">{title}</h2>
+    <Box component="section" className="animate-fade-in grid min-h-0">
+      <Typography
+        component="h2"
+        className="mb-2 px-2 text-sm font-semibold text-slate-950"
+      >
+        {title}
+      </Typography>
 
-      <div className={`grid grid-rows-${rowCount} gap-2`}>
+      <Box className={`grid grid-rows-${rowCount} gap-2`}>
         {visibleGames.map((game) => (
           <GameRow key={game.id} game={game} isToday={isToday} />
         ))}
 
         {Array.from({ length: rowCount - visibleGames.length }).map(
           (_, index) => (
-            <div
+            <Paper
               key={`empty-${index}`}
-              className="rounded-xl border border-white/10 bg-white/5"
+              variant="outlined"
+              className="rounded-lg border-white/10 bg-white/5"
             />
           ),
         )}
-      </div>
-    </section>
+      </Box>
+    </Box>
   );
 }
 
@@ -53,20 +60,24 @@ function NhlPanel() {
 
   if (!nhlGames) {
     return (
-      <div className="flex h-full items-center justify-center rounded-3xl bg-white/10 p-4 text-white backdrop-blur-xl">
-        Loading NHL data...
-      </div>
+      <Stack className="h-full items-center justify-center rounded-lg bg-white/10 p-4 text-white backdrop-blur-xl">
+        <CircularProgress size={28} />
+        <Typography className="mt-3 text-white/70">
+          Loading NHL data...
+        </Typography>
+      </Stack>
     );
   }
 
   return (
-    <div className="h-full w-full text-white rounded-3xl backdrop-blur-2xl">
-      <div className="grid grid-cols-1 gap-4 font-semibold text-white/90 md:grid-cols-3">
+    <Box className="h-full w-full rounded-lg text-scoreBoard backdrop-blur-2xl">
+      <Box className="grid grid-cols-1 gap-4 font-semibold md:grid-cols-3">
         <GameColumn title="Yesterday" games={nhlGames.yesterday} />
         <GameColumn title="Today" games={nhlGames.today} isToday />
         <GameColumn title="Tomorrow" games={nhlGames.tomorrow} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
+
 export default NhlPanel;

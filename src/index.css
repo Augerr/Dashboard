@@ -1,8 +1,24 @@
 @import "tailwindcss";
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@font-face {
+  font-family: "LedFont";
+  src: url("./assets/fonts/led_board-7.ttf") format("truetype");
+  font-weight: normal;
+}
+
+.text-scoreBoard {
+  font-family: "LedFont";
 }
 
 .animated-bg {

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import type { NHLGame } from "@/types/nhl";
 import { teamColorMap, teamAbbrevMap } from "@/utils/nhlUtils";
 
@@ -87,78 +89,78 @@ function GameRow({ game }: GameRowProps) {
   const awayScore = Number(away.score ?? 0);
   const time = formatGameTime(game.startTimeUTC);
   const seriesSummary = getSeriesSummary(game.seriesStatus);
+  const accentStyles = {
+    "--accent-away": accentAway,
+    "--accent-home": accentHome,
+    "--accent-home-shadow": `${accentHome}22`,
+  } as CSSProperties;
 
   return (
-    <article
-      className={`relative h-full min-h-[72px]
-      bg-white/75 backdrop-blur-xl
-      border border-white/10 rounded-xl
-      text-white
-      grid grid-rows-[1fr_auto] grid-cols-[2fr_auto_2fr]
-      px-2 py-2
-      md:min-h-[86px]
-      xl:min-h-[96px]
-      2xl:min-h-[120px]
-      2xl:max-h-[120px]
-      transition-all duration-300
-      ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}
-    `}
-      style={{
-        borderLeft: `2px solid ${accentAway}`,
-        borderRight: `2px solid ${accentHome}`,
-        boxShadow: `0 0 25px ${accentHome}22`,
-      }}
+    <Paper
+      component="article"
+      className={`relative grid h-full min-h-[72px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
+        border-l-[var(--accent-away)] border-r-[var(--accent-home)] !bg-slate-900 px-2 py-2 shadow-[0_0_25px_var(--accent-home-shadow)] backdrop-blur-xl 
+        transition-all duration-300 md:min-h-[86px] xl:min-h-[96px] 2xl:max-h-[140px] 2xl:min-h-[140px] text-scoreBoard 
+        ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}`}
+      style={accentStyles}
     >
-      {/* SCORE GRID */}
-      <section className="col-span-3 grid grid-col-3 grid-cols-subgrid items-center gap-1 md:gap-2 mb-2">
-        {/* AWAY */}
-        <div className="flex-2 grid grid-col-3">
+      <Box
+        component="section"
+        className="col-span-3 mb-2 grid grid-col-5 grid-cols-subgrid items-center gap-1 md:gap-2 2xl:text-3xl mb-2"
+      >
+        <Box className="grid grid-col-3">
           <img
             src={getTeamLogoUrl(away.abbrev)}
             alt={`${away.placeName?.default ?? away.abbrev} logo`}
             loading="lazy"
-            className="2xl:col-3 h-8 w-8 shrink-0 object-contain md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:h-30 2xl:w-30 2xl:-mt-14 2xl:-mb-16 -mr-4 2xl:-mr-8"
+            className="h-8 w-8 shrink-0 object-contain col-2
+              md:h-10 md:w-10 xl:h-12 xl:w-12 2xl:-mb-16 2xl:-mr-8 2xl:-mt-14 2xl:h-30 2xl:w-30"
           />
-        </div>
+        </Box>
 
-        {/* SCORE CENTER */}
-        <div className="flex-1 col-2 whitespace-nowrap px-1 text-center text-lg font-bold tracking-tighter text-black md:text-2xl xl:text-3xl 2xl:text-4xl">
+        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300">
           {awayScore} - {homeScore}
-        </div>
+        </Typography>
 
-        {/* HOME */}
-        <div className="flex-2 grid grid-col-3">
+        <Box className="flex-2 grid grid-col-3">
           <img
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:h-32 2xl:w-32 2xl:-mt-14 2xl:-mb-16 -ml-4 2xl:-ml-1"
+            className="col-2 !-ml-4 h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:-mb-16 2xl:!-ml-8 2xl:-mt-14 2xl:h-30 2xl:w-30"
           />
-        </div>
-      </section>
+        </Box>
+      </Box>
 
-      {/* FOOTER */}
-      <section className="col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg -mb-2">
-        <div className="min-w-0 whitespace-nowrap">
+      <Box
+        component="section"
+        className="-mb-2 col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg"
+      >
+        <Box className="min-w-0 whitespace-nowrap  text-yellow-300">
           {isLive ? (
-            <div className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse md:h-3 md:w-3"></span>
-              <span className="text-red-600">{period}</span>
-            </div>
+            <Stack direction="row" className="items-center gap-1">
+              <Box className="h-2 w-2 animate-pulse rounded-full bg-red-600 md:h-3 md:w-3" />
+              <Typography component="span" className="text-red-600">
+                {period}
+              </Typography>
+            </Stack>
           ) : isFinal ? (
             "Final"
           ) : (
             time
           )}
-        </div>
+        </Box>
 
         {seriesSummary && (
-          <span className="whitespace-nowrap tracking-tighter">
-            {seriesSummary}
-          </span>
+          <Chip
+            size="small"
+            label={seriesSummary}
+            className="h-6 whitespace-nowrap !bg-slate-900 text-xs font-bold !text-yellow-300 text-scoreBoard"
+          />
         )}
-      </section>
-    </article>
+      </Box>
+    </Paper>
   );
 }
+
 export default GameRow;

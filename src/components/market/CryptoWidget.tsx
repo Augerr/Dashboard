@@ -1,4 +1,7 @@
 import { useCallback, useState } from "react";
+import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 import { fetchCrypto } from "@/services/market";
 import type { MarketNumber, MarketQuote } from "@/types/app";
@@ -51,20 +54,28 @@ function CryptoWidget({
 
   if (error) {
     return (
-      <div className="rounded-2xl bg-white/10 p-4 text-white shadow-lg">
-        <h2 className="text-xl font-semibold">{label}</h2>
-        <p className="mt-2 text-sm text-red-300">Unable to load crypto data</p>
-        <p className="mt-1 text-xs text-white/50">{error}</p>
-      </div>
+      <Paper className="rounded-lg bg-white/10 p-4 text-white shadow-lg">
+        <Typography component="h2" className="text-xl font-semibold">
+          {label}
+        </Typography>
+        <Typography className="mt-2 text-sm text-red-300">
+          Unable to load crypto data
+        </Typography>
+        <Typography className="mt-1 text-xs text-white/50">{error}</Typography>
+      </Paper>
     );
   }
 
   if (!crypto) {
     return (
-      <div className="rounded-2xl bg-white/10 p-4 text-white shadow-lg">
-        <h2 className="text-xl font-semibold">{label}</h2>
-        <p className="mt-2 text-sm text-white/70">Loading...</p>
-      </div>
+      <Paper className="rounded-lg bg-white/10 p-4 text-white shadow-lg">
+        <Typography component="h2" className="text-xl font-semibold">
+          {label}
+        </Typography>
+        <Typography className="mt-2 text-sm text-white/70">
+          Loading...
+        </Typography>
+      </Paper>
     );
   }
 
@@ -72,48 +83,53 @@ function CryptoWidget({
   const isUp = change >= 0;
 
   return (
-    <div className="rounded-2xl bg-black/50 p-4 text-white shadow-lg transition hover:bg-white/15">
-      <div className="flex items-start justify-between">
-        <div>
-          <h2 className="text-xl font-semibold">{label}</h2>
-          <p className="text-xs text-white/50">{crypto.symbol}</p>
-        </div>
+    <Paper className="rounded-lg bg-black/50 p-4 text-white shadow-lg transition hover:bg-white/15">
+      <Stack direction="row" className="items-start justify-between gap-2">
+        <Box>
+          <Typography component="h2" className="text-xl font-semibold">
+            {label}
+          </Typography>
+          <Typography className="text-xs text-white/50">
+            {crypto.symbol}
+          </Typography>
+        </Box>
 
-        <span
-          className={`rounded-full px-2 py-1 text-sm font-bold ${
+        <Chip
+          size="small"
+          icon={isUp ? <TrendingUpIcon /> : <TrendingDownIcon />}
+          label={formatPercent(crypto.percentChange)}
+          className={`font-bold ${
             isUp
               ? "bg-green-500/20 text-green-300"
               : "bg-red-500/20 text-red-300"
           }`}
-        >
-          {isUp ? "▲" : "▼"} {formatPercent(crypto.percentChange)}
-        </span>
-      </div>
+        />
+      </Stack>
 
-      <div className="mt-2 flex items-end justify-between gap-2">
-        <div>
-          <div className="mt-4 text-3xl font-bold">
+      <Box className="mt-2 flex items-end justify-between gap-2">
+        <Box>
+          <Typography className="mt-4 text-3xl font-bold">
             {formatMoney(crypto.price)}
-          </div>
+          </Typography>
 
-          <div
+          <Typography
             className={`mt-1 text-sm font-bold ${
               isUp ? "text-green-300" : "text-red-300"
             }`}
           >
             {isUp ? "+" : ""}
             {Number.isNaN(change) ? "--" : change.toFixed(2)}
-          </div>
-        </div>
+          </Typography>
+        </Box>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-sm text-white/80">
+        <Box className="grid grid-cols-2 gap-x-3 gap-y-1 text-right text-sm text-white/80">
           <div>O: {formatMoney(crypto.open)}</div>
           <div>H: {formatMoney(crypto.high)}</div>
           <div>L: {formatMoney(crypto.low)}</div>
           <div>P: {formatMoney(crypto.previousClose)}</div>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Paper>
   );
 }
 
