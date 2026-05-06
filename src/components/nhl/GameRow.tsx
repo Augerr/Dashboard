@@ -113,11 +113,11 @@ function GameRow({ game }: GameRowProps) {
             src={getTeamLogoUrl(away.abbrev)}
             alt={`${away.placeName?.default ?? away.abbrev} logo`}
             loading="lazy"
-            className="h-8 w-8 shrink-0 object-contain col-2 lg:h-12 lg:w-12 2xl:-mb-16 2xl:-mt-14 2xl:h-32 2xl:w-32 3xl:h-34 3xl:w-34"
+            className="h-12 w-12 shrink-0 object-contain col-2 lg:h-24 lg:w-24 2xl:-mb-8 2xl:-mt-8 2xl:h-32 2xl:w-32"
           />
         </Box>
 
-        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300 lg:!text-2xl 2xl:!text-4xl">
+        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300 sm:!text-yellow-900 lg:!text-yellow-600 lg:!text-2xl 2xl:!text-4xl">
           {awayScore} - {homeScore}
         </Typography>
 
