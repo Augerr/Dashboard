@@ -98,7 +98,7 @@ function GameRow({ game }: GameRowProps) {
   return (
     <Paper
       component="article"
-      className={`relative grid h-full min-h-[72px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
+      className={`relative grid h-full min-h-[72px] max-h-[120px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
         border-l-[var(--accent-away)] border-r-[var(--accent-home)] !bg-black px-2 py-2 shadow-[0_0_25px_var(--accent-home-shadow)] backdrop-blur-xl 
         transition-all duration-300 md:min-h-[86px] xl:min-h-[96px] 2xl:max-h-[140px] 2xl:min-h-[140px] text-scoreBoard 
         ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}`}
@@ -117,7 +117,7 @@ function GameRow({ game }: GameRowProps) {
           />
         </Box>
 
-        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300 sm:!text-yellow-900 lg:!text-yellow-600 lg:!text-2xl 2xl:!text-4xl">
+        <Typography className="col-2 flex-1 whitespace-nowrap px-1 text-center text-yellow-300 lg:!text-4xl">
           {awayScore} - {homeScore}
         </Typography>
 
@@ -126,16 +126,16 @@ function GameRow({ game }: GameRowProps) {
             src={getTeamLogoUrl(home.abbrev)}
             alt={`${home.placeName?.default ?? home.abbrev} logo`}
             loading="lazy"
-            className="col-2 !-ml-4 h-8 w-8 shrink-0 object-contain xl:h-12 xl:w-12 2xl:-mb-16 2xl:-mt-14 2xl:h-30 2xl:w-30"
+            className="col-2 h-12 w-12 shrink-0 object-contain lg:h-24 lg:w-24 2xl:-mb-8 2xl:-mt-8 2xl:h-32 2xl:w-32"
           />
         </Box>
       </Box>
 
       <Box
         component="section"
-        className="-mb-2 col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold text-black/90 md:text-sm xl:text-base 2xl:text-lg"
+        className="-mb-2 col-span-3 flex min-w-0 items-center justify-between gap-2 text-xs font-bold md:text-sm lg:text-lg"
       >
-        <Box className="min-w-0 whitespace-nowrap  text-yellow-300">
+        <Box className="min-w-0 whitespace-nowrap text-yellow-300">
           {isLive ? (
             <Stack direction="row" className="items-center gap-1">
               <Box className="h-2 w-2 animate-pulse rounded-full bg-red-600 md:h-3 md:w-3" />
@@ -151,11 +151,9 @@ function GameRow({ game }: GameRowProps) {
         </Box>
 
         {seriesSummary && (
-          <Chip
-            size="small"
-            label={seriesSummary}
-            className="h-6 whitespace-nowrap font-bold !text-yellow-300 text-scoreBoard 2xl:!text-lg"
-          />
+          <Box className="h-6 whitespace-nowrap font-bold !text-yellow-300 text-scoreBoard lg:!text-lg">
+            {seriesSummary}
+          </Box>
         )}
       </Box>
     </Paper>
