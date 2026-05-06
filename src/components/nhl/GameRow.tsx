@@ -99,7 +99,7 @@ function GameRow({ game }: GameRowProps) {
     <Paper
       component="article"
       className={`relative grid h-full min-h-[72px] grid-cols-[2fr_auto_2fr] grid-rows-[1fr_auto] rounded-lg border border-l-2 border-r-2 border-white/10 
-        border-l-[var(--accent-away)] border-r-[var(--accent-home)] !bg-slate-900 px-2 py-2 shadow-[0_0_25px_var(--accent-home-shadow)] backdrop-blur-xl 
+        border-l-[var(--accent-away)] border-r-[var(--accent-home)] !bg-black px-2 py-2 shadow-[0_0_25px_var(--accent-home-shadow)] backdrop-blur-xl 
         transition-all duration-300 md:min-h-[86px] xl:min-h-[96px] 2xl:max-h-[140px] 2xl:min-h-[140px] text-scoreBoard 
         ${isLive ? "shadow-lg shadow-red-500/30 ring-1 ring-red-500/40" : ""}`}
       style={accentStyles}

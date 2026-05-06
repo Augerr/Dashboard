@@ -9,14 +9,17 @@ function ForecastStrip({ daily }: ForecastStripProps) {
   if (!daily) return null;
 
   return (
-    <Stack direction="row" className="h-full min-h-0 w-full gap-2 overflow-x-auto">
+    <Stack
+      direction="row"
+      className="h-full min-h-0 w-full gap-2 overflow-x-auto"
+    >
       {daily.slice(0, 5).map((day, i) => {
         const date = day?.date?.toDateString().slice(0, 3);
 
         return (
           <Paper
             key={i}
-            className="flex min-w-[70px] flex-col items-center justify-center rounded-lg bg-black/30 p-2 text-center xl:min-w-0 xl:flex-1"
+            className="flex min-w-[70px] flex-col items-center justify-center rounded-lg !bg-black/50 p-2 text-center xl:min-w-0 xl:flex-1"
           >
             <Typography className="text-sm font-semibold opacity-80">
               {date}

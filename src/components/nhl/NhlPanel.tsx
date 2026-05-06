@@ -18,10 +18,7 @@ function GameColumn({ title, games = [], isToday = false }: GameColumnProps) {
 
   return (
     <Box component="section" className="animate-fade-in grid min-h-0">
-      <Typography
-        component="h2"
-        className="mb-2 px-2 text-sm font-semibold text-slate-950"
-      >
+      <Typography component="h2" className="px-2 !text-white/80 !text-lg">
         {title}
       </Typography>
 
@@ -70,7 +67,7 @@ function NhlPanel() {
   }
 
   return (
-    <Box className="h-full w-full rounded-lg text-scoreBoard backdrop-blur-2xl">
+    <Box className="h-full w-full rounded-lg text-scoreBoard">
       <Box className="grid grid-cols-1 gap-4 font-semibold md:grid-cols-3">
         <GameColumn title="Yesterday" games={nhlGames.yesterday} />
         <GameColumn title="Today" games={nhlGames.today} isToday />

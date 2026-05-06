@@ -66,8 +66,8 @@ function Dashboard() {
       className={`min-h-screen bg-gradient-to-br ${theme.bg} animated-bg p-4`}
     >
       <Box className="mx-auto mb-4 grid grid-cols-6 gap-4">
-        <Box className="col-span-5 h-full portrait:col-span-6 xl:col-span-4">
-          <Panel className="!bg-white/10">
+        <Box className="col-span-5 h-full portrait:col-span-6 xl:col-span-4 ">
+          <Panel>
             <NhlPanel />
           </Panel>
         </Box>

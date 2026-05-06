@@ -42,10 +42,10 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
           spacing={0.5}
           className="absolute right-0 top-0 min-w-0"
         >
-          <Typography className="mr-1 truncate text-xs font-semibold uppercase tracking-wide text-white/80 2xl:text-sm">
+          <Typography className="!mr-2 truncate text-xs !font-semibold uppercase tracking-wide text-white/80 2xl:text-sm">
             {currentDate}
           </Typography>
-          <Typography className="ml-0.5 text-base font-bold leading-tight text-white">
+          <Typography className="ml-0.5 text-base !font-bold leading-tight text-white">
             {currentTime}
           </Typography>
         </Stack>
@@ -54,34 +54,36 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
           <Stack direction="row" className="shrink-0 items-center">
             <Typography
               component="h1"
-              className="text-4xl font-bold leading-none"
+              className="!text-3xl font-bold leading-none"
             >
               {temp}&deg;
             </Typography>
 
             {icon && (
               <img
-                className="-m-2 h-16 w-16 shrink-0"
+                className="-m-4 h-16 w-16 2xl:h-32 2xl:w-32 shrink-0"
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt=""
               />
             )}
           </Stack>
-          <Typography className="-my-2 ml-3 max-w-[80px] truncate font-semibold text-white/90">
-            {condition}
-          </Typography>
+          <Stack direction="row" className="justify-center">
+            <Typography className="!-my-2 2xl:!-ml-8 max-w-[80px] !font-medium truncate text-white/90 2xl:!text-xl">
+              {condition}
+            </Typography>
+          </Stack>
         </Box>
       </Box>
 
       <Box className="mt-3 grid shrink-0 grid-cols-2 gap-2 text-center">
-        <Paper className="rounded-lg bg-black/30 px-3 py-2">
+        <Paper className="rounded-lg !bg-black/50 px-3 py-2">
           <Typography className="text-xs text-white/50">Humidity</Typography>
           <Typography className="text-base font-bold">
             {weather.main.humidity}%
           </Typography>
         </Paper>
 
-        <Paper className="rounded-lg bg-black/30 px-3 py-2">
+        <Paper className="rounded-lg !bg-black/50 px-3 py-2">
           <Typography className="text-xs text-white/50">Feels Like</Typography>
           <Typography className="text-base font-bold">
             {Math.round(weather.main.feels_like)}&deg;
