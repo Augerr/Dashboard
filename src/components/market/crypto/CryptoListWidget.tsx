@@ -1,5 +1,5 @@
 import { Box, Paper } from "@mui/material";
-import CryptoWidget from "./CryptoWidget";
+import CryptoWidget from "../crypto/CryptoWidget";
 
 function CryptoListWidget() {
   const symbols = [

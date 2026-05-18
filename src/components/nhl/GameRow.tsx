@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import type { NHLGame } from "@/types/nhl";
 import { teamColorMap, teamAbbrevMap } from "@/utils/nhlUtils";
 

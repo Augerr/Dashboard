@@ -65,7 +65,20 @@ function Dashboard() {
       component="main"
       className={`min-h-screen bg-gradient-to-br ${theme.bg} animated-bg p-4`}
     >
-      <Box className="mx-auto mb-4 grid grid-cols-6 gap-4">
+      <Box className="col-span-6 h-full mb-2">
+        <Panel>
+          {calendarEvents != null ? (
+            <CalendarPanel
+              events={calendarEvents}
+              daily={daily}
+              eventColor={theme.secondary}
+            />
+          ) : (
+            <Typography color="text.secondary">Loading calendar...</Typography>
+          )}
+        </Panel>
+      </Box>
+      <Box className="mb-4 grid grid-cols-6 gap-4">
         <Box className="col-span-5 h-full portrait:col-span-6 xl:col-span-4 ">
           <Panel>
             <NhlPanel />
@@ -83,20 +96,6 @@ function Dashboard() {
             )}
           </Panel>
         </Box>
-      </Box>
-
-      <Box className="col-span-6 h-full">
-        <Panel>
-          {calendarEvents != null ? (
-            <CalendarPanel
-              events={calendarEvents}
-              daily={daily}
-              eventColor={theme.secondary}
-            />
-          ) : (
-            <Typography color="text.secondary">Loading calendar...</Typography>
-          )}
-        </Panel>
       </Box>
     </Box>
   );

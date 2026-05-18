@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DayWeatherHeader from "./DayWeatherHeader";
 import type { CalendarEvent, DailyForecast } from "@/types/app";
 import { isPastDay } from "@/utils/dateUtils";
@@ -20,15 +21,46 @@ function WeeklyCalendar({
   const endHour = 20;
   const hourHeight = 48;
 
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
-  startOfWeek.setHours(0, 0, 0, 0);
+  const initialStartOfWeek = () => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - today.getDay()); // Sunday
+    d.setHours(0, 0, 0, 0);
+    return d;
+  };
+
+  const [startOfWeek, setStartOfWeek] = useState<Date>(initialStartOfWeek);
 
   const days = Array.from({ length: daysToShow }, (_, i) => {
     const d = new Date(startOfWeek);
     d.setDate(startOfWeek.getDate() + i);
     return d;
   });
+
+  const prevWeek = () =>
+    setStartOfWeek((s) => {
+      const d = new Date(s);
+      d.setDate(s.getDate() - 7);
+      return d;
+    });
+
+  const nextWeek = () =>
+    setStartOfWeek((s) => {
+      const d = new Date(s);
+      d.setDate(s.getDate() + 7);
+      return d;
+    });
+
+  const goToToday = () => setStartOfWeek(initialStartOfWeek());
+
+  const formatWeekRange = (start: Date) => {
+    const end = new Date(start);
+    end.setDate(start.getDate() + daysToShow - 1);
+
+    const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" };
+    const startStr = start.toLocaleDateString(undefined, opts);
+    const endStr = end.toLocaleDateString(undefined, opts);
+    return `${startStr} — ${endStr}`;
+  };
 
   const hours = Array.from(
     { length: endHour - startHour + 1 },
@@ -88,6 +120,38 @@ function WeeklyCalendar({
 
   return (
     <div className="h-full w-full overflow-x-auto">
+      {/* Week navigation */}
+      <div className="mb-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prevWeek}
+            className="rounded px-2 py-1 text-sm bg-black/30 hover:bg-black/40"
+            aria-label="Previous week"
+          >
+            ‹
+          </button>
+
+          <button
+            onClick={goToToday}
+            className="rounded px-2 py-1 text-sm bg-black/20 hover:bg-black/30"
+            aria-label="Today"
+          >
+            Today
+          </button>
+
+          <button
+            onClick={nextWeek}
+            className="rounded px-2 py-1 text-sm bg-black/30 hover:bg-black/40"
+            aria-label="Next week"
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="text-sm text-white/80">
+          {formatWeekRange(startOfWeek)}
+        </div>
+      </div>
       <div className="grid h-full min-w-[900px] grid-rows-[auto_1fr] gap-2">
         {/* WEATHER / DAY HEADERS */}
         <div className="grid grid-cols-[60px_1fr] gap-2">

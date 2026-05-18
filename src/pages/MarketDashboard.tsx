@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import CryptoListWidget from "@/components/market/CryptoListWidget";
+import CryptoListWidget from "@/components/market/crypto/CryptoListWidget";
 import StockHistoryWidget from "@/components/market/StockHistoryWidget";
 import WatchlistWidget from "@/components/market/WatchlistWidget";
 

@@ -42,10 +42,10 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
           spacing={0.5}
           className="absolute right-0 top-0 min-w-0"
         >
-          <Typography className="!mr-2 truncate text-xs !font-semibold uppercase tracking-wide text-white/80 2xl:text-sm">
+          <Typography className="!mr-2 truncate !text-xs tracking-wide text-white/90">
             {currentDate}
           </Typography>
-          <Typography className="ml-0.5 text-base !font-bold leading-tight text-white">
+          <Typography className="!ml-0 !text-xs !font-bold leading-tight text-white">
             {currentTime}
           </Typography>
         </Stack>
@@ -61,7 +61,7 @@ function WeatherCard({ weather, daily }: WeatherCardProps) {
 
             {icon && (
               <img
-                className="-m-4 size-16 lg:size-24 2xl:size-32 shrink-0"
+                className="size-16 lg:size-24 2xl:size-30 shrink-0"
                 src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 alt=""
               />
