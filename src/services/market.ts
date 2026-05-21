@@ -14,8 +14,8 @@ export const fetchStock = async (
 
 export const fetchStockHistory = async (
   stock: string,
-): Promise<Array | null> => {
-  const res = await axios.get<Array | null>(
+): Promise<Array<MarketQuote> | null> => {
+  const res = await axios.get<Array<MarketQuote> | null>(
     `${API_BASE}/api/stocks/${stock}/history`,
   );
   return res.data;
