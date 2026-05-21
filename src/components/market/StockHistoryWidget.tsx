@@ -8,7 +8,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { useEffect, useState } from "react";
-import { fetchStockHistory } from "../../services/market.ts";
+import { fetchStockHistory } from "@/services/market";
 
 type StockHistoryPoint = {
   date: string;
